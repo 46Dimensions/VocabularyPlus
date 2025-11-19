@@ -4,12 +4,10 @@ VocabPy is regularly updated. Below is a list of recent updates.
 ## v1.1.0
 Released: 19th November 2025
 ### Markdown Descriptions
----
 - Updated `README.md`
 - Added this `UPDATES.md`
 
 ### Main.py
----
 #### Fixed some potential bugs when running on Windows:
 - Added a fallback if the terminal does not support ANSI cursor movement
 - Added output flush in `dynamic_input()` to prevent issues displaying text with `\r`.
@@ -21,7 +19,6 @@ Released: 19th November 2025
 - Added an underline beneath the VocabPy title lines
 
 ### Create Vocab File.py
----
 #### Fixed Windows compatibility issues:
 - Fixed an issue where the vocabulary file is not saved properly
 - Simplified `.json` extension check to work with uppercase file extensions on Windows
@@ -30,7 +27,6 @@ Released: 19th November 2025
 - Made input stripping consistent in `check_input`
 
 ### Installation Scripts
----
 - Added creation of a 'VocabPy' directory inside the working directory
 - Added download of `create_vocab_file.py`
 - Added Python check - aborts if Python is not installed or is below version 3.10.
