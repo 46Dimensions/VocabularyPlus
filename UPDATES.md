@@ -1,7 +1,7 @@
-# LexiconPro - Updates
-LexiconPro is regularly updated. Below is a list of recent updates.
+# Vocabulary Plus - Updates
+Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 0.4.0).
 
-## v1.1.0
+## v0.1.1
 Released: 19th November 2025
 
 ### Markdown Descriptions
@@ -33,7 +33,7 @@ Released: 19th November 2025
 - Added Python check - aborts if Python is not installed or is below version 3.10.
 - Now runs the script from inside the virtual environment
 
-## v1.1.1
+## v0.2.0
 Released: 22nd November 2025
 
 ### Main.py
@@ -49,7 +49,7 @@ Released: 22nd November 2025
 #### Specific changes for Unix installer
 - Now runs `cd VocabPy` after creating it to make sure everything is in that directory
 
-## LexiconPro - v2.0.0
+## LexiconPro - v0.3.0
 Released: 22nd November 2025
 ### Repository
 - Renamed to 46Dimensions/LexiconPro
@@ -62,3 +62,14 @@ Released: 22nd November 2025
 - Added exit with code 1 (error) after an exception in `main()`
 ### All files
 - Changed all instances of `VocabPy` (except some in this file) to `LexiconPro`
+
+## Vocabulary Plus - v0.4.0
+Released: 23rd November 2025
+### Repository
+- Renamed to 46Dimensions/VocabularyPlus
+- Changed release names
+### Updates.md
+- Changed version names
+- Clarified which versions are notated at the top of the file
+### All files
+- Changed all instances of `LexiconPro` (except some in this file) to `Vocabulary Plus` or `VocabularyPlus`

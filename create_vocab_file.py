@@ -24,7 +24,7 @@ print(f"Running with Python {platform.python_version()} on {platform.system()}. 
 
 def on_keyboard_interrupt():
     """ Print a friendly goodbye message then exit with code 0. """
-    print("\nThanks for using LexiconPro. Goodbye!")
+    print("\nThanks for using Vocabulary Plus. Goodbye!")
     sys.exit(0)
 
 def clear_lines(lines: int) -> None:

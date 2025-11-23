@@ -8,11 +8,11 @@ yellow="\033[33m"
 reset="\033[0m"
 
 echo "${green}===========================${reset}"
-echo "${green}   LexiconPro Unix Installer  ${reset}"
+echo "${green}   Vocabulary Plus Unix Installer  ${reset}"
 echo "${green}===========================${reset}"
 echo
 
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/LexiconPro/main"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
@@ -35,9 +35,9 @@ check_python() {
 
 check_python
 
-echo "${yellow}Creating LexiconPro directory...${reset}"
-mkdir -p LexiconPro
-cd LexiconPro || { echo "${red}Failed to enter LexiconPro directory${reset}"; exit 1; }
+echo "${yellow}Creating VocabularyPlus directory...${reset}"
+mkdir -p VocabularyPlus
+cd VocabularyPlus || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
 
 echo "${yellow}Downloading files...${reset}"
 curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
@@ -67,13 +67,13 @@ echo "${yellow}Installing dependencies...${reset}"
 echo
 echo "${green}===============================${reset}"
 echo "${green}   Installation complete!${reset}"
-echo "${green}   Launching LexiconPro...${reset}"
+echo "${green}   Launching Vocabulary Plus...${reset}"
 echo "${green}===============================${reset}"
 echo
 
-"$PY" main.py || { echo "${red}Failed to launch LexiconPro${reset}"; exit 1; }
+"$PY" main.py || { echo "${red}Failed to launch Vocabulary Plus${reset}"; exit 1; }
 
 echo
 echo "Done!"
-echo "To run LexiconPro later:"
-echo "  . LexiconPro/venv/bin/activate && python3 LexiconPro/main.py"
+echo "To run Vocabulary Plus later:"
+echo "  . VocabularyPlus/venv/bin/activate && python3 VocabularyPlus/main.py"
