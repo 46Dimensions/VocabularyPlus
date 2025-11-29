@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from typing import Tuple, Dict, Optional
 from pathlib import Path
-import colorama
+from colorama import init, Cursor, ansi, Fore, Style
 import platform
 import random
 import json
@@ -10,16 +10,19 @@ import sys
 import os
 
 # Initialise colorama (it will translate ANSI codes on Windows automatically)
-colorama.init(autoreset=False)
+init(autoreset=False)
 
 # Print system information
-print(f"Running with Python {platform.python_version()} on {platform.system()}. \nPress CTRL+C to quit. \n")
+print(f"{Fore.GREEN}Running with Python {platform.python_version()} on {platform.system()}.{Style.RESET_ALL}")
+print(f"{Fore.GREEN}Vocabulary Plus Version: 1.0.0{Style.RESET_ALL}")
+print(f"{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL}\n")
+time.sleep(0.5)
 
 # Get the JSON_DIR constant
 try:
     base_dir = os.path.dirname(os.path.abspath(__file__))
-except NameError:
-    # __file__ not defined (common on Windows double-click)
+except:
+    # __file__ not defined
     base_dir = os.getcwd()
 
 JSON_DIR = os.path.join(base_dir, "JSON")
@@ -31,7 +34,7 @@ class VocabFileError(Exception):
 
 def on_keyboard_interrupt():
     """ Print a friendly goodbye message then exit with code 0. """
-    print("\nThanks for using Vocabulary Plus. Goodbye!")
+    print(f"\n{Fore.LIGHTGREEN_EX}Thanks for using Vocabulary Plus. Goodbye!{Style.RESET_ALL}")
     sys.exit(0)
 
 def get_jsons(dir: str) -> list:
@@ -63,7 +66,7 @@ def read_json(path: str) -> Dict:
     Returns
     -------
     Dict
-        The Python object resulting from  `json.load `.
+        The Python object resulting from  `json.load`.
     """
     with open(path, encoding="utf-8") as f:
         return dict(json.load(f))
@@ -80,17 +83,16 @@ def clear_lines(lines: int) -> None:
         return
 
     # Move cursor up `lines` rows
-    sys.stdout.write(colorama.Cursor.UP(lines))
+    sys.stdout.write(Cursor.UP(lines))
 
     # Erase each line and move down one row
     for _ in range(lines):
-        sys.stdout.write(colorama.ansi.clear_line())   # equivalent to "\033[K"
+        sys.stdout.write(ansi.clear_line())   # equivalent to "\033[K"
         sys.stdout.write("\n")
 
     # Return cursor to the starting line
-    sys.stdout.write(colorama.Cursor.UP(lines))
+    sys.stdout.write(Cursor.UP(lines))
     sys.stdout.flush()
-
 
 def dynamic_print(text: str):
     """
@@ -220,34 +222,32 @@ def get_file_number() -> int:
     """
 
     # Print heading
-    print("Vocabulary Files")
-    print("----------------")
+    print(f"{Fore.LIGHTBLUE_EX}Vocabulary Files{Style.RESET_ALL}")
+    time.sleep(1)
 
     if jsons:
         # Print the list
         for i in range(len(jsons)):
             display_name = get_display_filename(jsons[i])
-            print(f"{i + 1}. {display_name}")
+            print(f"{Fore.YELLOW}{i + 1}.{Style.RESET_ALL} {display_name}")
 
-        print("")
         failed = False
-
         def check() -> str:
             """
             Ask for input, then check if the input is a positive integer.
             Returns the input.
             """
             nonlocal failed
-            user_input = input("Choose one of the above vocab lists: ")
+            user_input = input(f"{Fore.BLUE}Choose one of the above vocab lists: {Style.RESET_ALL}")
             failed = False
             if not user_input.isdigit():
                 failed = True
-                print("Please enter an integer")
+                print(f"{Fore.YELLOW}Please enter an integer{Style.RESET_ALL}")
             
             if failed == False:
                 if int(user_input) > len(jsons) or int(user_input) < 1:
                     failed = True
-                    print(f"Please enter an integer between 1 and {len(jsons)}.") # type: ignore
+                    print(f"{Fore.YELLOW}Please enter an integer between 1 and {len(jsons)}.{Style.RESET_ALL}") # type: ignore
 
             return user_input
 
@@ -485,7 +485,7 @@ def main() -> None:
         question_text, question_word, word_location = get_question(json_path)
 
         # Prompt the user and capture their answer.
-        user_answer = dynamic_input(f"{question_text} ")
+        user_answer = dynamic_input(f"{Fore.MAGENTA}{question_text} {Style.RESET_ALL}")
          
         # Verify the answer.
         is_correct, correct_answer = check_answer(
@@ -497,26 +497,28 @@ def main() -> None:
 
         # Give feedback
         if is_correct:
-            dynamic_print("Correct.")
+            dynamic_print(f"{Fore.GREEN}Correct.{Style.RESET_ALL}")
         else:
-            dynamic_print(f"Incorrect. Correct answer: {correct_answer}")
+            dynamic_print(f"{Fore.RED}Incorrect. Correct answer: {correct_answer}{Style.RESET_ALL}")
 
         # Pause briefly so the user can read the feedback, then clean up the terminal lines that were printed for the question/answer.
         time.sleep(3)
         clear_lines(2)
 
     # --------------------------- Header --------------------------------
-    print("Vocabulary Plus")
-    print("---------------")
-    print("")
+    print(f"{Fore.CYAN}Vocabulary Plus{Style.RESET_ALL}")
+    print("A CLI foreign vocabulary learning tool.")
+    print("Learn more at https://github.com/46Dimensions/VocabularyPlus.\n")
+    time.sleep(2)
 
     # ----------------------- Choose a vocab file -----------------------
     chosen_file_number = get_file_number()
 
     # `0` signals that no files were found (see `get_file_number` impl.).
     if chosen_file_number == 0:
-        print("It seems like there are no vocabulary files.")
-        print("Use the vocab file creator (create_vocab_file.py) to make one!")
+        print(f"{Fore.YELLOW}It seems like there are no vocabulary files.{Style.RESET_ALL}")
+        print(f"{Fore.YELLOW}Use the vocab file creator ('vocabularyplus create') to make one!{Style.RESET_ALL}")
+        time.sleep(5)
         sys.exit(0)
 
     # Resolve the actual filename from the global `jsons` list.
@@ -526,13 +528,11 @@ def main() -> None:
 
     # If for some reason `jsons` is empty (shouldn't happen after the check above), fall back to `None` and later exit gracefully.
     if not vocab_file:
-        print("Unable to locate the selected vocabulary file.")
+        print(f"{Fore.YELLOW}Unable to locate the selected vocabulary file.{Style.RESET_ALL}")
         sys.exit(1)
 
     # --------------------------- Question UI ---------------------------
-    print("")
-    print("Question")
-    print("--------")
+    print(f"\n{Fore.YELLOW}Question{Style.RESET_ALL}")
 
     # --------------------------- Loop ----------------------------------
     try:
@@ -547,7 +547,7 @@ try:
 except KeyboardInterrupt:
     on_keyboard_interrupt()
 except Exception as e:
-    print(f"Error: {e}.")
-    print("Report it at https://github.com/46Dimensions/VocabularyPlus/issues/new.")
-    time.sleep(5)
+    print(f"{Fore.RED}Error: .{Style.RESET_ALL}")
+    print(f"{Fore.LIGHTBLUE_EX}Report it at https://github.com/46Dimensions/VocabularyPlus/issues/new. {Style.RESET_ALL}")
+    time.sleep(10)
     sys.exit(1)

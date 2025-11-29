@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import colorama
+from colorama import init, Cursor, ansi, Fore, Style
 import platform
 import json
 import time
@@ -17,14 +17,14 @@ JSON_DIR = os.path.join(base_dir, "JSON")
 os.makedirs(JSON_DIR, exist_ok=True)
 
 # Initialise colorama (it will translate ANSI codes on Windows automatically)
-colorama.init(autoreset=False)
+init(autoreset=False)
 
 # Print system information
-print(f"Running with Python {platform.python_version()} on {platform.system()}. \nPress CTRL+C to quit. \n")
+print(f"{Fore.GREEN}Running with Python {platform.python_version()} on {platform.system()}.{Style.RESET_ALL} \n{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL} \n")
 
 def on_keyboard_interrupt():
     """ Print a friendly goodbye message then exit with code 0. """
-    print("\nThanks for using Vocabulary Plus. Goodbye!")
+    print(f"\n{Fore.LIGHTGREEN_EX}Thanks for using Vocabulary Plus. Goodbye!{Style.RESET_ALL}")
     sys.exit(0)
 
 def clear_lines(lines: int) -> None:
@@ -39,15 +39,15 @@ def clear_lines(lines: int) -> None:
         return
 
     # Move cursor up `lines` rows
-    sys.stdout.write(colorama.Cursor.UP(lines))
+    sys.stdout.write(Cursor.UP(lines))
 
     # Erase each line and move down one row
     for _ in range(lines):
-        sys.stdout.write(colorama.ansi.clear_line())   # equivalent to "\033[K"
+        sys.stdout.write(ansi.clear_line())   # equivalent to "\033[K"
         sys.stdout.write("\n")
 
     # Return cursor to the starting line
-    sys.stdout.write(colorama.Cursor.UP(lines))
+    sys.stdout.write(Cursor.UP(lines))
     sys.stdout.flush()
 
 def dynamic_input(text: str) -> str:
@@ -133,7 +133,7 @@ def check_input(question) -> str:
     answer = input(question).strip()
     # If the input is nothing, tell the user and ask again
     while answer == "":
-        print("Please enter something.")
+        print(f"{Fore.YELLOW}Please enter something.{Style.RESET_ALL}")
         answer = input(question).strip()
     return answer
 
@@ -150,8 +150,8 @@ def main() -> None:
     }
 
     # Get the languages of the vocabulary
-    learning = check_input("What language are you learning? ")
-    spoken = check_input("What language do you speak? ")
+    learning = check_input(f"{Fore.BLUE}What language are you learning? {Style.RESET_ALL}")
+    spoken = check_input(f"{Fore.BLUE}What language do you speak? {Style.RESET_ALL}")
     # Save the language data in `data["languages"]`
     data["languages"] = {
         "learning": learning,
@@ -185,7 +185,7 @@ def main() -> None:
 
         # If `num_words` is not valid, ask again
         while valid == False:
-            print("Please enter a positive integer.")
+            print(f"{Fore.YELLOW}Please enter a positive integer.{Style.RESET_ALL}")
             num_words = check()
 
         return num_words # Return the valid number of words
@@ -194,16 +194,16 @@ def main() -> None:
     words = []
 
     # Get the first word and its meaning then add it to `words`
-    lang1_word = dynamic_input(f"What is the first {learning} word in the vocab list? ")
-    translated = dynamic_input(f"What is {lang1_word} in {spoken}? ")
+    lang1_word = dynamic_input(f"{Fore.BLUE}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
+    translated = dynamic_input(f"{Fore.BLUE}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
     words.append([lang1_word, translated])
     time.sleep(0.5)
     clear_lines(2)
 
     # Get the other word/meaning pairs
     for i in range(int(num_words) - 1):
-        lang1_word = dynamic_input(f"What is the next {learning} word in the vocab list? ")
-        translated = dynamic_input(f"What is {lang1_word} in {spoken}? ")
+        lang1_word = dynamic_input(f"{Fore.BLUE}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
+        translated = dynamic_input(f"{Fore.BLUE}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
         words.append([lang1_word, translated])
         time.sleep(0.5)
         clear_lines(2)
@@ -214,7 +214,7 @@ def main() -> None:
         item2 = words[i][1] # The word in the other language
         data["words"][item1] = item2 # `item1: item2`
 
-    filename = check_input("What would you like the vocab file to be called? ") # The name the user desires for the JSON file
+    filename = check_input(f"{Fore.BLUE}What would you like the vocab file to be called? {Style.RESET_ALL}") # The name the user desires for the JSON file
 
     # Check if the filename would work on Windows
     if platform.system() == "Windows":
@@ -223,7 +223,7 @@ def main() -> None:
                 *(f"lpt{i}" for i in range(1,10))}
 
         if filename.lower() in reserved:
-            print("That filename cannot be used on Windows.")
+            print(f"{Fore.YELLOW}That filename cannot be used on Windows.{Style.RESET_ALL}")
             return
 
     # Check if the filename ends in `.json`
@@ -240,8 +240,13 @@ def main() -> None:
 
     # Save the data into the JSON file
     save_json(abs_path, data)
-    print(f"Saved as {abs_path}")
+    print(f"{Fore.GREEN}Saved as {abs_path}{Style.RESET_ALL}")
 
 # Run the main loop
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+        print(f"{Fore.RED}Report it at https://github.com/46Dimensions/VocabularyPlus/issues/new.{Style.RESET_ALL}")
+        sys.exit(1)

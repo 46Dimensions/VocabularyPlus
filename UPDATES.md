@@ -1,5 +1,5 @@
 # Vocabulary Plus - Updates
-Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 0.4.0).
+Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 1.0.0).
 
 ## v0.1.1
 Released: 19th November 2025
@@ -73,3 +73,14 @@ Released: 23rd November 2025
 - Clarified which versions are notated at the top of the file
 ### All files
 - Changed all instances of `LexiconPro` (except some in this file) to `Vocabulary Plus` or `VocabularyPlus`
+
+## v1.0.0
+### All Python files
+- Added coloured output with `colorama`
+### Main.py
+- Added waiting
+- Added printing of Vocabulary Plus version as well as Python version
+### Installation Scripts
+- You can now run Vocabulary Plus with the `vocabularyplus` command in your terminal.    
+Use `vocabularyplus create` to create a vocabulary file.
+- Now deletes requirements.txt after installation
