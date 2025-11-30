@@ -1,7 +1,7 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
-:: ANSI escape sequences for colors
+:: ANSI escape sequences for colours
 for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
 set "red=%ESC%[31m"
 set "green=%ESC%[32m"
