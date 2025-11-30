@@ -1,5 +1,5 @@
 # Vocabulary Plus - Updates
-Vocabulary Plus is regularly updated. Below is a list of recent updates (0.1.1 to 1.0.0).
+Vocabulary Plus is regularly updated. Below is a list of recent minor updates (0.1.1 to 1.0.0).
 
 ## v0.1.1
 Released: 19th November 2025

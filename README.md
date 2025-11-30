@@ -1,6 +1,6 @@
 # Vocabulary Plus
 A Python-based foreign vocabulary learning tool.   
-[View updates](UPDATES.md)
+[View updates](updates.md)
 
 ## Installation
 Run these commands in your terminal.  
