@@ -32,9 +32,15 @@ class VocabFileError(Exception):
     """Custom exception indicating a problem with the vocabulary JSON file."""
     pass
 
-def on_keyboard_interrupt():
-    """ Print a friendly goodbye message then exit with code 0. """
-    print(f"\n{Fore.LIGHTGREEN_EX}Thanks for using Vocabulary Plus. Goodbye!{Style.RESET_ALL}")
+def on_keyboard_interrupt(summary: str) -> None:
+    """ Print a question summary, if applicable, and a friendly goodbye message then exit with code 0. 
+        :param summary: The summary to print before exiting
+        :type summary: str
+    """
+    if summary:
+        print("\n" + summary)
+
+    print(f"{Fore.LIGHTGREEN_EX}Thanks for using Vocabulary Plus. Goodbye!{Style.RESET_ALL}")
     sys.exit(0)
 
 def get_jsons(dir: str) -> list:
@@ -103,16 +109,19 @@ def dynamic_print(text: str):
     try:
         sys.stdout.write(text + ("\n" if not text.endswith("\n") else ""))
         sys.stdout.flush()
-    except KeyboardInterrupt:
-        on_keyboard_interrupt()
     except Exception:
         print(text + ("\n" if not text.endswith("\n") else ""))
 
-def dynamic_input(text: str) -> str:
+def dynamic_input(text: str, summary: str | None = None) -> str:
     """ 
     Print text with carriage return then ask the user for input. \n
     Fallback: print text normally then ask for input. \n
     :param text: The text to print before asking the user for input
+    :type text: str
+    :param summary: The summary to print on KeyboardInterrupt. Defaults to None
+    :type summary: str | None
+    :return: The user input
+    :rtype: str
     """
     try:
         # move to new line before input
@@ -121,7 +130,7 @@ def dynamic_input(text: str) -> str:
         user_input = input() # now input works normally
         return user_input
     except KeyboardInterrupt:
-        on_keyboard_interrupt()
+        on_keyboard_interrupt(summary if summary else "")
         sys.exit(0)
     except Exception:
         print(text, end="")
@@ -288,13 +297,7 @@ def get_summary(user_answers: list, correct_answers: list) -> str:
             incorrect += 1
 
     # Forma the summary
-    summary = f"""
-    {Fore.CYAN}Quiz Summary:{Style.RESET_ALL}
-    Total Questions: {total_questions}
-    {Fore.GREEN}Correct Answers: {correct}{Style.RESET_ALL}
-    {Fore.RED}Incorrect Answers: {incorrect}{Style.RESET_ALL}
-    {Fore.YELLOW}Not Answered: {not_answered}{Style.RESET_ALL}
-    """
+    summary = f"\n{Fore.CYAN}Quiz Summary{Style.RESET_ALL}\n   Questions Attempted: {total_questions}\n{Fore.GREEN}   Correct Answers: {correct}{Style.RESET_ALL}\n{Fore.RED}   Incorrect Answers: {incorrect}{Style.RESET_ALL}\n{Fore.YELLOW}   Not Answered: {not_answered}{Style.RESET_ALL}\n"
 
     return summary
 
@@ -480,7 +483,7 @@ def check_answer(
             # The question word is a key; the answer is the corresponding value.
             answer = vocab[question_word]
         elif question_word_location == "values":
-            # The question word is a value; we need the matching key.
+            # The question word is a value; code needs the matching key.
             answer = get_dict_key(question_word, vocab)
         else:
             # Guard against accidental misuse.
@@ -513,6 +516,7 @@ def main() -> None:
             Filename (relative to `JSON_DIR`) of the JSON file that contains the
             `words` mapping and language metadata.
         """
+        nonlocal user_answers, correct_answers
         # Build the absolute path to the JSON file.
         json_path = os.path.join(JSON_DIR, vocab_file)
          
@@ -520,7 +524,7 @@ def main() -> None:
         question_text, question_word, word_location = get_question(json_path)
 
         # Prompt the user and capture their answer.
-        user_answer = dynamic_input(f"{Fore.MAGENTA}{question_text} {Style.RESET_ALL}")
+        user_answer = dynamic_input(f"{Fore.MAGENTA}{question_text} {Style.RESET_ALL}", summary=get_summary(user_answers, correct_answers))
          
         # Verify the answer.
         is_correct, correct_answer = check_answer(
@@ -530,15 +534,22 @@ def main() -> None:
             word_location,
         )
 
+        user_answers.append(user_answer)
+        correct_answers.append(correct_answer)
+
         # Give feedback
         if is_correct:
-            dynamic_print(f"{Fore.GREEN}Correct.{Style.RESET_ALL}")
+            dynamic_print(f"{Fore.GREEN}   Correct.{Style.RESET_ALL}")
         else:
-            dynamic_print(f"{Fore.RED}Incorrect. Correct answer: {correct_answer}{Style.RESET_ALL}")
+            dynamic_print(f"{Fore.RED}   Incorrect. Correct answer: {correct_answer}{Style.RESET_ALL}")
 
         # Pause briefly so the user can read the feedback, then clean up the terminal lines that were printed for the question/answer.
         time.sleep(3)
         clear_lines(2)
+
+    # Store user answers and correct answers for summary
+    correct_answers = list()
+    user_answers = list()
 
     # --------------------------- Header --------------------------------
     print(f"{Fore.CYAN}Vocabulary Plus{Style.RESET_ALL}")
@@ -574,13 +585,13 @@ def main() -> None:
         while True:
             ask_question(vocab_file)
     except KeyboardInterrupt:
-        on_keyboard_interrupt()
+        on_keyboard_interrupt(summary=get_summary(user_answers, correct_answers))
         sys.exit(0)
         
 try:
     main()
 except KeyboardInterrupt:
-    on_keyboard_interrupt()
+    on_keyboard_interrupt("")
 except Exception as e:
     print(f"{Fore.RED}Error: .{Style.RESET_ALL}")
     print(f"{Fore.LIGHTBLUE_EX}Report it at https://github.com/46Dimensions/VocabularyPlus/issues/new. {Style.RESET_ALL}")
