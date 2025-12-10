@@ -16,6 +16,7 @@ BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
+ICON_URL="$BASE_URL/app_icon.png"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {
@@ -45,6 +46,7 @@ echo "${yellow}Downloading files...${reset}"
 curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
 curl -fsSL "$MAIN_URL" -o main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
 curl -fsSL "$CREATE_URL" -o create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
+curl -fsSL "$ICON_URL" -o app_icon.png || { echo "${red}Failed to download icon${reset}"; exit 1; }
 
 echo "${yellow}Creating virtual environment...${reset}"
 python3 -m venv venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
@@ -85,17 +87,84 @@ EOF
 
 chmod +x "$LAUNCHER"
 
-# Create the alias symlink "vp" pointing to "vocabularyplus"
+# Create alias symlink "vp"
 ALIAS="$HOME/.local/bin/vp"
 ln -sf "$LAUNCHER" "$ALIAS"
+
+##############################################
+# LINUX: Create .desktop launcher
+##############################################
+if [ "$(uname)" = "Linux" ]; then
+    echo "${yellow}Creating Linux desktop entry...${reset}"
+
+    DESKTOP_FILE="$HOME/.local/share/applications/vocabularyplus.desktop"
+    mkdir -p "$(dirname "$DESKTOP_FILE")"
+
+    cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Type=Application
+Name=Vocabulary Plus
+Exec=$LAUNCHER
+Icon=$INSTALL_DIR/app_icon.png
+Terminal=false
+Categories=Education;
+EOF
+
+    chmod +x "$DESKTOP_FILE"
+
+    update-desktop-database ~/.local/share/applications 2>/dev/null || true
+
+    echo "${green}Linux app icon installed successfully.${reset}"
+fi
+
+##############################################
+# macOS: Create .app bundle
+##############################################
+if [ "$(uname)" = "Darwin" ]; then
+    echo "${yellow}Creating macOS .app bundle...${reset}"
+
+    APP_DIR="$HOME/Applications/Vocabulary Plus.app"
+    mkdir -p "$APP_DIR/Contents/MacOS"
+    mkdir -p "$APP_DIR/Contents/Resources"
+
+    # Copy icon & convert to .icns if sips exists
+    cp "$INSTALL_DIR/app_icon.png" "$APP_DIR/Contents/Resources/app_icon.png"
+    if command -v sips >/dev/null 2>&1; then
+        sips -s format icns "$APP_DIR/Contents/Resources/app_icon.png" --out "$APP_DIR/Contents/Resources/app_icon.icns" >/dev/null 2>&1 || true
+    fi
+
+    # Launcher wrapper
+    cat > "$APP_DIR/Contents/MacOS/vocabularyplus" <<EOF
+#!/bin/bash
+"$LAUNCHER"
+EOF
+    chmod +x "$APP_DIR/Contents/MacOS/vocabularyplus"
+
+    # Info.plist
+    cat > "$APP_DIR/Contents/Info.plist" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>CFBundleName</key><string>Vocabulary Plus</string>
+    <key>CFBundleExecutable</key><string>vocabularyplus</string>
+    <key>CFBundleIdentifier</key><string>com.vocabularyplus.app</string>
+    <key>CFBundleIconFile</key><string>app_icon.icns</string>
+  </dict>
+</plist>
+EOF
+
+    echo "${green}macOS .app installed: $APP_DIR${reset}"
+fi
 
 echo
 echo "${green}Vocabulary Plus 1.0.2 installed successfully${reset}"
 echo "You can now run:"
-echo "  vocabularyplus           # Runs main.py"
-echo "  vocabularyplus create    # Runs create_vocab_file.py"
-echo "  vp                       # alias for vocabularyplus"
-echo "  vp create                # alias for vocabularyplus create"
+echo "  vocabularyplus"
+echo "  vocabularyplus create"
+echo "  vp"
+echo "  vp create"
 echo
 echo "Make sure ~/.local/bin is in your PATH:"
 echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
