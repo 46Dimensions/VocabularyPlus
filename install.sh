@@ -74,8 +74,8 @@ mkdir -p "$(dirname "$LAUNCHER")"
 
 echo "${yellow}Creating launcher script at $LAUNCHER...${reset}"
 cat > "$LAUNCHER" <<EOF
-# Resolve the directory where this launcher script itself lives
-SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+#!/usr/bin/env sh
+INSTALL_DIR="$INSTALL_DIR"
 
 if [ -d "$INSTALL_DIR/venv" ]; then
     BASE_DIR="$INSTALL_DIR"
@@ -86,13 +86,13 @@ fi
 
 PY="$INSTALL_DIR/venv/bin/python3"
 
-case "$1" in
+case "\$1" in
   create)
     shift
-    "$PY" "$INSTALL_DIR/create_vocab_file.py" "$@"
+    "\$PY" "\$INSTALL_DIR/create_vocab_file.py" "\$@"
     ;;
   *)
-    "$PY" "$INSTALL_DIR/main.py" "$@"
+    "\$PY" "\$INSTALL_DIR/main.py" "\$@"
     ;;
 esac
 EOF

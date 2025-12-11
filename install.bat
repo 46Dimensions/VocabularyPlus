@@ -104,11 +104,12 @@ echo set "APPDIR=%INSTALL_DIR%"
 echo.
 echo if "%%1"=="create" (
 echo     shift
-echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%*
+echo     "%%PY%%" "%%APPDIR%%\create_vocab_file.py" %%%%*
 echo ) else (
-echo     "%%PY%%" "%%APPDIR%%\main.py" %%*
+echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
 echo )
 ) > "%LAUNCHER%"
+echo %green%Launcher created successfully.%reset%
 
 :: Create alias "vp"
 echo @echo off ^& "%LAUNCHER%" %%* > "%BIN_DIR%\vp.cmd"
