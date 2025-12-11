@@ -14,32 +14,24 @@ install.bat
 del /q install.bat
 ```
 
-### MacOS/Linux
+### macOS/Linux
 _Run in the 'Terminal' app. The exact name can vary._   
 ```
 curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
 ```
 
 ## Uninstallation
-### Windows
-_Run in Command Prompt (cmd.exe)_   
-In the VocabularyPlus directory (use `cd path\to\VocabularyPlus`), run:
+_Run in Command Prompt on Windows; Terminal on macOS or Linux (name may vary)._
 ```
-uninstall.cmd
-```
-### macOS/Linux
-_Run in the 'Terminal' app. The exact name can vary._   
-In the VocabularyPlus directory (use `cd path/to/VocabularyPlus`), run:
-```
-./uninstall
+vocabularyplus uninstall
 ```
 
 ## Running the script
 Run `vocabularyplus` or `vp`. You can also use the 'Vocabulary Plus' application.   
 To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.
 
-## Reporting issues
-Go to [Create New Issue](https://github.com/46Dimensions/VocabularyPlus/issues/new).
+## Reporting bugs
+Go to [Create New Issue](https://github.com/46Dimensions/VocabularyPlus/issues/new). For more information, see [Contributing](CONTRIBUTING.md) and the [Issue Template](issues.md)
 
 ## License
-Licensed under the MIT License — see LICENSE for details.
+Licensed under the MIT License — see [LICENSE](LICENSE) for details.
