@@ -46,6 +46,14 @@ if %MAJORPY% EQU 3 if %MINORPY% LSS 10 (
     exit /b 1
 )
 
+:: Check if Vocabulary Plus is already installed
+set "COMMAND_NAME=vocabularyplus.cmd"
+where %COMMAND_NAME% >nul 2>&1
+if not errorlevel 1 (
+    echo %red%ERROR: Vocabulary Plus appears to be already installed.%reset%
+    exit /b 1
+)
+
 :: Paths + download URLs
 set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/desktop_app"
 set "REQ_URL=%BASE_URL%/requirements.txt"

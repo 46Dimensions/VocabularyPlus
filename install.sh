@@ -34,7 +34,14 @@ check_python() {
     fi
 }
 
+check_for_installation() {
+    if [ -f "$HOME/.local/bin/vocabularyplus" ]; then
+        echo "${red}ERROR: Vocabulary Plus appears to be already installed.${reset}"
+    fi
+}
+
 check_python
+check_for_installation
 
 INSTALL_DIR="$PWD/VocabularyPlus"
 
