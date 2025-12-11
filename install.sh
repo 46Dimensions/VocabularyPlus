@@ -123,17 +123,14 @@ echo "${green}VocabularyPlus files & directories removed.${reset}"
 
 # Remove launchers
 echo "${yellow}Removing launchers...${reset}"
-LAUNCHER_SCRIPT="$HOME/.local/bin/vocabularyplus"
-ALIAS="$HOME/.local/bin/vp"
-rm -f "$LAUNCHER_SCRIPT" 2>/dev/null || true
-rm -f "$ALIAS" 2>/dev/null || true
+rm -f "$HOME/.local/bin/vocabularyplus" 2>/dev/null || true
+rm -f "$HOME/.local/bin/vp" 2>/dev/null || true
 echo "${green}Launchers removed.${reset}"
 
 # Remove Linux .desktop entry
 if [ "$(uname)" = "Linux" ]; then
     echo "${yellow}Removing .desktop entry...${reset}"
-    DESKTOP_FILE="$HOME/.local/share/applications/vocabularyplus.desktop"
-    rm -f "$DESKTOP_FILE" 2>/dev/null || true
+    rm -f $HOME/.local/share/applications/vocabularyplus.desktop" 2>/dev/null || true
     echo "${green}Linux desktop entry removed.${reset}"
 fi
 
