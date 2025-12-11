@@ -205,7 +205,7 @@ def main() -> None:
 
     # Get the other word/meaning pairs
     for i in range(int(num_words) - 1):
-        lang1_word = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is the first {learning} word in the vocab list? {Style.RESET_ALL}")
+        lang1_word = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is the next {learning} word in the vocab list? {Style.RESET_ALL}")
         translated = dynamic_input(f"{Fore.LIGHTCYAN_EX}What is {lang1_word} in {spoken}? {Style.RESET_ALL}")
         words.append([lang1_word, translated])
         time.sleep(0.5)
