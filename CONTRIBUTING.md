@@ -22,5 +22,3 @@ A good issue should include:
 * A list of steps (1... 2... 3... etc) to reproduce the issue
 * What you saw, versus what you expected to see
 * An image or link to a video showing the issue occurring
-
-You can also use the [issue template](issues.md).
