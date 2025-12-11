@@ -92,7 +92,7 @@ if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
 fi
 
 # Handle --help flag
-if [ "\$1" = "--help" ] then
+if [ "\$1" = "--help" ]; then
     echo "Usage: vocabularyplus [create] [options]"
     echo "Commands:"
     echo "  create        Create a new vocabulary file"
