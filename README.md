@@ -11,12 +11,12 @@ Run in Command Prompt.
 ```
 curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.bat -o install.bat
 install.bat
+del /q install.bat
 ```
 
 ### MacOS/Linux
 ```
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
-sh install.sh
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
 ```
 
 ## Running the script
