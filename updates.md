@@ -26,8 +26,8 @@ Released: 30th November 2025
 #### Windows Installer
 - Changed accidental use of 'color' to 'colour'
 ### Markdown Descriptions
-- Renamed UPDATES.md to updates.md
-- Edited link to updates in README
+- Renamed UPDATES.md to [updates.md](updates.md)
+- Edited link to updates in [README](README.md)
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.0.1)
 
@@ -51,10 +51,10 @@ Released: 11th December 2025
     - **Linux:** .desktop file
     - **macOS:** .app bundle
     - **Windows:** .lnk file
-- Added an uninstallation script. See [README](README.md) for how to run
+- Added creation of an uninstallation script. Run it with `vocabularyplus uninstall`
 ### [README](README.md)
 - Edited running instructions
-- Edited method of installation for Unix
+- Edited installation command for Unix
 - Added instructions on uninstallation
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.1)
