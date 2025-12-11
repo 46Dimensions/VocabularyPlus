@@ -9,7 +9,7 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.0.2%reset%
+echo %green%Vocabulary Plus Windows Installer 1.1.0%reset%
 echo %green%=======================================%reset%
 echo.
 
@@ -122,7 +122,7 @@ echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
 echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.0.2%reset%
+echo echo %green%Vocabulary Plus Windows Uninstaller 1.1.0%reset%
 echo echo %green%=========================================%reset%
 echo echo.
 
@@ -187,7 +187,7 @@ echo %green%Start Menu shortcut created successfully.%reset%
 
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.0.2 installed successfully!%reset%
+echo %green%Vocabulary Plus 1.1.0 installed successfully!%reset%
 echo.
 echo Now you can run:
 echo   vocabularyplus ::main application
