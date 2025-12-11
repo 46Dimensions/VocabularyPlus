@@ -96,7 +96,7 @@ if [ "\$1" = "--help" ]; then
     echo "Usage: vocabularyplus [create] [options]"
     echo "Commands:"
     echo "  create        Create a new vocabulary file"
-    echo "  uninstall     Uninstall Vocabulary Plus
+    echo "  uninstall     Uninstall Vocabulary Plus"
     echo "Options:"
     echo "  -v, --version   Show version information"
     echo "  --help          Show this help message"
