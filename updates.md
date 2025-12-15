@@ -62,3 +62,10 @@ Released: 11th December 2025
 - Added [contribution instructions](CONTRIBUTING.md).
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.2.0)
+
+## v1.2.1
+Released: 15th December 2025
+### Uninstallation Script
+- Fixed issue [#16](https://github.com/46Dimensions/VocabularyPlus/issues/16)
+### Updates
+- Patched some minor problems
