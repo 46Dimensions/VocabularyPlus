@@ -9,7 +9,7 @@ set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
 echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.2.0%reset%
+echo %green%Vocabulary Plus Windows Installer 1.2.1%reset%
 echo %green%=======================================%reset%
 echo.
 
@@ -121,9 +121,9 @@ echo if "%%1"=="--help" (
 echo.
 :: Version option
 if "%1"=="--version" (
-  echo 1.2.0
+  echo 1.2.1
 ) else if "%1"=="-v" (
-  echo 1.2.0
+  echo 1.2.1
 )
 echo.
 :: Handle "uninstall" subcommand
@@ -156,7 +156,7 @@ echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
 echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.0%reset%
+echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.1%reset%
 echo echo %green%=========================================%reset%
 echo echo.
 
@@ -221,7 +221,7 @@ echo %green%Start Menu shortcut created successfully.%reset%
 
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.2.0 installed successfully!%reset%
+echo %green%Vocabulary Plus 1.2.1 installed successfully!%reset%
 echo.
 echo Now you can run:
 echo   vocabularyplus :: main application

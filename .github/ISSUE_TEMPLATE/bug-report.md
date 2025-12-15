@@ -30,4 +30,4 @@ Add any other context about the problem here.
 **Please complete the following information:**
  - OS: [e.g. Windows]
  - Python version: [e.g. 3.14.1]
- - Vocabulary Plus [e.g. 1.2.0]
+ - Vocabulary Plus [e.g. 1.2.1]
