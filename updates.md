@@ -69,3 +69,5 @@ Released: 15th December 2025
 - Fixed issue [#16](https://github.com/46Dimensions/VocabularyPlus/issues/16)
 ### Updates
 - Patched some minor problems
+
+[_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.2.1)
