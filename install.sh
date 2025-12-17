@@ -259,6 +259,9 @@ sh install-vm.sh $INSTALL_DIR/vm || { echo "${red}Failed to install VP VM${reset
 # Remove installer
 rm install-vm.sh
 
+# Set Vocabulary Plus version file
+echo "1.2.1" > $INSTALL_DIR/vm/versions/vp/current.txt
+
 # Final message
 echo ""
 echo "${green}Vocabulary Plus 1.2.1 installed successfully${reset}"
