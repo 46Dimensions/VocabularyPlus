@@ -155,9 +155,9 @@ echo %yellow%Creating uninstaller script at %UNINSTALLER%...%reset%
 echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
-echo echo %green%=========================================%reset%
-echo echo %green%Vocabulary Plus Windows Uninstaller 1.2.1%reset%
-echo echo %green%=========================================%reset%
+echo echo %green%============================================%reset%
+echo echo %green%Vocabulary Plus: Windows Uninstaller (1.2.1)%reset%
+echo echo %green%============================================%reset%
 echo echo.
 
 echo echo %yellow%Removing VocabularyPlus installation...%reset%
