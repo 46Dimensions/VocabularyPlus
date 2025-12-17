@@ -8,9 +8,9 @@ set "green=%ESC%[32m"
 set "yellow=%ESC%[33m"
 set "reset=%ESC%[0m"
 
-echo %green%=======================================%reset%
-echo %green%Vocabulary Plus Windows Installer 1.2.1%reset%
-echo %green%=======================================%reset%
+echo %green%==========================================%reset%
+echo %green%Vocabulary Plus: Windows Installer (1.2.1)%reset%
+echo %green%==========================================%reset%
 echo.
 
 :: Windows 10+ Check
