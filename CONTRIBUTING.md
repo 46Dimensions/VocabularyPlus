@@ -1,4 +1,5 @@
 # Contributing to Vocabulary Plus
+
 Welcome to Vocabulary Plus!  
 We appreciate that you are interested in contributing to this repository.  
 
@@ -21,6 +22,7 @@ Instead of a "+1" or "-1" comment to vote for a feature request, use a reaction.
 If you cannot find a similar issue/feature request, create a new issue with the guidelines below.
 
 ### Creating a good issue
+
 Create a single issue per problem and feature request. Do not enumerate multiple bugs or feature requests in the same issue.
 
 Do not add your issue as a comment to an existing issue.
