@@ -10,7 +10,7 @@ set "cyan=%ESC%[1;96m"
 set "reset=%ESC%[0m"
 
 echo %cyan%==========================================%reset%
-echo %cyan%Vocabulary Plus: Windows Installer (1.2.1)%reset%
+echo %cyan%Vocabulary Plus: Windows Installer (1.3.0 Beta)%reset%
 echo %cyan%==========================================%reset%
 echo.
 
@@ -122,9 +122,9 @@ echo if "%%1"=="--help" (
 echo.
 :: Version option
 if "%1"=="--version" (
-  echo 1.2.1
+  echo 1.3.0-beta
 ) else if "%1"=="-v" (
-  echo 1.2.1
+  echo 1.3.0-beta
 )
 echo.
 :: Handle "uninstall" subcommand
@@ -157,7 +157,7 @@ echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
 echo echo %green%============================================%reset%
-echo echo %green%Vocabulary Plus: Windows Uninstaller (1.2.1)%reset%
+echo echo %green%Vocabulary Plus: Windows Uninstaller (1.3.0 Beta)%reset%
 echo echo %green%============================================%reset%
 echo echo.
 
@@ -222,7 +222,7 @@ echo %green%Start Menu shortcut created successfully.%reset%
 
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.2.1 installed successfully%reset%
+echo %green%Vocabulary Plus 1.3.0 Beta installed successfully%reset%
 echo.
 echo You can run Vocabulary Plus with the following commands:
 echo   vocabularyplus           main application

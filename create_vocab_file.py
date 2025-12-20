@@ -21,7 +21,7 @@ init(autoreset=False)
 
 # Print system information
 print(f"{Fore.GREEN}Running with Python {platform.python_version()} on {platform.system()}.{Style.RESET_ALL}")
-print(f"{Fore.GREEN}Vocabulary Plus Version: 1.2.1{Style.RESET_ALL}")
+print(f"{Fore.GREEN}Vocabulary Plus Version: 1.3.0-beta{Style.RESET_ALL}")
 print(f"{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL}\n")
 time.sleep(0.5)
 

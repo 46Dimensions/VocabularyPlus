@@ -1,6 +1,6 @@
 # Vocabulary Plus - Updates
 
-Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.3.0).
+Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.0.0 to v1.3.0 Beta).
 
 ## v1.0.0
 
@@ -142,17 +142,17 @@ Version 1.3.0 is currently in Beta, so it is unstable.
   _macOS/Linux_
 
   ``` text
-  =======================================
-  Vocabulary Plus: Unix Installer (1.3.0)
-  =======================================
+  ============================================
+  Vocabulary Plus: Unix Installer (1.3.0 Beta)
+  ============================================
   ```
 
   _Windows_
 
   ``` text
-  ==========================================
-  Vocabulary Plus: Windows Installer (1.3.0)
-  ==========================================
+  ===============================================
+  Vocabulary Plus: Windows Installer (1.3.0 Beta)
+  ===============================================
   ```
 
 - Updated colours

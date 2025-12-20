@@ -7,11 +7,13 @@ assignees: 46Dimensions
 
 ---
 ## Issue
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -27,7 +29,9 @@ If applicable, add screenshots to help explain your problem.
 Add any other context about the problem here.
 
 ## Details
+
 **Please complete the following information:**
- - OS: [e.g. Windows]
- - Python version: [e.g. 3.14.1]
- - Vocabulary Plus [e.g. 1.2.1]
+
+- OS: [e.g. Windows]
+- Python version: [e.g. 3.14.1]
+- Vocabulary Plus [e.g. 1.3.0 Beta]

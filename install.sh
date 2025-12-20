@@ -19,7 +19,7 @@ if [ "$SILENT" -eq 1 ]; then
 fi
 
 echo "${cyan}=======================================${reset}"
-echo "${cyan}Vocabulary Plus: Unix Installer (1.2.1)${reset}"
+echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0 Beta)${reset}"
 echo "${cyan}=======================================${reset}"
 echo
 
@@ -101,7 +101,7 @@ fi
 
 # Handle --version flag
 if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
-    echo 1.2.1
+    echo 1.3.0-beta
     exit 0
 fi
 
@@ -162,7 +162,7 @@ if [ "\$SILENT" -eq 1 ]; then
 fi
 
 echo "${green}=========================================${reset}"
-echo "${green}Vocabulary Plus: Unix Uninstaller (1.2.1)${reset}"
+echo "${green}Vocabulary Plus: Unix Uninstaller (1.3.0 Beta)${reset}"
 echo "${green}=========================================${reset}"
 
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
@@ -286,11 +286,11 @@ sh install-vm.sh $INSTALL_DIR/vm || { echo "${red}Failed to install VP VM${reset
 rm install-vm.sh
 
 # Set Vocabulary Plus version file
-echo "1.2.1" > $INSTALL_DIR/vm/versions/vp/current.txt
+echo "1.3.0-beta" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus 1.2.1 installed successfully${reset}"
+echo "${green}Vocabulary Plus 1.3.0 Beta installed successfully${reset}"
 echo ""
 echo "You can run Vocabulary Plus with the following commands:"
 echo "  vocabularyplus           main application"
