@@ -173,7 +173,7 @@ Version 1.3.0 is currently in Beta, so it is unstable.
 
 - Changed the icon for the desktop app to
 
-[![The Vocabulary Plus logo](/app_icon.png "Vocabulary Plus logo")](/app_icon.png)
+[![The Vocabulary Plus logo](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/app_icon.png)](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0/app_icon.png)
 
 ### Markdown Documentation
 
