@@ -19,7 +19,7 @@ if [ "$SILENT" -eq 1 ]; then
 fi
 
 echo "${cyan}============================================${reset}"
-echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0 Beta)${reset}"
+echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0)${reset}"
 echo "${cyan}============================================${reset}"
 echo
 
