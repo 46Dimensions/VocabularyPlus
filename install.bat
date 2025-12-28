@@ -156,7 +156,7 @@ echo @echo off
 echo setlocal ENABLEDELAYEDEXPANSION
 
 echo echo %green%=================================================%reset%
-echo echo %green%Vocabulary Plus: Windows Uninstaller (1.3.0 Beta)%reset%
+echo echo %green%Vocabulary Plus: Windows Uninstaller (1.3.0)%reset%
 echo echo %green%=================================================%reset%
 echo echo.
 
@@ -235,7 +235,7 @@ echo 1.3.0 > "%INSTALL_DIR%\vm\versions\vp\current.txt"
 
 :: Final message
 echo.
-echo %green%Vocabulary Plus 1.3.0 Beta installed successfully%reset%
+echo %green%Vocabulary Plus 1.3.0 installed successfully%reset%
 echo.
 echo You can run Vocabulary Plus with the following commands:
 echo   vocabularyplus           main application

@@ -34,4 +34,4 @@ Add any other context about the problem here.
 
 - OS: [e.g. Windows]
 - Python version: [e.g. 3.14.1]
-- Vocabulary Plus [e.g. 1.3.0 Beta]
+- Vocabulary Plus [e.g. 1.3.0]

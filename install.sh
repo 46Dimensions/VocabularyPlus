@@ -160,7 +160,7 @@ if [ "\$SILENT" -eq 1 ]; then
 fi
 
 echo "${green}==============================================${reset}"
-echo "${green}Vocabulary Plus: Unix Uninstaller (1.3.0 Beta)${reset}"
+echo "${green}Vocabulary Plus: Unix Uninstaller (1.3.0)${reset}"
 echo "${green}==============================================${reset}"
 
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
@@ -288,7 +288,7 @@ echo "1.3.0" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus 1.3.0 Beta installed successfully${reset}"
+echo "${green}Vocabulary Plus 1.3.0 installed successfully${reset}"
 echo ""
 echo "You can run Vocabulary Plus with the following commands:"
 echo "  vocabularyplus           main application"

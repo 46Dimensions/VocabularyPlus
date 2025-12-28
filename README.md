@@ -7,7 +7,7 @@ A Python-based foreign vocabulary learning tool.
 
 ## Installation
 
-Run these commands in your terminal to install version 1.3.0 Beta.  
+Run these commands in your terminal to install version 1.3.0.  
 You must have Python 3.10+ installed.
 
 ### Windows
