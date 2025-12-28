@@ -123,9 +123,9 @@ echo if "%%1"=="--help" (
 echo.
 :: Version option
 if "%1"=="--version" (
-  echo 1.3.0-beta
+  echo 1.3.0
 ) else if "%1"=="-v" (
-  echo 1.3.0-beta
+  echo 1.3.0
 )
 echo.
 :: Handle "uninstall" subcommand
@@ -233,7 +233,7 @@ del /q install-vm.bat
 
 :: Create version directory and file if needed
 if not exist "%INSTALL_DIR%\vm\versions\vp" mkdir "%INSTALL_DIR%\vm\versions\vp"
-echo 1.3.0-beta > "%INSTALL_DIR%\vm\versions\vp\current.txt"
+echo 1.3.0 > "%INSTALL_DIR%\vm\versions\vp\current.txt"
 
 :: Final message
 echo.

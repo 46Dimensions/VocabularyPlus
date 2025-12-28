@@ -99,7 +99,7 @@ fi
 
 # Handle --version flag
 if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
-    echo 1.3.0-beta
+    echo 1.3.0
     exit 0
 fi
 
@@ -284,7 +284,7 @@ sh install-vm.sh $INSTALL_DIR/vm || { echo "${red}Failed to install VP VM${reset
 rm install-vm.sh
 
 # Set Vocabulary Plus version file
-echo "1.3.0-beta" > $INSTALL_DIR/vm/versions/vp/current.txt
+echo "1.3.0" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Final message
 echo ""
