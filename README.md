@@ -19,6 +19,7 @@ _Run in the **Terminal** app. The exact name can vary._
 ```
 curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
 ```
+**Install Version 1.3.0 pre-release [here](https://github.com/46Dimensions/VocabularyPlus/tree/1.3.0)!**
 
 ## Uninstallation
 _Run in **Command Prompt** on Windows; **Terminal** on macOS or Linux (name may vary)._
