@@ -188,7 +188,7 @@ Version 1.3.0 is currently in Beta, so it is unstable.
 
 ## v1.3.0 (Stable)
 
-Released: 28th December 2025  
+Released: 1st January 2026  
 This version contains all of the changes from v1.3.0 Beta and some more (below).
 
 ### Windows Installer
