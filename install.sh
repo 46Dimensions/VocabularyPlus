@@ -23,7 +23,7 @@ echo "${cyan}Vocabulary Plus: Unix Installer (1.3.0)${reset}"
 echo "${cyan}=======================================${reset}"
 echo
 
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.3.0"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
