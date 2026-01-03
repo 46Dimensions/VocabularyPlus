@@ -212,3 +212,17 @@ This version contains all of the changes from v1.3.0 Beta and some more (below).
 ### Version file
 
 - Renamed from version.txt to VERSION.txt
+
+## v1.3.1
+
+Released: 3rd January 2026
+
+This version includes small bug fixes and enhancments.
+
+### Installation Scripts
+
+- Fixed branch name in base URL for downloads.
+Previously, it used branch `1.3.0`, which, after deletion, did not work, so it has been updated to `main`.
+- Fixed header formatting.
+The `===` above and below the title were too long,
+because they had not been shortened when the version was changed from '1.3.0 Beta' to '1.3.0'.
