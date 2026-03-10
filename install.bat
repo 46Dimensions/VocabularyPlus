@@ -144,6 +144,8 @@ echo del "%BIN_DIR%\vp.cmd" 2^>nul
 echo echo Uninstall complete.
 ) > "%INSTALL_DIR%\uninstall.cmd"
 
+call :add_path "%BIN_DIR%"
+
 :: -----------------------------
 :: Finished
 :: -----------------------------
@@ -171,3 +173,29 @@ exit /b
 :error
 echo %red%ERROR:%reset% %~1
 exit /b 1
+
+:: Add to PATH
+
+:add_path
+set "TARGET=%~1"
+
+echo %PATH% | find /I "%TARGET%" >nul
+if not errorlevel 1 exit /b
+
+for /f "tokens=2*" %%A in (
+    'reg query HKCU\Environment /v PATH 2^>nul'
+) do set "USERPATH=%%B"
+
+if not defined USERPATH set "USERPATH="
+
+set "NEWPATH=%USERPATH%;%TARGET%"
+
+reg add HKCU\Environment /v PATH /t REG_EXPAND_SZ /d "%NEWPATH%" /f >nul
+
+:: Notify system
+powershell -NoProfile -Command ^
+"[Environment]::SetEnvironmentVariable('PATH','%NEWPATH%','User')" >nul
+
+echo Added to PATH: %TARGET%
+
+exit /b
