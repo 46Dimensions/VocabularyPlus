@@ -16,6 +16,11 @@ echo.
 
 :: Windows version check
 for /f "tokens=4-5 delims=. " %%a in ('ver') do set MAJOR=%%a
+if not defined MAJOR (
+    echo %red%ERROR: Could not detect Windows version.%reset%
+    exit /b 1
+)
+
 if "%MAJOR%" LSS "10" (
     echo %red%ERROR: Windows 10 or later is required.%reset%
     exit /b 1
@@ -28,18 +33,24 @@ if errorlevel 1 (
     exit /b 1
 )
 
-for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do set PYVER=%%v
+for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do set "PYVER=%%v"
+
 for /f "tokens=1,2 delims=." %%a in ("%PYVER%") do (
-    set MAJORPY=%%a
-    set MINORPY=%%b
+    set "MAJORPY=%%a"
+    set "MINORPY=%%b"
 )
 
-if %MAJORPY% LSS 3 (
+if "%MAJORPY%"=="" (
+    echo %red%ERROR: Could not detect Python version.%reset%
+    exit /b 1
+)
+
+if "%MAJORPY%" LSS "3" (
     echo %red%ERROR: Python must be >=3.10%reset%
     exit /b 1
 )
 
-if %MAJORPY% EQU 3 if %MINORPY% LSS 10 (
+if "%MAJORPY%"=="3" if "%MINORPY%" LSS "10" (
     echo %red%ERROR: Python must be >=3.10%reset%
     exit /b 1
 )
