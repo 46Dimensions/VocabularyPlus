@@ -29,7 +29,9 @@ if "%SILENT%"=="0" (
     set "reset="
 )
 
-call :log "%cyan%Vocabulary Plus Installer%reset%"
+call :log "%cyan%=========================================%reset%"
+call :log "%cyan%Vocabulary Plus Windows Installer (1.4.1)%reset%"
+call :log "%cyan%=========================================%reset%"
 
 :: -----------------------------
 :: Install paths
