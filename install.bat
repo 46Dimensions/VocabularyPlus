@@ -193,8 +193,7 @@ set "NEWPATH=%USERPATH%;%TARGET%"
 reg add HKCU\Environment /v PATH /t REG_EXPAND_SZ /d "%NEWPATH%" /f >nul
 
 :: Notify system
-powershell -NoProfile -Command ^
-"[Environment]::SetEnvironmentVariable('PATH','%NEWPATH%','User')" >nul
+powershell -NoProfile -Command "[Environment]::SetEnvironmentVariable('PATH','%NEWPATH%','User')" >nul
 
 echo Added to PATH: %TARGET%
 
