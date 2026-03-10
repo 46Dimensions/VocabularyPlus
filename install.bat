@@ -1,142 +1,110 @@
 @echo off
-setlocal ENABLEDELAYEDEXPANSION
+setlocal EnableExtensions
 
-:: Enable ANSI escape sequences
-for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
-set "red=%ESC%[91m"
-set "green=%ESC%[92m"
-set "yellow=%ESC%[93m"
-set "cyan=%ESC%[1;96m"
-set "reset=%ESC%[0m"
+:: -----------------------------
+:: Silent mode detection
+:: -----------------------------
 
-echo %cyan%==========================================%reset%
-echo %cyan%Vocabulary Plus: Windows Installer (1.4.1)%reset%
-echo %cyan%==========================================%reset%
-echo.
+set "SILENT=0"
 
-:: Windows version check
-for /f "tokens=4-5 delims=. " %%a in ('ver') do set MAJOR=%%a
-if not defined MAJOR (
-    echo %red%ERROR: Could not detect Windows version.%reset%
-    exit /b 1
+if /I "%1"=="-s" set SILENT=1
+if /I "%1"=="--silent" set SILENT=1
+
+:: -----------------------------
+:: ANSI colors
+:: -----------------------------
+
+if "%SILENT%"=="0" (
+    for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
+    set "green=%ESC%[92m"
+    set "red=%ESC%[91m"
+    set "yellow=%ESC%[93m"
+    set "cyan=%ESC%[96m"
+    set "reset=%ESC%[0m"
+) else (
+    set "green="
+    set "red="
+    set "yellow="
+    set "cyan="
+    set "reset="
 )
 
-if "%MAJOR%" LSS "10" (
-    echo %red%ERROR: Windows 10 or later is required.%reset%
-    exit /b 1
-)
+call :log "%cyan%Vocabulary Plus Installer%reset%"
 
-:: Python check
+:: -----------------------------
+:: Install paths
+:: -----------------------------
+
+set "INSTALL_DIR=%LOCALAPPDATA%\VocabularyPlus"
+set "BIN_DIR=%LOCALAPPDATA%\Programs\VocabularyPlus"
+
+mkdir "%INSTALL_DIR%" >nul 2>&1
+mkdir "%BIN_DIR%" >nul 2>&1
+
+:: -----------------------------
+:: Python detection
+:: -----------------------------
+
 where python >nul 2>&1
 if errorlevel 1 (
-    echo %red%ERROR: Python not found. Install Python 3.10+.%reset%
-    exit /b 1
+    call :error "Python 3.10+ is required."
 )
 
 for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do set "PYVER=%%v"
 
 for /f "tokens=1,2 delims=." %%a in ("%PYVER%") do (
-    set "MAJORPY=%%a"
-    set "MINORPY=%%b"
+    set "PYMAJOR=%%a"
+    set "PYMINOR=%%b"
 )
 
-if "%MAJORPY%"=="" (
-    echo %red%ERROR: Could not detect Python version.%reset%
-    exit /b 1
-)
+if "%PYMAJOR%" LSS "3" call :error "Python 3.10+ required"
+if "%PYMAJOR%"=="3" if "%PYMINOR%" LSS "10" call :error "Python 3.10+ required"
 
-if "%MAJORPY%" LSS "3" (
-    echo %red%ERROR: Python must be >=3.10%reset%
-    exit /b 1
-)
+call :log "Python %PYVER% detected"
 
-if "%MAJORPY%"=="3" if "%MINORPY%" LSS "10" (
-    echo %red%ERROR: Python must be >=3.10%reset%
-    exit /b 1
-)
-
-:: Prevent reinstall
-set "COMMAND_NAME=vocabularyplus.cmd"
-where %COMMAND_NAME% >nul 2>&1
-if not errorlevel 1 (
-    echo %red%ERROR: Vocabulary Plus already appears installed.%reset%
-    exit /b 1
-)
-
-:: URLs
-set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
-set "REQ_URL=%BASE_URL%/requirements.txt"
-set "MAIN_URL=%BASE_URL%/main.py"
-set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
-set "ICON_URL=%BASE_URL%/app_icon.png"
-set "VP_VM_INSTALLER_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.bat"
-
-:: Install directory
-set "INSTALL_DIR=%CD%\VocabularyPlus"
-
-echo %yellow%Creating install directory...%reset%
-mkdir "%INSTALL_DIR%" >nul 2>&1
-cd "%INSTALL_DIR%" || exit /b 1
-
+:: -----------------------------
 :: Download files
-echo %yellow%Downloading files...%reset%
-curl -fsSL "%REQ_URL%" -o requirements.txt || exit /b 1
-curl -fsSL "%MAIN_URL%" -o main.py || exit /b 1
-curl -fsSL "%CREATE_URL%" -o create_vocab_file.py || exit /b 1
-curl -fsSL "%ICON_URL%" -o app_icon.png || exit /b 1
+:: -----------------------------
 
-:: Create venv
-echo %yellow%Creating virtual environment...%reset%
-python -m venv venv || exit /b 1
+set "BASE_URL=https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
+
+call :log "Downloading files..."
+
+curl -fsSL "%BASE_URL%/main.py" -o "%INSTALL_DIR%\main.py" || call :error "Download failed"
+curl -fsSL "%BASE_URL%/create_vocab_file.py" -o "%INSTALL_DIR%\create_vocab_file.py"
+curl -fsSL "%BASE_URL%/requirements.txt" -o "%INSTALL_DIR%\requirements.txt"
+
+:: -----------------------------
+:: Virtual environment
+:: -----------------------------
+
+call :log "Creating virtual environment"
+
+python -m venv "%INSTALL_DIR%\venv" || call :error "venv creation failed"
 
 set "PY=%INSTALL_DIR%\venv\Scripts\python.exe"
 
-echo %yellow%Upgrading pip...%reset%
-"%PY%" -m pip install --upgrade pip
+"%PY%" -m pip install --upgrade pip >nul
+"%PY%" -m pip install -r "%INSTALL_DIR%\requirements.txt"
 
-echo %yellow%Installing dependencies...%reset%
-"%PY%" -m pip install -r requirements.txt
-del requirements.txt
+del "%INSTALL_DIR%\requirements.txt"
 
-:: Launcher directory
-set "BIN_DIR=%USERPROFILE%\AppData\Local\Programs\VocabularyPlus"
-mkdir "%BIN_DIR%" >nul 2>&1
+:: -----------------------------
+:: Launcher creation
+:: -----------------------------
 
 set "LAUNCHER=%BIN_DIR%\vocabularyplus.cmd"
 
-echo %yellow%Creating launcher...%reset%
+call :log "Creating launcher"
 
 (
 echo @echo off
 echo set "PY=%INSTALL_DIR%\venv\Scripts\python.exe"
 echo set "APPDIR=%INSTALL_DIR%"
 echo.
-echo if "%%1"=="--help" ^(
-echo     echo.
-echo     echo Usage: vocabularyplus [create] [options]
-echo     echo.
-echo     echo Commands:
-echo     echo   create        Create a new vocabulary file
-echo     echo   uninstall     Uninstall Vocabulary Plus
-echo     echo.
-echo     echo Options:
-echo     echo   -v --version  Show version information
-echo     echo   --help        Show help
-echo     exit /b 0
-echo ^)
-echo.
 echo if "%%1"=="--version" ^(
 echo     echo 1.4.0
-echo     exit /b 0
-echo ^)
-echo if "%%1"=="-v" ^(
-echo     echo 1.4.0
-echo     exit /b 0
-echo ^)
-echo.
-echo if "%%1"=="uninstall" ^(
-echo     "%%APPDIR%%\uninstall.cmd"
-echo     exit /b 0
+echo     exit /b
 echo ^)
 echo.
 echo if "%%1"=="create" ^(
@@ -147,55 +115,57 @@ echo     "%%PY%%" "%%APPDIR%%\main.py" %%%%*
 echo ^)
 ) > "%LAUNCHER%"
 
-echo %green%Launcher created.%reset%
-
-:: Alias
 echo @echo off ^& "%LAUNCHER%" %%* > "%BIN_DIR%\vp.cmd"
 
-:: Create uninstaller
-set "UNINSTALLER=%INSTALL_DIR%\uninstall.cmd"
+:: -----------------------------
+:: Start menu shortcut
+:: -----------------------------
+
+call :log "Creating start menu shortcut"
+
+set "SHORTCUT=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
+
+powershell -NoProfile -Command "$W=New-Object -ComObject WScript.Shell;$S=$W.CreateShortcut('%SHORTCUT%');$S.TargetPath='%LAUNCHER%';$S.Save()" >nul
+
+:: -----------------------------
+:: Uninstaller
+:: -----------------------------
+
+call :log "Creating uninstaller"
 
 (
 echo @echo off
 echo echo Removing Vocabulary Plus...
 echo rmdir /s /q "%INSTALL_DIR%"
-echo del "%USERPROFILE%\AppData\Local\Programs\VocabularyPlus\vocabularyplus.cmd" 2^>nul
-echo del "%USERPROFILE%\AppData\Local\Programs\VocabularyPlus\vp.cmd" 2^>nul
+echo del "%BIN_DIR%\vocabularyplus.cmd" 2^>nul
+echo del "%BIN_DIR%\vp.cmd" 2^>nul
 echo echo Uninstall complete.
-) > "%UNINSTALLER%"
+) > "%INSTALL_DIR%\uninstall.cmd"
 
-echo %green%Uninstaller created.%reset%
+:: -----------------------------
+:: Finished
+:: -----------------------------
 
-:: Start menu shortcut
-set "SM_DIR=%APPDATA%\Microsoft\Windows\Start Menu\Programs"
-set "SHORTCUT=%SM_DIR%\Vocabulary Plus.lnk"
+call :log "%green%Installation complete!%reset%"
 
-powershell -NoProfile -Command ^
-"$s=(New-Object -COM WScript.Shell).CreateShortcut('%SHORTCUT%');" ^
-"$s.TargetPath='%LAUNCHER%';" ^
-"$s.IconLocation='%INSTALL_DIR%\app_icon.png';" ^
-"$s.Save()"
+if "%SILENT%"=="0" (
+    echo.
+    echo Commands available:
+    echo   vocabularyplus
+    echo   vocabularyplus create
+    echo   vp
+)
 
-echo %green%Start menu shortcut created.%reset%
+exit /b
 
-:: Install Version Manager
-echo %yellow%Installing VP Version Manager...%reset%
-curl -fsSL "%VP_VM_INSTALLER_URL%" -o install-vm.bat || exit /b 1
-call install-vm.bat "%INSTALL_DIR%\vm"
-del install-vm.bat
+:: -----------------------------
+:: Logging
+:: -----------------------------
 
-if not exist "%INSTALL_DIR%\vm\versions\vp" mkdir "%INSTALL_DIR%\vm\versions\vp"
-echo 1.4.0 > "%INSTALL_DIR%\vm\versions\vp\current.txt"
+:log
+if "%SILENT%"=="0" echo %~1
+exit /b
 
-echo.
-echo %green%Vocabulary Plus installed successfully!%reset%
-echo.
-echo Commands:
-echo   vocabularyplus
-echo   vocabularyplus create
-echo   vp
-echo   vp create
-echo.
-echo If commands do not work, add this to PATH:
-echo   %BIN_DIR%
-echo.
+:error
+echo %red%ERROR:%reset% %~1
+exit /b 1
