@@ -42,11 +42,35 @@ if (Get-Command $commandName -ErrorAction SilentlyContinue) {
     exit 1
 }
 
+function Add-ToUserPath {
+    param([string]$NewPath)
+
+    $current = [Environment]::GetEnvironmentVariable("PATH", "User")
+
+    if (-not $current) { $current = "" }
+
+    $paths = $current -split ";" | Where-Object { $_ -ne "" }
+
+    if ($paths -contains $NewPath) {
+        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
+        return
+    }
+
+    $newPathValue = ($paths + $NewPath) -join ";"
+
+    [Environment]::SetEnvironmentVariable("PATH", $newPathValue, "User")
+
+    # Also update current session immediately
+    $env:PATH = $newPathValue
+
+    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
+}
+
 # --- Paths ---
 $BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
-
 $INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+Add-ToUserPath $BIN_DIR
 
 # --- Create install dir ---
 Write-Color "Creating VocabularyPlus directory..." Yellow
