@@ -1,5 +1,6 @@
 @echo off
-setlocal ENABLEDELAYEDEXPANSION
+setlocal EnableExtensions DisableDelayedExpansion
+cmd /v:on /k install.bat
 
 :: Enable ANSI escape sequences (Windows 10+ only)
 for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
@@ -14,8 +15,14 @@ echo %cyan%Vocabulary Plus: Windows Installer (1.4.0)%reset%
 echo %cyan%==========================================%reset%
 echo.
 
-ver | find "10." >nul
-if errorlevel 1 (
+for /f "tokens=4 delims=. " %%a in ('ver') do set "MAJOR=%%a"
+if not defined MAJOR (
+    echo %red%ERROR: Failed to detect Windows version.%reset%
+    exit /b 1
+)
+
+if not defined MAJOR exit /b 1
+if %MAJOR% LSS 10 (
     echo %red%ERROR: Windows 10 or later is required.%reset%
     exit /b 1
 )
@@ -24,6 +31,12 @@ if errorlevel 1 (
 where python >nul 2>&1
 if errorlevel 1 (
     echo %red%ERROR: Python not found. Please install Python 3.10+.%reset%
+    exit /b 1
+)
+
+for /f "tokens=2 delims= " %%v in ('python --version 2^>^&1') do set PYVER=%%v
+if not defined PYVER (
+    echo %red%ERROR: Could not detect Python version.%reset%
     exit /b 1
 )
 
@@ -60,11 +73,15 @@ set "CREATE_URL=%BASE_URL%/create_vocab_file.py"
 set "ICON_URL=%BASE_URL%/app_icon.png"
 set "VP_VM_INSTALLER_URL=https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.bat"
 
-set "INSTALL_DIR=%CD%\VocabularyPlus"
+set "INSTALL_DIR=%USERPROFILE%\VocabularyPlus"
 
 echo %yellow%Creating VocabularyPlus directory at %INSTALL_DIR%...%reset%
 mkdir "%INSTALL_DIR%" >nul 2>&1
-cd "%INSTALL_DIR%" || (echo %red%Failed to enter VocabularyPlus directory%reset% & exit /b 1)
+cd "%INSTALL_DIR%"
+if errorlevel 1 (
+    echo %red%Failed to enter VocabularyPlus directory%reset%
+    exit /b 1
+)
 
 :: Download files
 echo %yellow%Downloading files...%reset%
@@ -168,10 +185,10 @@ echo echo.
 echo echo %yellow%Removing VocabularyPlus installation...%reset%
 
 echo cd "%INSTALL_DIR%" ^>nul 2^>^&1
-echo if not %%errorlevel%%==0 (
+echo if not %%errorlevel%%==0 ^(
 echo ^    echo %red%Failed to enter VocabularyPlus directory%reset%
 echo ^    exit /b 1
-echo )
+echo ^)
 
 echo :: Remove files
 echo del /q main.py 2^>nul
