@@ -2,6 +2,8 @@
 setlocal EnableExtensions DisableDelayedExpansion
 cmd /v:on /k install.bat
 
+echo "This script is deprecated as of version 1.5.0. Please use the new PowerShell installer (install.ps1) instead"
+
 :: Enable ANSI escape sequences (Windows 10+ only)
 for /f %%A in ('echo prompt $E ^| cmd') do set "ESC=%%A"
 set "red=%ESC%[91m"
