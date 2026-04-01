@@ -200,7 +200,7 @@ $vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
 
 Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/install-vm.ps1" -OutFile $vmInstaller
 
-& $vmInstaller "$INSTALL_DIR\vm"
+& $vmInstaller "$INSTALL_DIR"
 
 Remove-Item $vmInstaller -Force
 
