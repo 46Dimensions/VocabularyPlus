@@ -172,10 +172,11 @@ Write-Color "Shortcut created." Green
 # --- Install VP VM ---
 Write-Color "Installing Version Manager..." Yellow
 
-$vmInstaller = "install-vm.bat"
-Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.bat" -OutFile $vmInstaller
+$vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
 
-cmd /c "$vmInstaller `"$INSTALL_DIR\vm`""
+Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/install-vm.ps1" -OutFile $vmInstaller
+
+& $vmInstaller "$INSTALL_DIR\vm"
 
 Remove-Item $vmInstaller -Force
 
