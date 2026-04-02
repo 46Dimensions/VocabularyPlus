@@ -12,73 +12,89 @@ Write-Color "Vocabulary Plus: Windows Installer (1.4.0)" Cyan
 Write-Color "==========================================" Cyan
 Write-Host ""
 
-# --- Windows version check ---
-if ([Environment]::OSVersion.Version.Major -lt 10) {
-    Write-Color "ERROR: Windows 10 or later is required." Red
-    exit 1
-}
-
-# --- Python check ---
-$python = Get-Command python -ErrorAction SilentlyContinue
-if (-not $python) {
-    Write-Color "Python not found. Attempting to install Python 3.14..." Yellow
-    Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
-    
-    try {
-        & winget install -e --id Python.Python.3.14 --source winget
-        $python = Get-Command python -ErrorAction SilentlyContinue
-        
-        if (-not $python) {
-            Write-Color "ERROR: Python installation failed or Python command not available after install." Red
-            exit 1
-        }
-        Write-Color "Python installed successfully." Green
-    }
-    catch {
-        Write-Color "ERROR: Failed to install Python with winget: $_" Red
+function WindowsVersionCheck {
+    # --- Windows version check ---
+    if ([Environment]::OSVersion.Version.Major -lt 10) {
+        Write-Color "ERROR: Windows 10 or later is required." Red
         exit 1
     }
 }
 
-# --- Check Python version ---
-try {
-    $pyver = (& python --version) -replace "Python ", ""
-    $verParts = $pyver.Split(".")
-    $major = [int]$verParts[0]
-    $minor = [int]$verParts[1]
-}
-catch {
-    Write-Color "ERROR: Could not determine Python version. Attempting to install Python 3.14..." Yellow
-    Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
-    
+function PythonCheck {
+    # --- Python check ---
+    $python = Get-Command python -ErrorAction SilentlyContinue
+    if (-not $python) {
+        Write-Color "Python not found." Yellow
+        Write-Color "Attempting to install Python 3.14..." Yellow
+        Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
+        
+        try {
+            & winget install -e --id Python.Python.3.14 --source winget
+            # Reload PATH to make newly installed Python available
+            $env:PATH = [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH", "User")
+            $python = Get-Command python -ErrorAction SilentlyContinue
+            
+            if (-not $python) {
+                Write-Color "ERROR: Python installation failed or Python command not available after install." Red
+                exit 1
+            }
+            Write-Color "Python installed successfully." Green
+        }
+        catch {
+            Write-Color "ERROR: Failed to install Python with winget: $_" Red
+            exit 1
+        }
+    }
+
+    # --- Check Python version ---
     try {
-        & winget install -e --id Python.Python.3.14 --source winget
         $pyver = (& python --version) -replace "Python ", ""
         $verParts = $pyver.Split(".")
         $major = [int]$verParts[0]
         $minor = [int]$verParts[1]
-        Write-Color "Python version updated successfully." Green
     }
     catch {
-        Write-Color "ERROR: Failed to install Python or determine its version: $_" Red
-        exit 1
+        Write-Color "ERROR: Could not determine Python version." Red
+        Write-Color "Attempting to install Python 3.14..." Yellow
+        Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
+        
+        try {
+            & winget install -e --id Python.Python.3.14 --source winget
+            # Reload PATH to make newly installed Python available
+            $env:PATH = [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH", "User")
+            $pyver = (& python --version) -replace "Python ", ""
+            $verParts = $pyver.Split(".")
+            $major = [int]$verParts[0]
+            $minor = [int]$verParts[1]
+            Write-Color "Python version updated successfully." Green
+        }
+        catch {
+            Write-Color "ERROR: Failed to install Python or determine its version: $_" Red
+            exit 1
+        }
+    }
+
+    if ($major -lt 3 -or ($major -eq 3 -and $minor -lt 10)) {
+        Write-Color "ERROR: Python must be >= 3.10 (found $pyver)." Red
+        Write-Color "Attempting to install Python 3.14..." Yellow
+        Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
+        
+        try {
+            & winget install -e --id Python.Python.3.14 --source winget
+            # Reload PATH to make newly installed Python available
+            $env:PATH = [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH", "User")
+            Write-Color "Python upgraded. Please rerun the installer." Green
+            exit 0
+        }
+        catch {
+            Write-Color "ERROR: Failed to upgrade Python with winget: $_" Red
+            exit 1
+        }
     }
 }
 
-if ($major -lt 3 -or ($major -eq 3 -and $minor -lt 10)) {
-    Write-Color "ERROR: Python must be >= 3.10 (found $pyver). Attempting to install Python 3.14..." Yellow
-    Write-Color "Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
-    
-    try {
-        & winget install -e --id Python.Python.3.14 --source winget
-        Write-Color "Python upgraded. Please rerun the installer."e Green
-        exit 0
-    }
-    catch {
-        Write-Color "ERROR: Failed to upgrade Python with winget: $_" Red
-        exit 1
-    }
-}
+WindowsVersionCheck
+PythonCheck
 
 # --- Check existing install ---
 $commandName = "vocabularyplus.cmd"
@@ -89,6 +105,8 @@ if (Get-Command $commandName -ErrorAction SilentlyContinue) {
 
 function Add-ToUserPath {
     param([string]$NewPath)
+
+    Write-Color "Setting up PATH" Yellow
 
     $current = [Environment]::GetEnvironmentVariable("PATH", "User")
 
