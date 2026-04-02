@@ -118,7 +118,7 @@ Set-Location $INSTALL_DIR
 
 # --- Download files ---
 function Download($url, $out) {
-    Write-Color "Downloading $out..." Yellow
+    Write-Color "- Downloading $out..." Yellow
     Invoke-WebRequest $url -OutFile $out
 }
 
