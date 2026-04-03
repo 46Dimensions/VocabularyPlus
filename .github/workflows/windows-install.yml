@@ -1,0 +1,23 @@
+name: Run PowerShell Installer
+
+on:
+  push:
+    paths:
+      - '**/*.ps1'
+  pull_request:
+    paths:
+      - '**/*.ps1'
+
+jobs:
+  run-install:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run install.ps1
+        shell: pwsh
+        run: |
+          pwsh -ExecutionPolicy Bypass -File ./install.ps1
+          ./install.ps1
