@@ -2,6 +2,56 @@
 
 $ErrorActionPreference = "Stop"
 
+function Install-PowerShell7 {
+    Write-Color "Checking PowerShell 7..." Yellow
+    $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+    if (-not $pwsh) {
+        Write-Color "PowerShell 7 not found. Installing..." Yellow
+        try {
+            & winget install -e --id Microsoft.Powershell --source winget
+        }
+        catch {
+            Write-Color "ERROR: Failed to install PowerShell 7 with winget: $_" Red
+            exit 1
+        }
+        $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+        if (-not $pwsh) {
+            Write-Color "ERROR: PowerShell 7 installation completed but pwsh.exe was not found." Red
+            exit 1
+        }
+    }
+    $version = (& pwsh -NoProfile -Command '$PSVersionTable.PSVersion.Major') -as [int]
+    if ($version -lt 7) {
+        Write-Color "ERROR: Installed PowerShell version is $version, but PowerShell 7 is required." Red
+        exit 1
+    }
+}
+
+function Confirm-Install {
+    param([string]$Message)
+
+    $response = Read-Host "$Message [Y/N]"
+    return $response.Trim().ToLower() -in @('y', 'yes')
+}
+
+function Ensure-PowerShell7 {
+    if ($PSVersionTable.PSVersion.Major -lt 7) {
+        Write-Color "PowerShell 7 is required for this installer." Yellow
+        if (-not (Confirm-InstallPowerShell7 "Install PowerShell 7 now?")) {
+            Write-Color "User declined PowerShell 7 installation. Exiting." Yellow
+            exit 1
+        }
+
+        Install-PowerShell7
+        Write-Color "Restarting script in PowerShell 7..." Yellow
+        & pwsh -NoProfile -ExecutionPolicy Bypass -File $MyInvocation.MyCommand.Path @args
+        exit $LASTEXITCODE
+    }
+}
+
+# --- Bootstrapping PowerShell 7 ---
+Ensure-PowerShell7
+
 # --- Colors ---
 function Write-Color($text, $color) {
     Write-Host $text -ForegroundColor $color
@@ -22,6 +72,10 @@ function WindowsVersionCheck {
 
 function PythonCheck {
     function Install-Python {
+        if (-not (Confirm-Install "Install Python 3.14 now?")) {
+            Write-Color "User declined PowerShell 7 installation. Exiting." Yellow
+            exit 1
+        }
         Write-Color "Attempting to install Python 3.14..." Yellow
         Write-Color "- Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
         
@@ -44,6 +98,7 @@ function PythonCheck {
             exit 1
         }
     }
+
     # --- Python check ---
     $python = Get-Command python -ErrorAction SilentlyContinue
     if (-not $python) {
