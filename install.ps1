@@ -34,7 +34,7 @@ function Confirm-Install {
     return $response.Trim().ToLower() -in @('y', 'yes')
 }
 
-function Ensure-PowerShell7 {
+function Test-PowerShell7 {
     if ($PSVersionTable.PSVersion.Major -lt 7) {
         Write-Color "PowerShell 7 is required for this installer." Yellow
         if (-not (Confirm-InstallPowerShell7 "Install PowerShell 7 now?")) {
@@ -50,7 +50,7 @@ function Ensure-PowerShell7 {
 }
 
 # --- Bootstrapping PowerShell 7 ---
-Ensure-PowerShell7
+Test-PowerShell7
 
 # --- Colors ---
 function Write-Color($text, $color) {
