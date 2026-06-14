@@ -2,31 +2,6 @@
 
 $ErrorActionPreference = "Stop"
 
-function Install-PowerShell7 {
-    Write-Colour "Checking PowerShell 7..." Yellow
-    $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
-    if (-not $pwsh) {
-        Write-Colour "PowerShell 7 not found. Installing..." Yellow
-        try {
-            & winget install --id Microsoft.Powershell --source winget
-        }
-        catch {
-            Write-Colour "ERROR: Failed to install PowerShell 7 with winget: $_" Red
-            exit 1
-        }
-        $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
-        if (-not $pwsh) {
-            Write-Colour "ERROR: PowerShell 7 installation completed but pwsh.exe was not found." Red
-            exit 1
-        }
-    }
-    $version = (& pwsh -NoProfile -Command '$PSVersionTable.PSVersion.Major') -as [int]
-    if ($version -lt 7) {
-        Write-Colour "ERROR: Installed PowerShell version is $version, but PowerShell 7 is required." Red
-        exit 1
-    }
-}
-
 function Confirm-Install {
     param([string]$Message)
 
@@ -34,28 +9,10 @@ function Confirm-Install {
     return $response.Trim().ToLower() -in @('y', 'yes')
 }
 
-function Test-PowerShell7 {
-    if ($PSVersionTable.PSVersion.Major -lt 7) {
-        Write-Colour "PowerShell 7 is required for this installer." Yellow
-        if (-not (Confirm-Install "Install PowerShell 7 now?")) {
-            Write-Colour "User declined PowerShell 7 installation. Exiting." Yellow
-            exit 1
-        }
-
-        Install-PowerShell7
-        Write-Colour "Restarting script in PowerShell 7..." Yellow
-        & pwsh -NoProfile -ExecutionPolicy Bypass -File "$PSScriptRoot\install.ps1"
-        exit $LASTEXITCODE
-    }
-}
-
 # --- Colors ---
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
-
-# --- PowerShell 7 ---
-Test-PowerShell7
 
 Write-Colour "==========================================" Cyan
 Write-Colour "Vocabulary Plus: Windows Installer (1.4.0)" Cyan
