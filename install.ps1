@@ -37,7 +37,7 @@ function Confirm-Install {
 function Test-PowerShell7 {
     if ($PSVersionTable.PSVersion.Major -lt 7) {
         Write-Colour "PowerShell 7 is required for this installer." Yellow
-        if (-not (Confirm-InstallPowerShell7 "Install PowerShell 7 now?")) {
+        if (-not (Confirm-Install "Install PowerShell 7 now?")) {
             Write-Colour "User declined PowerShell 7 installation. Exiting." Yellow
             exit 1
         }
