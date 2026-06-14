@@ -163,7 +163,7 @@ Write-Colour "Creating launcher..." Yellow
 Download $BASE_URL/launcher.ps1 $LAUNCHER_LOCATION
 Copy-Item $LAUNCHER_LOCATION $ALIAS_LOCATION
 
-Write-Color "Launcher created." Green
+Write-Colour "Launcher created." Green
 
 # --- Uninstaller ---
 $UNINSTALLER_PATH = Join-Path $INSTALL_DIR "uninstall.ps1"
