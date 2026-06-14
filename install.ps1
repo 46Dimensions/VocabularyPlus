@@ -8,7 +8,7 @@ function Install-PowerShell7 {
     if (-not $pwsh) {
         Write-Colour "PowerShell 7 not found. Installing..." Yellow
         try {
-            & winget install -e --id Microsoft.Powershell --source winget
+            & winget install --id Microsoft.Powershell --source winget
         }
         catch {
             Write-Colour "ERROR: Failed to install PowerShell 7 with winget: $_" Red
