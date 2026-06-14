@@ -12,7 +12,8 @@ function Show-Help {
     Write-Host "  --help          Show this help message"
 }
 
-$InstallDir = Get-Content $PSScriptRoot\install_dir.txt
+$ScriptDir = $PSScriptRoot
+$InstallDir = Get-Content -Path (Join-Path $ScriptDir "install_dir.txt")
 $Python = Join-Path $InstallDir "venv\Scripts\python.exe"
 $UninstallScript = Join-Path $ScriptDir "uninstall.ps1"
 $RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
