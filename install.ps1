@@ -222,7 +222,7 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 & (Join-Path $ScriptDir 'vocabularyplus.ps1') @args
 "@ | Set-Content -Encoding UTF8 $ALIAS_SCRIPT
 
-Write-Colour "Creating alias shim..." Yellow
+Write-Colour "Creating alias..." Yellow
 
 @"
 @echo off
