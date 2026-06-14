@@ -44,7 +44,7 @@ function Test-PowerShell7 {
 
         Install-PowerShell7
         Write-Colour "Restarting script in PowerShell 7..." Yellow
-        & pwsh -NoProfile -ExecutionPolicy Bypass -File $MyInvocation.MyCommand.Path @args
+        & pwsh -NoProfile -ExecutionPolicy Bypass -File & pwsh -NoProfile -ExecutionPolicy Bypass -File $SCRIPT_PATH @args
         exit $LASTEXITCODE
     }
 }
