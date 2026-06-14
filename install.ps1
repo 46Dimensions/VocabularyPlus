@@ -156,9 +156,7 @@ Remove-Item requirements.txt -Force
 # --- Launcher ---
 New-Item -ItemType Directory -Force -Path $BIN_DIR | Out-Null
 $LAUNCHER_SCRIPT = Join-Path $BIN_DIR "vocabularyplus.ps1"
-$LAUNCHER_CMD = Join-Path $BIN_DIR "vocabularyplus.cmd"
-$ALIAS_SCRIPT = Join-Path $BIN_DIR "vp.ps1"
-$ALIAS_CMD = Join-Path $BIN_DIR "vp.cmd"
+$ALIAS_CMD = Join-Path $BIN_DIR "vp.ps1"
 
 Write-Colour "Creating PowerShell launcher script..." Yellow
 
@@ -296,8 +294,10 @@ Write-Colour "Creating Start Menu shortcut..." Yellow
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = $LAUNCHER
-$shortcut.IconLocation = "$INSTALL_DIR\app_icon.png"
+$shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
+$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_SCRIPT`""
+$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.png'
+$shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
 Write-Colour "Shortcut created." Green
