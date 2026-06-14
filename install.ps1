@@ -158,6 +158,8 @@ New-Item -ItemType Directory -Force -Path $BIN_DIR | Out-Null
 $LAUNCHER_LOCATION = Join-Path $BIN_DIR "vocabularyplus.ps1"
 $ALIAS_LOCATION = Join-Path $BIN_DIR "vp.ps1"
 
+Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
+
 Write-Colour "Creating launcher..." Yellow
 
 Download $BASE_URL/launcher.ps1 $LAUNCHER_LOCATION

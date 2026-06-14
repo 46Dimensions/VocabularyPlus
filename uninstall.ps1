@@ -9,7 +9,7 @@ function Write-Log {
     }
 }
 
-$InstallDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$InstallDir = Get-Content $PSScriptRoot\install_dir.txt
 $BinDir = Join-Path $env:USERPROFILE 'AppData\Local\Programs\VocabularyPlus'
 $ShortcutPath = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk'
 $ScriptPath = $MyInvocation.MyCommand.Path
