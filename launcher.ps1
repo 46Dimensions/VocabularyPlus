@@ -12,8 +12,7 @@ function Show-Help {
     Write-Host "  --help          Show this help message"
 }
 
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$Python = Join-Path $ScriptDir "venv\Scripts\python.exe"
+$Python = Join-Path $InstallDir "venv\Scripts\python.exe"
 $UninstallScript = Join-Path $ScriptDir "uninstall.ps1"
 $RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
 
@@ -28,16 +27,16 @@ if ($args.Count -gt 0) {
             exit $LASTEXITCODE
         }
         'create' {
-            & $Python (Join-Path $ScriptDir "create_vocab_file.py") @RemainingArgs
+            & $Python (Join-Path $InstallDir "create_vocab_file.py") @RemainingArgs
             exit $LASTEXITCODE
         }
         Default {
-            & $Python (Join-Path $ScriptDir "main.py") @args
+            & $Python (Join-Path $InstallDir "main.py") @args
             exit $LASTEXITCODE
         }
     }
 }
 else {
-    & $Python (Join-Path $ScriptDir "main.py")
+    & $Python (Join-Path $InstallDir "main.py")
     exit $LASTEXITCODE
 }
