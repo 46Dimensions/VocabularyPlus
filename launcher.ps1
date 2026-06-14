@@ -1,0 +1,43 @@
+param()
+
+function Show-Help {
+    Write-Host ""
+    Write-Host "Usage: vocabularyplus [create] [options]"
+    Write-Host "Commands:"
+    Write-Host "  create        Create a new vocabulary file"
+    Write-Host "  uninstall     Uninstall Vocabulary Plus"
+    Write-Host ""
+    Write-Host "Options:"
+    Write-Host "  -v, --version   Show version information"
+    Write-Host "  --help          Show this help message"
+}
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$Python = Join-Path $ScriptDir "venv\Scripts\python.exe"
+$UninstallScript = Join-Path $ScriptDir "uninstall.ps1"
+$RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
+
+if ($args.Count -gt 0) {
+    switch ($args[0].ToLower()) {
+        '--help' { Show-Help; exit 0 }
+        '-h' { Show-Help; exit 0 }
+        '--version' { Write-Host "1.4.0"; exit 0 }
+        '-v' { Write-Host "1.4.0"; exit 0 }
+        'uninstall' {
+            & $UninstallScript @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        'create' {
+            & $Python (Join-Path $ScriptDir "create_vocab_file.py") @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        Default {
+            & $Python (Join-Path $ScriptDir "main.py") @args
+            exit $LASTEXITCODE
+        }
+    }
+}
+else {
+    & $Python (Join-Path $ScriptDir "main.py")
+    exit $LASTEXITCODE
+}
