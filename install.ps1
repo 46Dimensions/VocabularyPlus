@@ -155,80 +155,138 @@ Remove-Item requirements.txt -Force
 
 # --- Launcher ---
 New-Item -ItemType Directory -Force -Path $BIN_DIR | Out-Null
-$LAUNCHER = Join-Path $BIN_DIR "vocabularyplus.cmd"
+$LAUNCHER_SCRIPT = Join-Path $BIN_DIR "vocabularyplus.ps1"
+$LAUNCHER_CMD = Join-Path $BIN_DIR "vocabularyplus.cmd"
+$ALIAS_SCRIPT = Join-Path $BIN_DIR "vp.ps1"
+$ALIAS_CMD = Join-Path $BIN_DIR "vp.cmd"
 
-Write-Colour "Creating launcher..." Yellow
+Write-Colour "Creating PowerShell launcher script..." Yellow
+
+@"
+param()
+
+function Show-Help {
+    Write-Host ""
+    Write-Host "Usage: vocabularyplus [create] [options]"
+    Write-Host "Commands:"
+    Write-Host "  create        Create a new vocabulary file"
+    Write-Host "  uninstall     Uninstall Vocabulary Plus"
+    Write-Host ""
+    Write-Host "Options:"
+    Write-Host "  -v, --version   Show version information"
+    Write-Host "  --help          Show this help message"
+}
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$Python = Join-Path $ScriptDir "venv\Scripts\python.exe"
+$UninstallScript = Join-Path $ScriptDir "uninstall.ps1"
+$RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
+
+if ($args.Count -gt 0) {
+    switch ($args[0].ToLower()) {
+        '--help' { Show-Help; exit 0 }
+        '-h' { Show-Help; exit 0 }
+        '--version' { Write-Host "1.4.0"; exit 0 }
+        '-v' { Write-Host "1.4.0"; exit 0 }
+        'uninstall' {
+            & $UninstallScript @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        'create' {
+            & $Python (Join-Path $ScriptDir "create_vocab_file.py") @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        Default {
+            & $Python (Join-Path $ScriptDir "main.py") @args
+            exit $LASTEXITCODE
+        }
+    }
+} else {
+    & $Python (Join-Path $ScriptDir "main.py")
+    exit $LASTEXITCODE
+}
+"@ | Set-Content -Encoding UTF8 $LAUNCHER_SCRIPT
+
+Write-Colour "Creating launcher shim..." Yellow
 
 @"
 @echo off
-set "PY=$INSTALL_DIR\venv\Scripts\python.exe"
-set "APPDIR=$INSTALL_DIR"
+set "SCRIPT=%~dp0\vocabularyplus.ps1"
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT%" %*
+"@ | Set-Content -Encoding ASCII $LAUNCHER_CMD
 
-if "%1"=="--help" (
-    echo.
-    echo Usage: vocabularyplus [create] [options]
-    echo Commands:
-    echo   create        Create a new vocabulary file
-    echo   uninstall     Uninstall Vocabulary Plus
-    echo Options:
-    echo   -v, --version   Show version information
-    echo   --help          Show this help message
-    exit /b 0
-)
+Write-Colour "Creating alias script..." Yellow
 
-if "%1"=="--version" (
-    echo 1.4.0
-    exit /b 0
-)
+@"
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+& (Join-Path $ScriptDir 'vocabularyplus.ps1') @args
+"@ | Set-Content -Encoding UTF8 $ALIAS_SCRIPT
 
-if "%1"=="-v" (
-    echo 1.4.0
-    exit /b 0
-)
+Write-Colour "Creating alias shim..." Yellow
 
-if "%1"=="uninstall" (
-    "%APPDIR%\uninstall.cmd"
-    exit /b 0
-)
-
-if "%1"=="create" (
-    shift
-    "%PY%" "%APPDIR%\create_vocab_file.py" %*
-) else (
-    "%PY%" "%APPDIR%\main.py" %*
-)
-"@ | Set-Content -Encoding ASCII $LAUNCHER
+@"
+@echo off
+set "SCRIPT=%~dp0\vp.ps1"
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT%" %*
+"@ | Set-Content -Encoding ASCII $ALIAS_CMD
 
 Write-Colour "Launcher created." Green
 
-# --- Alias ---
-$aliasPath = Join-Path $BIN_DIR "vp.cmd"
-"@echo off`n`"$LAUNCHER`" %*" | Set-Content -Encoding ASCII $aliasPath
-
 # --- Uninstaller ---
-$UNINSTALLER = Join-Path $INSTALL_DIR "uninstall.cmd"
+$UNINSTALLER = Join-Path $INSTALL_DIR "uninstall.ps1"
 
-Write-Colour "Creating uninstaller..." Yellow
+Write-Colour "Creating PowerShell uninstaller..." Yellow
 
 @"
-@echo off
-echo =========================================
-echo Vocabulary Plus: Uninstaller (1.4.0)
-echo =========================================
-echo.
+param(
+    [switch]$Silent
+)
 
-echo Removing files...
-rmdir /s /q "$INSTALL_DIR\venv"
-del /q "$INSTALL_DIR\main.py"
-del /q "$INSTALL_DIR\create_vocab_file.py"
-del /q "$INSTALL_DIR\app_icon.png"
+function Write-Log {
+    param([string]$Message, [string]$Color = 'White')
+    if (-not $Silent) {
+        Write-Host $Message -ForegroundColor $Color
+    }
+}
 
-echo Removing launchers...
-del /q "$BIN_DIR\vocabularyplus.cmd"
-del /q "$BIN_DIR\vp.cmd"
+$InstallDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$BinDir = Join-Path $env:USERPROFILE 'AppData\Local\Programs\VocabularyPlus'
+$ShortcutPath = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk'
+$ScriptPath = $MyInvocation.MyCommand.Path
 
-echo Done.
-"@ | Set-Content -Encoding ASCII $UNINSTALLER
+Write-Log '==========================================' Cyan
+Write-Log 'Vocabulary Plus: Uninstaller (1.4.0)' Cyan
+Write-Log '==========================================' Cyan
+Write-Log ''
+
+Write-Log 'Removing virtual environment...' Yellow
+Remove-Item -LiteralPath (Join-Path $InstallDir 'venv') -Recurse -Force -ErrorAction SilentlyContinue
+
+Write-Log 'Removing application files...' Yellow
+Remove-Item -LiteralPath (Join-Path $InstallDir 'main.py') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $InstallDir 'create_vocab_file.py') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $InstallDir 'app_icon.png') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $InstallDir 'requirements.txt') -Force -ErrorAction SilentlyContinue
+
+Write-Log 'Removing VM files...' Yellow
+Remove-Item -LiteralPath (Join-Path $InstallDir 'vm') -Recurse -Force -ErrorAction SilentlyContinue
+
+Write-Log 'Removing launchers...' Yellow
+Remove-Item -LiteralPath (Join-Path $BinDir 'vocabularyplus.cmd') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $BinDir 'vp.cmd') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $BinDir 'vocabularyplus.ps1') -Force -ErrorAction SilentlyContinue
+Remove-Item -LiteralPath (Join-Path $BinDir 'vp.ps1') -Force -ErrorAction SilentlyContinue
+
+Write-Log 'Removing Start Menu shortcut...' Yellow
+if (Test-Path -LiteralPath $ShortcutPath) {
+    Remove-Item -LiteralPath $ShortcutPath -Force -ErrorAction SilentlyContinue
+}
+
+Write-Log 'Removing remaining installation files...' Yellow
+Get-ChildItem -LiteralPath $InstallDir -Force | Where-Object { $_.FullName -ne $ScriptPath } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+
+Write-Log 'Done.' Green
+"@ | Set-Content -Encoding UTF8 $UNINSTALLER
 
 Write-Colour "Uninstaller created." Green
 
