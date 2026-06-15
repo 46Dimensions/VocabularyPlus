@@ -1,5 +1,4 @@
 from blessed import Terminal
-import curses
 import time
 
 menu_items = ["Option 1", "Option 2", "Option 3", "Option 4"]
