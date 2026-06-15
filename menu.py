@@ -88,7 +88,7 @@ if __name__ == "__main__":
         if not ON_WINDOWS:
             subprocess.run(commands[selected_index], shell=True)
         else:
-            subprocess.run(['powershell', '-File', os.path.join(bin_dir, "vocabularyplus.ps1"), commands[selected_index])
+            subprocess.run(['powershell', '-File', os.path.join(bin_dir, "vocabularyplus.ps1"), commands[selected_index]])
     except KeyboardInterrupt:
         print(SHOW_CURSOR, end='', flush=True)
     finally:
