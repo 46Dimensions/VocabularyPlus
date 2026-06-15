@@ -5,12 +5,13 @@ menu_items = ["Option 1", "Option 2", "Option 3", "Option 4"]
 selected_index = 0
 term = Terminal()
 
+HIDE_CURSOR = "\x1b[?25l"
+SHOW_CURSOR = "\x1b[?25h"
 SPECIAL_KEYS = {
     "\x1b[A": "UP",
     "\x1b[B": "DOWN",
     "\x1b[C": "RIGHT",
-    "\x1b[D": "LEFT",
-    "\n": "ENTER"
+    "\x1b[D": "LEFT"
 }
 
 def draw_menu():
@@ -25,7 +26,7 @@ def draw_menu():
         else:
             print(term.move_xy(x,y) + f"  {item}")
 
-    print(term.move_xy(0, h - 1) + "Use ↑/↓ or k/j to move, Enter to select, q/Esc to quit", end='', flush=True)
+    print(term.move_xy(0, h - 1) + "Use ↑/↓ or w/s to move, Enter to select, q/esc to quit", end='', flush=True)
 
 def getch(timeout: int|None = None) -> str:
     with term.cbreak():
@@ -33,6 +34,9 @@ def getch(timeout: int|None = None) -> str:
         key_str = str(key)
         if key_str in SPECIAL_KEYS:
             key_str = SPECIAL_KEYS[key_str]
+
+        if key.code == term.KEY_ENTER:
+            return "ENTER"
 
         return key_str.upper()
 
@@ -47,7 +51,7 @@ def main():
             selected_index = max(0, selected_index - 1)
         elif key in ("DOWN", "S"):
             selected_index = min(len(menu_items) - 1, selected_index + 1)
-        elif key in ("ENTER"):
+        elif key == "ENTER":
             print(term.move_xy(0, len(menu_items) + 1) + f"You selected {menu_items[selected_index]}")
             time.sleep(5)
             break
@@ -57,22 +61,21 @@ def main():
 def key_test():
     with term.cbreak():
         while True:
-            key = term.inkey()
+            key = getch()
 
-            key_str = str(key)
+            key_str = key.lower()
 
-            if key_str in SPECIAL_KEYS:
-                print(f"You pressed the {SPECIAL_KEYS[key_str].lower()} key")
-            elif key_str == 'q':
+            if key_str == 'q':
                 print("Exiting...")
                 break
             else:
                 print(f"You pressed '{key_str}'")
 
 if __name__ == "__main__":
-    with term.fullscreen():
-        print(term.hide_cursor, end='')
-        #curses.wrapper(main)
-        key_test()
-        main()
-        print(term.show_cursor, end='')
+    try:
+        print(HIDE_CURSOR, end='')
+        with term.fullscreen():
+            key_test()
+            main()
+    finally:
+        print(SHOW_CURSOR, end='')
