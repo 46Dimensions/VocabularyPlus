@@ -160,21 +160,21 @@ $ALIAS_LOCATION = Join-Path $BIN_DIR "vp.ps1"
 
 Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
 
-Write-Colour "Creating launcher..." Yellow
+Write-Colour "Downloading launcher..." Yellow
 
 Download $BASE_URL/launcher.ps1 $LAUNCHER_LOCATION
 Copy-Item $LAUNCHER_LOCATION $ALIAS_LOCATION
 
-Write-Colour "Launcher created." Green
+Write-Colour "Launcher downloaded." Green
 
 # --- Uninstaller ---
 $UNINSTALLER_PATH = Join-Path $INSTALL_DIR "uninstall.ps1"
 
-Write-Colour "Creating PowerShell uninstaller..." Yellow
+Write-Colour "Dwonloading uninstaller..." Yellow
 
 Download $BASE_URL/uninstall.ps1 $UNINSTALLER_PATH
 
-Write-Colour "Uninstaller created." Green
+Write-Colour "Uninstaller downloaded." Green
 
 # --- Start Menu shortcut ---
 Write-Colour "Creating Start Menu shortcut..." Yellow
