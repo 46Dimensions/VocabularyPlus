@@ -11,7 +11,11 @@ SPECIAL_KEYS = {
     "\x1b[A": "UP",
     "\x1b[B": "DOWN",
     "\x1b[C": "RIGHT",
-    "\x1b[D": "LEFT"
+    "\x1b[D": "LEFT",
+    "codes": {
+        term.KEY_ENTER: "ENTER",
+        term.KEY_ESCAPE: "ESC"
+    }
 }
 
 def draw_menu():
@@ -22,7 +26,7 @@ def draw_menu():
         x = 2
         y = idx
         if idx == selected_index:
-            print(term.move_xy(x,y) + term.red_on_white(term.red(f"> {item}")))
+            print(term.move_xy(x,y) + term.bold(term.red(f"> {item}")))
         else:
             print(term.move_xy(x,y) + f"  {item}")
 
@@ -32,12 +36,12 @@ def getch(timeout: int|None = None) -> str:
     with term.cbreak():
         key = term.inkey(timeout = timeout)
         key_str = str(key)
+
         if key_str in SPECIAL_KEYS:
             key_str = SPECIAL_KEYS[key_str]
-
-        if key.code == term.KEY_ENTER:
-            return "ENTER"
-
+        elif key.code in SPECIAL_KEYS["codes"]:
+            key_str = SPECIAL_KEYS["codes"][key.code]
+            
         return key_str.upper()
 
 def main():
@@ -55,7 +59,7 @@ def main():
             print(term.move_xy(0, len(menu_items) + 1) + f"You selected {menu_items[selected_index]}")
             time.sleep(5)
             break
-        elif key == "Q":
+        elif key in ("Q", "ESC"):
             break
 
 def key_test():
