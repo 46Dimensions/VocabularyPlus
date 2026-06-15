@@ -218,4 +218,4 @@ Write-Host ""
 Write-Host "If commands don't work, add to PATH:"
 Write-Host "  $BIN_DIR"
 
-Change-Location $INSTALL_DIR\..
+Set-Location $INSTALL_DIR\..
