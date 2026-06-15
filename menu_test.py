@@ -62,26 +62,10 @@ def main():
         elif key in ("Q", "ESC"):
             break
 
-def key_test():
-    with term.cbreak():
-        while True:
-            key = getch()
-
-            key_str = key.lower()
-
-            if key_str == 'q':
-                print("Exiting...")
-                break
-            else:
-                print(f"You pressed '{key_str}'")
-
-    print(term.clear)
-
 if __name__ == "__main__":
     try:
         print(HIDE_CURSOR, end='')
         with term.fullscreen():
-            key_test()
             main()
     finally:
         print(SHOW_CURSOR, end='')
