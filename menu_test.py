@@ -75,6 +75,8 @@ def key_test():
             else:
                 print(f"You pressed '{key_str}'")
 
+    print(term.home, end="")
+
 if __name__ == "__main__":
     try:
         print(HIDE_CURSOR, end='')
