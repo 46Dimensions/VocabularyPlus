@@ -75,7 +75,7 @@ def key_test():
             else:
                 print(f"You pressed '{key_str}'")
 
-    print(term.home, end="")
+    print(term.clear)
 
 if __name__ == "__main__":
     try:
