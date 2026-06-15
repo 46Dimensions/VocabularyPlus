@@ -11,7 +11,7 @@ bin_dir_file = Path(os.path.dirname(__file__)) / ".bin_dir.txt"
 bin_dir = bin_dir_file.read_text().strip()
 
 menu_items = ["Learn vocab", "Create a vocabulary file", "About Vocabulary Plus"]
-menu_descriptions = ["Opening Vocabulary Plus...", "Opening vocab file creator", "Opening About screen"]
+menu_descriptions = ["Opening Vocabulary Plus...", "Opening vocab file creator...", "Opening About screen..."]
 
 if ON_WINDOWS:
     commands = ['', 'create', '--version']
