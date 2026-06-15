@@ -305,3 +305,5 @@ echo ""
 echo "If these don't work, add this to PATH:"
 echo "  $HOME/.local/bin"
 echo ""
+
+cd $INSTALL_DIR/..

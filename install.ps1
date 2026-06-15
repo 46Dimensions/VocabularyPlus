@@ -217,3 +217,5 @@ Write-Host "  vp create"
 Write-Host ""
 Write-Host "If commands don't work, add to PATH:"
 Write-Host "  $BIN_DIR"
+
+Change-Location $INSTALL_DIR\..
