@@ -1,10 +1,23 @@
 from blessed import Terminal
+from pathlib import Path
 import subprocess
+import platform
 import time
+import os
+
+ON_WINDOWS = platform.system().lower() == "windows"
+
+bin_dir_file = Path(os.path.dirname(__file__)) / ".bin_dir.txt"
+bin_dir = bin_dir_file.read_text().strip()
 
 menu_items = ["Learn vocab", "Create a vocabulary file", "About Vocabulary Plus"]
 menu_descriptions = ["Opening Vocabulary Plus...", "Opening vocab file creator", "Opening About screen"]
-commands = ["vocabularyplus", "vocabularyplus create", "vocabularyplus --version"]
+
+if ON_WINDOWS:
+    commands = [os.path.join(bin_dir, "vocabularyplus.ps1"), f"{os.path.join(bin_dir, "vocabularyplus.ps1")} create", f"{os.path.join(bin_dir, "vocabularyplus.ps1")} --version"]
+else:
+    commands = [os.path.join(bin_dir, "vocabularyplus"), f"{os.path.join(bin_dir, "vocabularyplus")} create", f"{os.path.join(bin_dir, "vocabularyplus")} --version"]
+
 selected_index = 0
 term = Terminal()
 
