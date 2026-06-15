@@ -14,7 +14,7 @@ menu_items = ["Learn vocab", "Create a vocabulary file", "About Vocabulary Plus"
 menu_descriptions = ["Opening Vocabulary Plus...", "Opening vocab file creator", "Opening About screen"]
 
 if ON_WINDOWS:
-    commands = [[''], ['create'], ['--version']]
+    commands = ['', 'create', '--version']
 else:
     commands = [os.path.join(bin_dir, "vocabularyplus"), f"{os.path.join(bin_dir, "vocabularyplus")} create", f"{os.path.join(bin_dir, "vocabularyplus")} --version"]
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         if not ON_WINDOWS:
             subprocess.run(commands[selected_index], shell=True)
         else:
-            subprocess.run(['powershell', '-File', os.path.join(bin_dir, "vocabularyplus.ps1"), arg for arg in commands[selected_index]])
+            subprocess.run(['powershell', '-File', os.path.join(bin_dir, "vocabularyplus.ps1"), commands[selected_index])
     except KeyboardInterrupt:
         print(SHOW_CURSOR, end='', flush=True)
     finally:
