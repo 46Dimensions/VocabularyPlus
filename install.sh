@@ -286,6 +286,9 @@ rm install-vm.sh
 # Set Vocabulary Plus version file
 echo "1.4.0" > $INSTALL_DIR/vm/versions/vp/current.txt
 
+# Set bin directory file
+echo "$HOME/.local/bin" > $INSTALL_DIR/.bin_dir.txt
+
 # Final message
 echo ""
 echo "${green}Vocabulary Plus 1.4.0 installed successfully${reset}"

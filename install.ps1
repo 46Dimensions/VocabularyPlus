@@ -201,9 +201,14 @@ Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/in
 
 Remove-Item $vmInstaller -Force
 
+Write-Colour "Version Manager installed." Green
+
+Write-Colour "Creating final files..." Yellow
 # --- Version file ---
 New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
 "1.4.0" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
+# --- Bin directory file ---
+Set-Content -Path (Join-Path $BIN_DIR ".bin_dir.txt") -Value $BIN_DIR
 
 # --- Done ---
 Write-Host ""
