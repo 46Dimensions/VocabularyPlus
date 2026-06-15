@@ -137,7 +137,9 @@ function Download($url, $out) {
 Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
 Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
+Download "$BASE_URL/menu.py" "menu.py"
 Download "$BASE_URL/app_icon.png" "app_icon.png"
+Download "$BASE_URL/LICENSE" "LICENSE"
 
 # --- Virtual environment ---
 Write-Colour "Creating virtual environment..." Yellow

@@ -27,6 +27,8 @@ BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
+MENU_URL="$BASE_URL/menu.py"
+LICENSE_URL="$BASE_URL/LICENSE"
 ICON_URL="$BASE_URL/app_icon.png"
 VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.sh"
 
@@ -66,7 +68,9 @@ echo "${yellow}Downloading files...${reset}"
 curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
 curl -fsSL "$MAIN_URL" -o main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
 curl -fsSL "$CREATE_URL" -o create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
+curl -fsSL "$MENU_URL" -o menu.py || { echo "${red}Failed to download menu.py${reset}"; exit 1; }
 curl -fsSL "$ICON_URL" -o app_icon.png || { echo "${red}Failed to download icon${reset}"; exit 1; }
+curl -fsSL "$LICENSE_URL" -o LICENSE || { echo "${red}Failed to download license${reset}"; exit 1; }
 
 echo "${yellow}Creating virtual environment...${reset}"
 python3 -m venv venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
