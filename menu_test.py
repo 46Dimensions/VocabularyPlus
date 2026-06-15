@@ -19,7 +19,7 @@ SPECIAL_KEYS = {
 }
 
 def draw_menu():
-    print(term.clear)
+    print(term.home, end='')
     h, w = term.height, term.width
 
     for idx, item in enumerate(menu_items):
