@@ -209,8 +209,18 @@ Write-Colour "Creating final files..." Yellow
 # --- Version file ---
 New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
 "1.4.0" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
+
 # --- Bin directory file ---
-Set-Content -Path (Join-Path $BIN_DIR ".bin_dir.txt") -Value $BIN_DIR
+Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
+
+# --- About file ---
+$DATE = (Get-Date)
+@"
+Vocabulary Plus
+Version: 1.4.0
+Installed on: $DATE
+Platform: Windows
+"@
 
 # --- Done ---
 Write-Host ""
