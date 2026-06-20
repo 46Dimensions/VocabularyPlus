@@ -186,7 +186,7 @@ $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary P
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_SCRIPT`""
-$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.png'
+$shortcut.IconLocation = Join-Path $INSTALL_DIR 'icons\png\icon_small.png'
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
@@ -220,7 +220,11 @@ Vocabulary Plus
 Version: 1.4.0
 Installed on: $DATE
 Platform: Windows
-"@
+Developer: 46Dimensions
+
+Website: https://github.com/46Dimensions/VocabularyPlus
+License: Mit License. See $INSTALL_DIR\LICENSE for details.
+"@ | Set-Content "$INSTALL_DIR\about.txt"
 
 # --- Done ---
 Write-Host ""
