@@ -150,9 +150,7 @@ v1.3.0 Beta is no longer available to be viewed; the changes can only be seen as
 
 [app_icon.png](app_icon.png)
 
-- Changed the icon for the desktop app to
-
-[![The Vocabulary Plus logo](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/app_icon.png)](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/app_icon.png)
+- Changed the icon for the desktop app.
 
 ### Markdown
 

@@ -1,6 +1,6 @@
 # Vocabulary Plus
 
-![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/readme_icon.png)
+![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0/icons/svg/icon_large.svg)
 
 A Python-based foreign vocabulary learning tool.  
 [View updates](UPDATES.md)
@@ -43,7 +43,7 @@ To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.
 
 ## Using Vocabulary Plus Version Manager
 
-See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for information on how to use Vocabulary Plus Version Manager.
+See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for usage instructions.
 
 ## Reporting bugs
 
