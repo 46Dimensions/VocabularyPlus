@@ -287,11 +287,34 @@ sh install-vm.sh $INSTALL_DIR/vm || { echo "${red}Failed to install VP VM${reset
 # Remove installer
 rm install-vm.sh
 
+echo "${yellow}Setting up final configuration...${reset}"
 # Set Vocabulary Plus version file
 echo "1.4.0" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Set bin directory file
 echo "$HOME/.local/bin" > $INSTALL_DIR/.bin_dir.txt
+
+# Set about file
+DATE=$(date +"%Y-%m-%d %H:%M:%S")
+
+if [ "$(uname)" = "Linux" ]; then
+    PLATFORM="Linux"
+elif [ "$(uname)" = "Darwin" ]; then
+    PLATFORM="macOS"
+else
+    PLATFORM="Unknown"
+fi
+
+cat > "$INSTALL_DIR/about.txt" <<EOF
+Vocabulary Plus
+Version: 1.4.0
+Installed on: $DATE
+Platform: $PLATFORM
+Developer: 46Dimensions
+
+Website: https://github.com/46Dimensions/VocabularyPlus
+License: Mit License. See $INSTALL_DIR/LICENSE for details.
+EOF
 
 # Final message
 echo ""
