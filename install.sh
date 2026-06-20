@@ -112,9 +112,11 @@ if [ "\$1" = "--help" ]; then
     echo "Usage: vocabularyplus [create] [options]"
     echo "Commands:"
     echo "  create                     Create a new vocabulary file"
+    echo "  menu                       Launch the Vocabulary Plus menu"
     echo "  uninstall [-s|--silent]    Uninstall Vocabulary Plus. Silent mode (-s|--silent) produces no output."
     echo "Options:"
     echo "  -v, --version              Show version information"
+    echo "  -a, --about                Show information about VocabularyPlus"
     echo "  --help                     Show this help message"
     echo "Alias:"
     echo "  vp                         Shortcut for vocabularyplus"
@@ -135,13 +137,17 @@ fi
 # Handle create subcommand
 PY="$INSTALL_DIR/venv/bin/python3"
 case "\$1" in
-  create)
-    shift
-    "\$PY" "$INSTALL_DIR/create_vocab_file.py" "\$@"
-    ;;
-  *)
-    "\$PY" "$INSTALL_DIR/main.py" "\$@"
-    ;;
+    create)
+        shift
+        "\$PY" "$INSTALL_DIR/create_vocab_file.py" "\$@"
+        ;;
+    menu)
+        shift
+        "\$PY" "$INSTALL_DIR/menu.py" "\$@"
+        ;;
+    *)
+        "\$PY" "$INSTALL_DIR/main.py" "\$@"
+        ;;
 esac
 EOF
 chmod +x "$LAUNCHER"
