@@ -2,14 +2,16 @@ param()
 
 function Show-Help {
     Write-Host ""
-    Write-Host "Usage: vocabularyplus [create] [options]"
+    Write-Host "Usage: vocabularyplus [command] [options]"
     Write-Host "Commands:"
-    Write-Host "  create        Create a new vocabulary file"
-    Write-Host "  uninstall     Uninstall Vocabulary Plus"
+    Write-Host "  create           Create a new vocabulary file"
+    Write-Host "  uninstall        Uninstall Vocabulary Plus"
+    Write-Host "  menu             Launch the Vocabulary Plus menu"
     Write-Host ""
     Write-Host "Options:"
-    Write-Host "  -v, --version   Show version information"
-    Write-Host "  --help          Show this help message"
+    Write-Host "  -v, --version    Show version information"
+    Write-Host "  -a, --about      Show information about VocabularyPlus"
+    Write-Host "  -h, --help       Show this help message"
 }
 
 $ScriptDir = $PSScriptRoot
@@ -30,6 +32,18 @@ if ($args.Count -gt 0) {
         }
         'create' {
             & $Python (Join-Path $InstallDir "create_vocab_file.py") @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        'menu' {
+            & $PYTHON (Join-Path $InstallDir "menu.py") @RemainingArgs
+            exit $LASTEXITCODE
+        }
+        '--about' {
+            Get-Content -Path (Join-Path $InstallDir "about.txt")
+            exit $LASTEXITCODE
+        }
+        '-a' {
+            Get-Content -Path (Join-Path $InstallDir "about.txt")
             exit $LASTEXITCODE
         }
         Default {
