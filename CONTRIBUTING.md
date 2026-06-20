@@ -1,49 +1,35 @@
 # Contributing to Vocabulary Plus
 
-Welcome to Vocabulary Plus!  
-We appreciate that you are interested in contributing to this repository.  
+Welcome to Vocabulary Plus! Thanks for helping improve this project.
 
-You can contribute to it by creating an issue.
+The easiest way to contribute is to open an issue.
 
 ## Creating Issues
 
-Have you found a reproducible problem in Vocabulary Plus or have a request for a feature?
-Use an issue to tell us.
+If you found a reproducible bug or want to request a feature, please open an issue.
 
-You can create a new issue on the [Vocabulary Plus Issues page](https://github.com/46Dimensions/VocabularyPlus/issues/new).
-Below are guidelines on how to do this effectively.
+Create a new issue on the [Vocabulary Plus Issues page](https://github.com/46Dimensions/VocabularyPlus/issues/new).
 
-### Check if the issue already exists
+### Before you create an issue
 
-Before creating an issue, please search in [Open Issues](https://github.com/46Dimensions/VocabularyPlus/issues/)
-to see if a similar issue or feature requests exists already.
-If you find that the issue/feature request already exists, make relevant comments and reactions.
-Instead of a "+1" or "-1" comment to vote for a feature request, use a reaction.
+- Search [existing issues](https://github.com/46Dimensions/VocabularyPlus/issues/) first
+- If a similar issue already exists, add a comment instead of creating a duplicate.
 
-* 👍 - up vote (+1)
-* 👎 - down vote (-1)
+### Writing a good issue
 
-If you cannot find a similar issue/feature request, create a new issue with the guidelines below.
+- Submit one issue per bug or feature request.
+- Do not combine multiple problems into the same issue.
+- Do not add a new issue as a comment on an existing issue.
 
-### Creating a good issue
-
-**Do** only create a single issue per problem and feature request.
-
-**Do not** enumerate multiple bugs or feature requests in the same issue.
-
-**Do not** add your issue as a comment to an existing issue.
-
-The more information you can provide,
-the more likely a developer will be successful at reproducing the issue and finding a fix.
+The more detail you provide, the easier it is for a developer to reproduce and fix the problem.
 
 A good issue should include:
 
-* Your OS (Windows/macOS/Linux)
-* Python version
-* Vocabulary Plus version (use `vocabularyplus --version` to see this)
-* A list of steps (1... 2... 3... etc) to reproduce the issue
-* What you saw, versus what you expected to see
-* An image or link to a video showing the issue occurring
+- Your OS (Windows/macOS/Linux)
+- Python version
+- Vocabulary Plus version (`vocabularyplus --version`)
+- Steps to reproduce the issue
+- What happened and what you expected
+- A screenshot or video link if available
 
-You can also use the ['Bug Report' issue template](https://github.com/46Dimensions/VocabularyPlus/blob/main/.github/ISSUE_TEMPLATE/bug-report.md)
-to help with creating a good bug report.
+For extra guidance, use the [Bug Report template](https://github.com/46Dimensions/VocabularyPlus/blob/main/.github/ISSUE_TEMPLATE/bug-report.md).
