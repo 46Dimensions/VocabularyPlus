@@ -138,7 +138,7 @@ Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
 Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
 Download "$BASE_URL/menu.py" "menu.py"
-Download "$BASE_URL/app_icon.png" "app_icon.png"
+Download "$BASE_URL/icons/png/icon_small.png" "app_icon.png"
 Download "$BASE_URL/LICENSE" "LICENSE"
 
 # --- Virtual environment ---
@@ -186,7 +186,7 @@ $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary P
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_SCRIPT`""
-$shortcut.IconLocation = Join-Path $INSTALL_DIR 'icons\png\icon_small.png'
+$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.png'
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
