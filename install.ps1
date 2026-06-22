@@ -185,7 +185,7 @@ $WshShell = New-Object -ComObject WScript.Shell
 $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_SCRIPT`""
+$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`""
 $shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.png'
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
