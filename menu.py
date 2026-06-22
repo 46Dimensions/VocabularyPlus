@@ -92,5 +92,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print(SHOW_CURSOR, end='', flush=True)
     finally:
-        time.sleep(10)
         print(SHOW_CURSOR, end='', flush=True)
+
+    time.sleep(10)
