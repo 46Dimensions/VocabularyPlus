@@ -225,6 +225,7 @@ Developer: 46Dimensions
 Website: https://github.com/46Dimensions/VocabularyPlus
 License: Mit License. See $INSTALL_DIR\LICENSE for details.
 "@ | Set-Content "$INSTALL_DIR\about.txt"
+Write-Colour "Created final files." Green
 
 # --- Done ---
 Write-Host ""
