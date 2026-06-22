@@ -19,7 +19,7 @@ if [ "$SILENT" -eq 1 ]; then
 fi
 
 echo "${cyan}=======================================${reset}"
-echo "${cyan}Vocabulary Plus: Unix Installer (1.4.0)${reset}"
+echo "${cyan}Vocabulary Plus: Unix Installer (1.5.0)${reset}"
 echo "${cyan}=======================================${reset}"
 echo
 
@@ -103,7 +103,7 @@ fi
 
 # Handle --version flag
 if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
-    echo 1.4.0
+    echo 1.5.0
     exit 0
 fi
 
@@ -170,7 +170,7 @@ if [ "\$SILENT" -eq 1 ]; then
 fi
 
 echo "${green}==============================================${reset}"
-echo "${green}Vocabulary Plus: Unix Uninstaller (1.4.0)${reset}"
+echo "${green}Vocabulary Plus: Unix Uninstaller (1.5.0)${reset}"
 echo "${green}==============================================${reset}"
 
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
@@ -295,7 +295,7 @@ rm install-vm.sh
 
 echo "${yellow}Setting up final configuration...${reset}"
 # Set Vocabulary Plus version file
-echo "1.4.0" > $INSTALL_DIR/vm/versions/vp/current.txt
+echo "1.5.0" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Set bin directory file
 echo "$HOME/.local/bin" > $INSTALL_DIR/.bin_dir.txt
@@ -313,7 +313,7 @@ fi
 
 cat > "$INSTALL_DIR/about.txt" <<EOF
 Vocabulary Plus
-Version: 1.4.0
+Version: 1.5.0
 Installed on: $DATE
 Platform: $PLATFORM
 Developer: 46Dimensions
@@ -324,7 +324,7 @@ EOF
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus 1.4.0 installed successfully${reset}"
+echo "${green}Vocabulary Plus 1.5.0 installed successfully${reset}"
 echo ""
 echo "You can run Vocabulary Plus with the following commands:"
 echo "  vocabularyplus           main application"

@@ -24,8 +24,8 @@ if ($args.Count -gt 0) {
     switch ($args[0].ToLower()) {
         '--help' { Show-Help; exit 0 }
         '-h' { Show-Help; exit 0 }
-        '--version' { Write-Host "1.4.0"; exit 0 }
-        '-v' { Write-Host "1.4.0"; exit 0 }
+        '--version' { Write-Host "1.5.0"; exit 0 }
+        '-v' { Write-Host "1.5.0"; exit 0 }
         'uninstall' {
             & $UninstallScript @RemainingArgs
             exit $LASTEXITCODE

@@ -15,7 +15,7 @@ function Write-Colour($text, $color) {
 }
 
 Write-Colour "==========================================" Cyan
-Write-Colour "Vocabulary Plus: Windows Installer (1.4.0)" Cyan
+Write-Colour "Vocabulary Plus: Windows Installer (1.5.0)" Cyan
 Write-Colour "==========================================" Cyan
 Write-Host ""
 
@@ -208,7 +208,7 @@ Write-Colour "Version Manager installed." Green
 Write-Colour "Creating final files..." Yellow
 # --- Version file ---
 New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
-"1.4.0" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
+"1.5.0" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
 
 # --- Bin directory file ---
 Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
@@ -217,7 +217,7 @@ Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
 $DATE = (Get-Date)
 @"
 Vocabulary Plus
-Version: 1.4.0
+Version: 1.5.0
 Installed on: $DATE
 Platform: Windows
 Developer: 46Dimensions
@@ -229,7 +229,7 @@ Write-Colour "Created final files." Green
 
 # --- Done ---
 Write-Host ""
-Write-Colour "Vocabulary Plus 1.4.0 installed successfully!" Green
+Write-Colour "Vocabulary Plus 1.5.0 installed successfully!" Green
 Write-Host ""
 Write-Host "Commands:"
 Write-Host "  vocabularyplus"

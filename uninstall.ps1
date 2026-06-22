@@ -15,7 +15,7 @@ $ShortcutPath = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Vo
 $ScriptPath = $MyInvocation.MyCommand.Path
 
 Write-Log '==========================================' Cyan
-Write-Log 'Vocabulary Plus: Uninstaller (1.4.0)' Cyan
+Write-Log 'Vocabulary Plus: Uninstaller (1.5.0)' Cyan
 Write-Log '==========================================' Cyan
 Write-Log ''
 
