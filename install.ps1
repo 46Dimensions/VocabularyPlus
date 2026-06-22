@@ -118,7 +118,7 @@ function Add-ToUserPath {
 }
 
 # --- Paths ---
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0"
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 $INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 Add-ToUserPath $BIN_DIR
@@ -194,11 +194,8 @@ Write-Colour "Shortcut created." Green
 
 # --- Install VP VM ---
 Write-Colour "Installing Version Manager..." Yellow
-
 $vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
-
-Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.1.0/install-vm.ps1" -OutFile $vmInstaller
-
+Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.ps1" -OutFile $vmInstaller
 & $vmInstaller "$INSTALL_DIR"
 
 Remove-Item $vmInstaller -Force
