@@ -14,9 +14,9 @@ menu_items = ["Learn vocab", "Create a vocabulary file", "About Vocabulary Plus"
 menu_descriptions = ["Opening Vocabulary Plus...", "Opening vocab file creator...", "Opening About screen..."]
 
 if ON_WINDOWS:
-    commands = ['', 'create', '--version']
+    commands = ['', 'create', '--about']
 else:
-    commands = [os.path.join(bin_dir, "vocabularyplus"), f"{os.path.join(bin_dir, "vocabularyplus")} create", f"{os.path.join(bin_dir, "vocabularyplus")} --version"]
+    commands = [os.path.join(bin_dir, "vocabularyplus"), f"{os.path.join(bin_dir, "vocabularyplus")} create", f"{os.path.join(bin_dir, "vocabularyplus")} --about"]
 
 selected_index = 0
 term = Terminal()
