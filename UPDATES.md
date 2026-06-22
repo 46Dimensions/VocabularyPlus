@@ -1,5 +1,10 @@
 # Vocabulary Plus - Updates
 
+## Depracation
+
+Starting with version 1.5.0, UPDATES.md will no longer be updated with new release information.  
+Instead, see the [releases page](https://github.com/46Dimensions/VocabularyPlus/releases) on GitHub.
+
 Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.1.0 to v1.4.0).
 To view older release notes, see tags v1.3.1 or older.
 
@@ -268,7 +273,3 @@ Released: 1st February 2026
 - Removed versions older than 3 months (v1.0.0 and v1.0.1)
 
 [_View on GitHub_](https://github.com/46Dimensions/VocabularyPlus/releases/v1.4.0)
-
-## Depracation
-
-Starting with version 1.5.0, UPDATES.md will no longer be updated with new release information.
