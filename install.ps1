@@ -138,7 +138,7 @@ Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
 Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
 Download "$BASE_URL/menu.py" "menu.py"
-Download "$BASE_URL/icons/icon_small.png" "app_icon.png"
+Download "$BASE_URL/icons/icon_small.icon" "app_icon.ico"
 Download "$BASE_URL/LICENSE" "LICENSE"
 
 # --- Virtual environment ---
@@ -185,8 +185,8 @@ $WshShell = New-Object -ComObject WScript.Shell
 $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`""
-$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.png'
+$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`" menu"
+$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.ico'
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
