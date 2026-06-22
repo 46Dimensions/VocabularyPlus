@@ -138,7 +138,7 @@ Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
 Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
 Download "$BASE_URL/menu.py" "menu.py"
-Download "$BASE_URL/icons/png/icon_small.png" "app_icon.png"
+Download "$BASE_URL/icons/icon_small.png" "app_icon.png"
 Download "$BASE_URL/LICENSE" "LICENSE"
 
 # --- Virtual environment ---
