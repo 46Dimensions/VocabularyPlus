@@ -21,7 +21,7 @@ function Write-BasicLogo {
 }
 
 function Write-ComplexLogo {
-    Download "$BASE_URL/icons/text_icon.txt" "$INSTALL_DIR\text_icon.txt"
+    DownloadSilent "$BASE_URL/icons/text_icon.txt" "$INSTALL_DIR\text_icon.txt"
     Get-Content "$INSTALL_DIR\text_icon.txt"
 }
 
@@ -155,6 +155,11 @@ Set-Location $INSTALL_DIR
 
 # --- Download files ---
 function Download($url, $out) {
+    Write-Colour "- Downloading $out..." Yellow
+    Invoke-WebRequest $url -OutFile $out
+}
+
+function DownloadSilent($url, $out) {
     Write-Colour "- Downloading $out..." Yellow
     Invoke-WebRequest $url -OutFile $out
 }
