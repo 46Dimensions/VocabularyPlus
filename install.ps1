@@ -197,7 +197,7 @@ Write-Colour "Launcher downloaded." Green
 # --- Uninstaller ---
 $UNINSTALLER_PATH = Join-Path $INSTALL_DIR "uninstall.ps1"
 
-Write-Colour "Dwonloading uninstaller..." Yellow
+Write-Colour "Downloading uninstaller..." Yellow
 
 Download $BASE_URL/uninstall.ps1 $UNINSTALLER_PATH
 
