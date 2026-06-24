@@ -143,7 +143,7 @@ function Add-ToUserPath {
 }
 
 # --- Paths ---
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0"
 $INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 Add-ToUserPath $BIN_DIR
