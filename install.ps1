@@ -2,7 +2,11 @@
 
 $ErrorActionPreference = "Stop"
 
-# --- Dwonload Functions ---
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0"
+$INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
+$BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+
+# --- Download Functions ---
 function Download($url, $out) {
     Write-Colour "- Downloading $out..." Yellow
     Invoke-WebRequest $url -OutFile $out
@@ -154,9 +158,6 @@ function Add-ToUserPath {
 }
 
 # --- Paths ---
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0"
-$INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
-$BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 Add-ToUserPath $BIN_DIR
 
 # --- Create install dir ---
