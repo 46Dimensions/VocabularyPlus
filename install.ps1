@@ -2,13 +2,6 @@
 
 $ErrorActionPreference = "Stop"
 
-function Confirm-Install {
-    param([string]$Message)
-
-    $response = Read-Host "$Message [Y/N]"
-    return $response.Trim().ToLower() -in @('y', 'yes')
-}
-
 # --- Colors ---
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
@@ -40,6 +33,13 @@ function PSVersionCheck {
     else {
         return 0
     }
+}
+
+function Confirm-Install {
+    param([string]$Message)
+
+    $response = Read-Host "$Message [Y/N]"
+    return $response.Trim().ToLower() -in @('y', 'yes')
 }
 
 function PythonCheck {
