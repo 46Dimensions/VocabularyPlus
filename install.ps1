@@ -14,16 +14,32 @@ function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
 
-Write-Colour "==========================================" Cyan
-Write-Colour "Vocabulary Plus: Windows Installer (1.5.0)" Cyan
-Write-Colour "==========================================" Cyan
-Write-Host ""
+function Write-BasicLogo {
+    Write-Colour "==========================================" Cyan
+    Write-Colour "Vocabulary Plus: Windows Installer (1.5.0)" Cyan
+    Write-Colour "==========================================" Cyan
+    Write-Host ""
+}
+
+function Write-ComplexLogo {
+    Download "$BASE_URL/icons/text_icon.txt" "$INSTALL_DIR\text_icon.txt"
+    Get-Content "$INSTALL_DIR\text_icon.txt"
+}
 
 function WindowsVersionCheck {
     # --- Windows version check ---
     if ([Environment]::OSVersion.Version.Major -lt 10) {
         Write-Colour "ERROR: Windows 10 or later is required." Red
         exit 1
+    }
+}
+
+function PSVersionCheck {
+    if ($PSVersionTable.PSVersion.Major -lt 7) {
+        return 1
+    }
+    else {
+        return 0
     }
 }
 
@@ -83,6 +99,15 @@ function PythonCheck {
 
 WindowsVersionCheck
 PythonCheck
+
+# Only PowerShell 7 supports ANSI codes for the complex logo, so check the PS version and display the appropriate logo.
+if (PSVersionCheck -eq 0) {
+    Write-BasicLogo
+    Write-Colour "PowerShell 7 or later is required for complex logo." Yellow
+}
+else {
+    Write-ComplexLogo
+}
 
 # --- Check existing install ---
 $commandName = "vocabularyplus.cmd"
