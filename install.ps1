@@ -124,7 +124,7 @@ else {
 }
 
 # --- Check existing install ---
-$commandName = "vocabularyplus.cmd"
+$commandName = "vocabularyplus"
 if (Get-Command $commandName -ErrorAction SilentlyContinue) {
     Write-Colour "ERROR: Vocabulary Plus appears to already be installed." Red
     exit 1
