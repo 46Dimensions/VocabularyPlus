@@ -2,6 +2,17 @@
 
 $ErrorActionPreference = "Stop"
 
+# --- Dwonload Functions ---
+function Download($url, $out) {
+    Write-Colour "- Downloading $out..." Yellow
+    Invoke-WebRequest $url -OutFile $out
+}
+
+function DownloadSilent($url, $out) {
+    Write-Colour "- Downloading $out..." Yellow
+    Invoke-WebRequest $url -OutFile $out
+}
+
 # --- Colors ---
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
@@ -154,16 +165,6 @@ New-Item -ItemType Directory -Force -Path $INSTALL_DIR | Out-Null
 Set-Location $INSTALL_DIR
 
 # --- Download files ---
-function Download($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
-}
-
-function DownloadSilent($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
-}
-
 Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
 Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
