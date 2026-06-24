@@ -2,15 +2,11 @@
 
 $ErrorActionPreference = "Stop"
 
-# --- Download functions ---
-function Download($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
-}
+function Confirm-Install {
+    param([string]$Message)
 
-function DownloadSilent($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
+    $response = Read-Host "$Message [Y/N]"
+    return $response.Trim().ToLower() -in @('y', 'yes')
 }
 
 # --- Colors ---
@@ -47,42 +43,57 @@ function PSVersionCheck {
 }
 
 function PythonCheck {
-    function Confirm-Install {
-        param([string]$Message)
+    function Install-Python {
+        if (-not (Confirm-Install "Install Python 3.14 now?")) {
+            Write-Colour "User declined PowerShell 7 installation. Exiting." Yellow
+            exit 1
+        }
+        Write-Colour "Attempting to install Python 3.14..." Yellow
+        Write-Colour "- Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
+        
+        try {
+            & winget install -e --id Python.Python.3.14 --source winget
 
-        $response = Read-Host "$Message [Y/N]"
-        return $response.Trim().ToLower() -in @('y', 'yes')
-        Write-Colour "Python installed successfully." Green
+            Write-Colour "- Reloading PATH" Yellow
+            # Reload PATH to make newly installed Python available
+            $env:PATH = [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH", "User")
+            $python = Get-Command python -ErrorAction SilentlyContinue
+            
+            if (-not $python) {
+                Write-Colour "ERROR: Python installation failed or Python command not available after install." Red
+                exit 1
+            }
+            Write-Colour "Python installed successfully." Green
+        }
+        catch {
+            Write-Colour "ERROR: Failed to install Python with winget: $_" Red
+            exit 1
+        }
+    }
+
+    # --- Python check ---
+    $python = Get-Command python -ErrorAction SilentlyContinue
+    if (-not $python) {
+        Write-Colour "Python not found." Red
+        Install-Python
+    }
+
+    # --- Check Python version ---
+    try {
+        $pyver = (& python --version) -replace "Python ", ""
+        $verParts = $pyver.Split(".")
+        $major = [int]$verParts[0]
+        $minor = [int]$verParts[1]
     }
     catch {
-        Write-Colour "ERROR: Failed to install Python with winget: $_" Red
-        exit 1
+        Write-Colour "ERROR: Could not determine Python version." Red
+        Install-Python
     }
-}
 
-# --- Python check ---
-$python = Get-Command python -ErrorAction SilentlyContinue
-if (-not $python) {
-    Write-Colour "Python not found." Red
-    Install-Python
-}
-
-# --- Check Python version ---
-try {
-    $pyver = (& python --version) -replace "Python ", ""
-    $verParts = $pyver.Split(".")
-    $major = [int]$verParts[0]
-    $minor = [int]$verParts[1]
-}
-catch {
-    Write-Colour "ERROR: Could not determine Python version." Red
-    Install-Python
-}
-
-if ($major -lt 3 -or ($major -eq 3 -and $minor -lt 10)) {
-    Write-Colour "ERROR: Python must be >= 3.10 (found $pyver)." Red
-    Install-Python
-}
+    if ($major -lt 3 -or ($major -eq 3 -and $minor -lt 10)) {
+        Write-Colour "ERROR: Python must be >= 3.10 (found $pyver)." Red
+        Install-Python
+    }
 }
 
 WindowsVersionCheck
@@ -143,6 +154,15 @@ New-Item -ItemType Directory -Force -Path $INSTALL_DIR | Out-Null
 Set-Location $INSTALL_DIR
 
 # --- Download files ---
+function Download($url, $out) {
+    Write-Colour "- Downloading $out..." Yellow
+    Invoke-WebRequest $url -OutFile $out
+}
+
+function DownloadSilent($url, $out) {
+    Write-Colour "- Downloading $out..." Yellow
+    Invoke-WebRequest $url -OutFile $out
+}
 
 Download "$BASE_URL/requirements.txt" "requirements.txt"
 Download "$BASE_URL/main.py" "main.py"
