@@ -18,7 +18,6 @@ function Write-BasicLogo {
     Write-Colour "==========================================" Cyan
     Write-Colour "Vocabulary Plus: Windows Installer (1.5.0)" Cyan
     Write-Colour "==========================================" Cyan
-    Write-Host ""
 }
 
 function Write-ComplexLogo {
@@ -104,6 +103,7 @@ PythonCheck
 if (PSVersionCheck -eq 0) {
     Write-BasicLogo
     Write-Colour "PowerShell 7 or later is required for complex logo." Yellow
+    Write-Host ""
 }
 else {
     Write-ComplexLogo
