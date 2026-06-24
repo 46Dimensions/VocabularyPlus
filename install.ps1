@@ -13,7 +13,6 @@ function Download($url, $out) {
 }
 
 function DownloadSilent($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
     Invoke-WebRequest $url -OutFile $out
 }
 
