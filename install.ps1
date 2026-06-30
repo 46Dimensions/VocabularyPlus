@@ -6,13 +6,9 @@ $BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0
 $INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 
-# --- Download Functions ---
+# --- Download Function ---
 function Download($url, $out) {
     Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
-}
-
-function DownloadSilent($url, $out) {
     Invoke-WebRequest $url -OutFile $out
 }
 
