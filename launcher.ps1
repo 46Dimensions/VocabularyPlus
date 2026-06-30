@@ -1,5 +1,9 @@
 param()
 
+function Write-Colour($text, $color) {
+    Write-Host $text -ForegroundColor $color
+}
+
 function Write-BasicLogo {
     Write-Colour "=======================" Cyan
     Write-Colour "Vocabulary Plus (1.5.0)" Cyan
