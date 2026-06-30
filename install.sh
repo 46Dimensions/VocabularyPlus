@@ -180,10 +180,6 @@ if [ "\$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${green}==============================================${reset}"
-echo "${green}Vocabulary Plus: Unix Uninstaller (1.5.0)${reset}"
-echo "${green}==============================================${reset}"
-
 cd $INSTALL_DIR || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
 deactivate 2>/dev/null || true
 
