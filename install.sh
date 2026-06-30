@@ -23,7 +23,7 @@ echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
 echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██"
-echo "[0m"
+echo -n "[0m"
 echo "VOCABULARY PLUS"
 
 BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
@@ -101,7 +101,7 @@ echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
 echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██"
-echo "[0m"
+echo -n "[0m"
 echo "VOCABULARY PLUS"
 
 # Check for venv in $INSTALL_DIR

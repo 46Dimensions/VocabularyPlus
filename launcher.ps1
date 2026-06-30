@@ -15,8 +15,7 @@ function Write-ComplexLogo {
     Write-Host "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
     Write-Host "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
     Write-Host "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-    Write-Host "[38;5;209m  🭖██🭡     [38;5;220m██"
-    Write-Host "[0m"
+    Write-Host "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
     Write-Host "VOCABULARY PLUS"
 }
 
