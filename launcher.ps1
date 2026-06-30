@@ -1,5 +1,40 @@
 param()
 
+function Write-BasicLogo {
+    Write-Colour "=======================" Cyan
+    Write-Colour "Vocabulary Plus (1.5.0)" Cyan
+    Write-Colour "=======================" Cyan
+}
+
+function Write-ComplexLogo {
+    Write-Host "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████ "
+    Write-Host "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
+    Write-Host "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
+    Write-Host "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+    Write-Host "[38;5;209m  🭖██🭡     [38;5;220m██"
+    Write-Host "[0m"
+    Write-Host "VOCABULARY PLUS"
+}
+
+function PSVersionCheck {
+    if ($PSVersionTable.PSVersion.Major -lt 7) {
+        return 1
+    }
+    else {
+        return 0
+    }
+}
+
+# Only PowerShell 7 supports ANSI codes for the complex logo, so check the PS version and display the appropriate logo.
+if (PSVersionCheck -eq 0) {
+    Write-BasicLogo
+    Write-Colour "PowerShell 7 or later is required for complex logo." Yellow
+    Write-Host ""
+}
+else {
+    Write-ComplexLogo
+}
+
 function Show-Help {
     Write-Host ""
     Write-Host "Usage: vocabularyplus [command] [options]"

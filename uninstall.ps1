@@ -14,11 +14,6 @@ $BinDir = Join-Path $env:USERPROFILE 'AppData\Local\Programs\VocabularyPlus'
 $ShortcutPath = Join-Path $env:APPDATA 'Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk'
 $ScriptPath = $MyInvocation.MyCommand.Path
 
-Write-Log '==========================================' Cyan
-Write-Log 'Vocabulary Plus: Uninstaller (1.5.0)' Cyan
-Write-Log '==========================================' Cyan
-Write-Log ''
-
 Write-Log 'Removing virtual environment...' Yellow
 Remove-Item -LiteralPath (Join-Path $InstallDir 'venv') -Recurse -Force -ErrorAction SilentlyContinue
 
