@@ -318,6 +318,7 @@ else
     PLATFORM="Unknown"
 fi
 
+DATE=$(date "+%x %R")
 cat > "$INSTALL_DIR/about.txt" <<EOF
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
