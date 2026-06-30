@@ -243,7 +243,7 @@ New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Nu
 Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
 
 # --- About file ---
-$DATE = (Get-Date)
+$DATE = (Get-Date -Format g)
 @"
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
