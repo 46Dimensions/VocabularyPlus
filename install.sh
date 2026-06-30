@@ -18,10 +18,13 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "${cyan}=======================================${reset}"
-echo "${cyan}Vocabulary Plus: Unix Installer (1.5.0)${reset}"
-echo "${cyan}=======================================${reset}"
-echo
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████ "
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
+echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██"
+echo "[0m"
+echo "VOCABULARY PLUS"
 
 BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
@@ -93,11 +96,19 @@ cat > "$LAUNCHER" <<EOF
 #!/usr/bin/env sh
 set -e
 
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████ "
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   ██"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████"
+echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██"
+echo "[0m"
+echo "VOCABULARY PLUS"
+
 # Check for venv in $INSTALL_DIR
 if [ -d "$INSTALL_DIR/venv" ]; then
     BASE_DIR="$INSTALL_DIR"
 else
-    echo "ERROR: Could not find VocabularyPlus directory at $INSTALL_DIR"
+    echo "ERROR: Could not find VocabularyPlus venv directory at $INSTALL_DIR/venv"
     exit 1
 fi
 
