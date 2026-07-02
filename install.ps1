@@ -17,20 +17,16 @@ function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
 
-function Write-BasicLogo {
-    Write-Colour "==========================================" Cyan
-    Write-Colour "Vocabulary Plus: Windows Installer (1.5.0)" Cyan
-    Write-Colour "==========================================" Cyan
-}
-
-function Write-ComplexLogo {
-    Write-Host "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭎"
-    Write-Host "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█🭬"
-    Write-Host "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭡"
-    Write-Host "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-    Write-Host "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
-    Write-Host "[0m"
+function Write-Logo {
+    $esc = [char]27
+    Write-Host "${esc}[38;5;99m🭖█🭀  🭋█🭡   ${esc}[38;5;171m██████🭎"
+    Write-Host "${esc}[38;5;105m🭦█🭐  🭅█🭛   ${esc}[38;5;177m██   🭨█🭬"
+    Write-Host "${esc}[38;5;141m 🭖█🭀🭋█🭡    ${esc}[38;5;183m██████🭡"
+    Write-Host "${esc}[38;5;177m 🭦█🭐🭅█🭛    ${esc}[38;5;209m██"
+    Write-Host "${esc}[38;5;209m  🭖██🭡     ${esc}[38;5;220m██${esc}[0m"
     Write-Host "VOCABULARY PLUS"
+    Write-Host "Windows installer (1.5.0)"
+    Write-Host ""
 }
 
 function WindowsVersionCheck {
@@ -38,15 +34,6 @@ function WindowsVersionCheck {
     if ([Environment]::OSVersion.Version.Major -lt 10) {
         Write-Colour "ERROR: Windows 10 or later is required." Red
         exit 1
-    }
-}
-
-function PSVersionCheck {
-    if ($PSVersionTable.PSVersion.Major -lt 7) {
-        return 1
-    }
-    else {
-        return 0
     }
 }
 
@@ -60,7 +47,7 @@ function Confirm-Install {
 function PythonCheck {
     function Install-Python {
         if (-not (Confirm-Install "Install Python 3.14 now?")) {
-            Write-Colour "User declined PowerShell 7 installation. Exiting." Yellow
+            Write-Colour "User declined Python installation. Exiting." Yellow
             exit 1
         }
         Write-Colour "Attempting to install Python 3.14..." Yellow
@@ -114,15 +101,7 @@ function PythonCheck {
 WindowsVersionCheck
 PythonCheck
 
-# Only PowerShell 7 supports ANSI codes for the complex logo, so check the PS version and display the appropriate logo.
-if (PSVersionCheck -eq 0) {
-    Write-BasicLogo
-    Write-Colour "PowerShell 7 or later is required for complex logo." Yellow
-    Write-Host ""
-}
-else {
-    Write-ComplexLogo
-}
+Write-Logo
 
 # --- Check existing install ---
 $commandName = "vocabularyplus"
