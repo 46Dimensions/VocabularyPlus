@@ -21,6 +21,9 @@ Unblock-File -Path .\install.ps1
 
 # Run the file
 .\install.ps1
+
+# Remove the file
+Remove-Item .\install.ps1
 ```
 
 ### macOS/Linux
