@@ -12,11 +12,9 @@ You must have Python 3.10+ installed.
 
 ### Windows
 
-_Run in **PowerShell** (in Terminal app)_
-
 ``` powershell
 # Download the file
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1/ -OutFile .\install.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1 -OutFile .\install.ps1
 
 # Allow the script to run without affecting ExecutionPolicy
 Unblock-File -Path .\install.ps1
