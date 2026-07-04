@@ -1,15 +1,15 @@
-param()
+﻿param()
 
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
 
 function Write-Logo {
-    Write-Host "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭎"
-    Write-Host "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█🭬"
-    Write-Host "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭡"
-    Write-Host "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-    Write-Host "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
+    Write-Host "[38;5;99mðŸ­–â–ˆðŸ­€  ðŸ­‹â–ˆðŸ­¡   [38;5;171mâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆðŸ­Ž"
+    Write-Host "[38;5;105mðŸ­¦â–ˆðŸ­  ðŸ­…â–ˆðŸ­›   [38;5;177mâ–ˆâ–ˆ   ðŸ­¨â–ˆðŸ­¬"
+    Write-Host "[38;5;141m ðŸ­–â–ˆðŸ­€ðŸ­‹â–ˆðŸ­¡    [38;5;183mâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆðŸ­¡"
+    Write-Host "[38;5;177m ðŸ­¦â–ˆðŸ­ðŸ­…â–ˆðŸ­›    [38;5;209mâ–ˆâ–ˆ"
+    Write-Host "[38;5;209m  ðŸ­–â–ˆâ–ˆðŸ­¡     [38;5;220mâ–ˆâ–ˆ[0m"
     Write-Host "VOCABULARY PLUS"
 }
 
