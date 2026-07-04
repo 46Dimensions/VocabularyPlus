@@ -19,11 +19,11 @@ function Write-Colour($text, $color) {
 
 function Write-Logo {
     $esc = [char]27
-    Write-Host "${esc}[38;5;99mðŸ­–â–ˆðŸ­€  ðŸ­‹â–ˆðŸ­¡   ${esc}[38;5;171mâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆðŸ­Ž"
-    Write-Host "${esc}[38;5;105mðŸ­¦â–ˆðŸ­  ðŸ­…â–ˆðŸ­›   ${esc}[38;5;177mâ–ˆâ–ˆ   ðŸ­¨â–ˆðŸ­¬"
-    Write-Host "${esc}[38;5;141m ðŸ­–â–ˆðŸ­€ðŸ­‹â–ˆðŸ­¡    ${esc}[38;5;183mâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆðŸ­¡"
-    Write-Host "${esc}[38;5;177m ðŸ­¦â–ˆðŸ­ðŸ­…â–ˆðŸ­›    ${esc}[38;5;209mâ–ˆâ–ˆ"
-    Write-Host "${esc}[38;5;209m  ðŸ­–â–ˆâ–ˆðŸ­¡     ${esc}[38;5;220mâ–ˆâ–ˆ${esc}[0m"
+    Write-Host "${esc}[38;5;99m🭖█🭀 🭋█🭡 ${esc}[38;5;171m██████🭎"
+    Write-Host "${esc}[38;5;105m🭦█🭐 🭅█🭛 ${esc}[38;5;177m██ 🭨█🭬"
+    Write-Host "${esc}[38;5;141m 🭖█🭀🭋█🭡 ${esc}[38;5;183m██████🭡"
+    Write-Host "${esc}[38;5;177m 🭦█🭐🭅█🭛 ${esc}[38;5;209m██"
+    Write-Host "${esc}[38;5;209m 🭖██🭡 ${esc}[38;5;220m██${esc}[0m"
     Write-Host "VOCABULARY PLUS"
     Write-Host "Windows installer (1.5.0)"
     Write-Host ""
