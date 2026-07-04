@@ -1,23 +1,29 @@
 # Vocabulary Plus
 
-![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/readme_icon.png)
+![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0/icons/icon_large.png)
 
 A Python-based foreign vocabulary learning tool.  
 [View updates](UPDATES.md)
 
 ## Installation
 
-Run these commands in your terminal.  
+Run these commands in your terminal.
 You must have Python 3.10+ installed.
 
 ### Windows
 
-_Run in **Command Prompt** (cmd.exe)_
+``` powershell
+# Download the file
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1 -OutFile .\install.ps1
 
-``` batch
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.bat -o install.bat
-CALL install.bat
-del /q install.bat
+# Allow the script to run without affecting ExecutionPolicy
+Unblock-File -Path .\install.ps1
+
+# Run the file
+.\install.ps1
+
+# Remove the file
+Remove-Item .\install.ps1
 ```
 
 ### macOS/Linux
@@ -25,12 +31,27 @@ del /q install.bat
 _Run in the **Terminal** app. The exact name can vary._
 
 ``` shell
+# Download the content and pipe it into sh to run instantly
 curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
+```
+
+Or if you want to view the downloaded file before running:
+
+``` shell
+# Download the file
+curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
+
+# View the file
+nano install.sh
+
+# Run the file then delete it
+sh install.sh
+rm install.sh
 ```
 
 ## Uninstallation
 
-_Run in **Command Prompt** on Windows; **Terminal** on macOS or Linux (name may vary)._
+_Run in **PowerShell** on Windows; **Terminal** on macOS or Linux (name may vary)._
 
 ``` shell
 vocabularyplus uninstall
@@ -38,12 +59,13 @@ vocabularyplus uninstall
 
 ## Running the script
 
-Run `vocabularyplus` or `vp`. You can also use the 'Vocabulary Plus' application.  
-To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.
+Run `vocabularyplus` or `vp`.  
+To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.  
+To open the menu, use `vocabularyplus menu` or `vp menu`, or use the 'Vocabulary Plus' application.
 
 ## Using Vocabulary Plus Version Manager
 
-See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for information on how to use Vocabulary Plus Version Manager.
+See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for usage instructions.
 
 ## Reporting bugs
 
@@ -53,3 +75,14 @@ For more information, see [Contributing](CONTRIBUTING.md).
 ## License
 
 Licensed under the MIT License — see [LICENSE](LICENSE) for details.
+
+## Text icon help
+
+If the text logo, shown when you run a VocabularyPlus command, is not working, your terminal or font
+does not support Unicode 13.0's [Symbols for Legacy Computing](https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing).
+
+Solutions:
+
+- Windows: Use Windows Terminal
+- MacOS and Linux: Update your OS
+- Use a different font

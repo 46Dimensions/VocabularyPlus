@@ -1,5 +1,10 @@
 # Vocabulary Plus - Updates
 
+## Depracation
+
+Starting with version 1.5.0, UPDATES.md will no longer be updated with new release information.  
+Instead, see the [releases page](https://github.com/46Dimensions/VocabularyPlus/releases) on GitHub.
+
 Vocabulary Plus is regularly updated. Below is a list of recent updates (v1.1.0 to v1.4.0).
 To view older release notes, see tags v1.3.1 or older.
 
@@ -148,11 +153,9 @@ v1.3.0 Beta is no longer available to be viewed; the changes can only be seen as
 
 ### App Icon
 
-[app_icon.png](app_icon.png)
+app_icon.png
 
-- Changed the icon for the desktop app to
-
-[![The Vocabulary Plus logo](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/app_icon.png)](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/app_icon.png)
+- Changed the icon for the desktop app.
 
 ### Markdown
 
@@ -258,14 +261,14 @@ because they had not been shortened when the version was changed from '1.3.0 Bet
 
 Released: 1st February 2026
 
-## Main
+### Main
 
 - Added percentage to the summary
 - Added the question number to the header above the question
 - Added 1-second wait on Ctrl+C exit
 - Removed an unused import
 
-## Update Log
+### Update Log
 
 - Removed versions older than 3 months (v1.0.0 and v1.0.1)
 

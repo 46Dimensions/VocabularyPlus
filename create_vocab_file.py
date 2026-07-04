@@ -30,25 +30,19 @@ def on_keyboard_interrupt():
 
 def clear_lines(lines: int) -> None:
     """
-    Remove the lines from the terminal. \n
-    :param lines: The number of lines to remove.
+    Clear the specified number of previous lines and position the cursor
+    at the beginning of the first cleared line.
+
+    :param lines: Number of lines to clear.
     """
-
-    supports_ansi = sys.stdout.isatty() and os.getenv("TERM") not in (None, "dumb")
-
-    if lines <= 0 or not supports_ansi:
+    if lines <= 0:
         return
 
-    # Move cursor up `lines` rows
-    sys.stdout.write(Cursor.UP(lines))
-
-    # Erase each line and move down one row
     for _ in range(lines):
-        sys.stdout.write(ansi.clear_line())   # equivalent to "\033[K"
-        sys.stdout.write("\n")
+        sys.stdout.write("\x1b[1A")  # Move up one line
+        sys.stdout.write("\x1b[2K")  # Clear entire line
+        sys.stdout.write("\r")       # Move to start of line
 
-    # Return cursor to the starting line
-    sys.stdout.write(Cursor.UP(lines))
     sys.stdout.flush()
 
 def dynamic_input(text: str) -> str:

@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-from colorama import init, Cursor, ansi, Fore, Style
+from colorama import init, just_fix_windows_console, Fore, Style
 from typing import Tuple, Dict, Optional
 from pathlib import Path
+import platform
 import random
 import json
 import time
 import sys
 import os
 
-# Initialise colorama (it will translate ANSI codes on Windows automatically)
-init(autoreset=False)
+# Initialise colorama
+if platform.system() == "Windows":
+    just_fix_windows_console()
+else:
+    init(autoreset=False)
 
 # Print CTRL+C instructions
 print(f"{Fore.RED}Press CTRL+C to quit.{Style.RESET_ALL}\n")
@@ -76,25 +80,19 @@ def read_json(path: str) -> Dict:
 
 def clear_lines(lines: int) -> None:
     """
-    Remove the lines from the terminal. \n
-    :param lines: The number of lines to remove.
+    Clear the specified number of previous lines and position the cursor
+    at the beginning of the first cleared line.
+
+    :param lines: Number of lines to clear.
     """
-
-    supports_ansi = sys.stdout.isatty() and os.getenv("TERM") not in (None, "dumb")
-
-    if lines <= 0 or not supports_ansi:
+    if lines <= 0:
         return
 
-    # Move cursor up `lines` rows
-    sys.stdout.write(Cursor.UP(lines))
-
-    # Erase each line and move down one row
     for _ in range(lines):
-        sys.stdout.write(ansi.clear_line())   # equivalent to "\033[K"
-        sys.stdout.write("\n")
+        sys.stdout.write("\x1b[1A")  # Move up one line
+        sys.stdout.write("\x1b[2K")  # Clear entire line
+        sys.stdout.write("\r")       # Move to start of line
 
-    # Return cursor to the starting line
-    sys.stdout.write(Cursor.UP(lines))
     sys.stdout.flush()
 
 def dynamic_print(text: str):
