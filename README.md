@@ -75,3 +75,14 @@ For more information, see [Contributing](CONTRIBUTING.md).
 ## License
 
 Licensed under the MIT License — see [LICENSE](LICENSE) for details.
+
+## Text icon help
+
+If the text logo, shown when you run a VocabularyPlus command, is not working, your terminal or font
+does not support Unicode 13.0's [Symbols for Legacy Computing](https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing).
+
+Solutions:
+
+- Windows: Use Windows Terminal
+- MacOS and Linux: Update your OS
+- Use a different font
