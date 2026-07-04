@@ -18,13 +18,13 @@ if [ "$SILENT" -eq 1 ]; then
   exec >/dev/null
 fi
 
-echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭎"
-echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█🭬"
-echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭡"
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-echo "[38;5;209m  🭖██🭡     [38;5;220m██"
-echo -n "[0m"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
+echo "MacOS & Linux Installer (1.5.0)"
 
 BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
 REQ_URL="$BASE_URL/requirements.txt"
@@ -96,12 +96,11 @@ cat > "$LAUNCHER" <<EOF
 #!/usr/bin/env sh
 set -e
 
-echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭎"
-echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█🭬"
-echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭡"
+echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
+echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
+echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-echo "[38;5;209m  🭖██🭡     [38;5;220m██"
-echo -n "[0m"
+echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
 
 # Check for venv in $INSTALL_DIR
