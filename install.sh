@@ -33,7 +33,7 @@ CREATE_URL="$BASE_URL/create_vocab_file.py"
 MENU_URL="$BASE_URL/menu.py"
 LICENSE_URL="$BASE_URL/LICENSE"
 ICON_URL="$BASE_URL/icons/icon_small.png"
-VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.sh"
+VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0/install-vm.sh"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {
