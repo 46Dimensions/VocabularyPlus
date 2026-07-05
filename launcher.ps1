@@ -15,8 +15,15 @@ function Write-Logo {
     Write-Host ""
 }
 
-# Display the logo
-Write-Logo
+# Display the logo unless the menu is being launched
+$ShowLogo = $true
+if ($args.Count -gt 0 -and $args[0].ToLower() -eq 'menu') {
+    $ShowLogo = $false
+}
+
+if ($ShowLogo) {
+    Write-Logo
+}
 
 function Show-Help {
     Write-Host ""
