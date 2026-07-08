@@ -12,6 +12,8 @@ You must have Python 3.10+ installed.
 
 ### Windows
 
+_Run in **PowerShell** (part of **Windows Terminal**)_
+
 ``` powershell
 # Download the file
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1 -OutFile .\install.ps1
