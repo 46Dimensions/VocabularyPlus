@@ -1,0 +1,96 @@
+name: Compile and upload ZIP files
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  create-linux-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: |
+          FILES="
+          main.py
+          create_vocab_file.py
+          menu.py
+          README.md
+          LICENSE
+          requirements.txt
+          icons/icon_small.png
+          "
+
+          zip -r "VocabularyPlus_Linux.zip" $FILES
+
+      - name: Upload assets to existing release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: VocabularyPlus_Linux.zip
+          tag_name: ${{ github.event.release.tag_name }}
+          append_body: false
+
+  create-macos-zip:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: |
+          FILES="
+          main.py
+          create_vocab_file.py
+          menu.py
+          README.md
+          LICENSE
+          requirements.txt
+          icons/icon_small.png
+          "
+
+          zip -r "VocabularyPlus_MacOS.zip" $FILES
+
+      - name: Upload assets to existing release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: VocabularyPlus_MacOS.zip
+          tag_name: ${{ github.event.release.tag_name }}
+          append_body: false
+
+  create-windows-zip:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      - name: Create ZIP
+        shell: pwsh
+        run: |
+          $Files = @(
+            "README.md"
+            "LICENSE"
+            "main.py"
+            "menu.py"
+            "create_vocab_file.py"
+            "requirements.txt"
+            "icons\icon_small.ico"
+            "launcher.ps1"
+            "uninstall.ps1"
+          )
+
+          Compress-Archive -Path $Files -DestinationPath "VocabularyPlus_Windows.zip"
+
+      - name: Upload assets to existing release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: VocabularyPlus_Windows.zip
+          tag_name: ${{ github.event.release.tag_name }}
+          append_body: false
