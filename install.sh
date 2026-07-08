@@ -33,7 +33,13 @@ CREATE_URL="$BASE_URL/create_vocab_file.py"
 MENU_URL="$BASE_URL/menu.py"
 LICENSE_URL="$BASE_URL/LICENSE"
 ICON_URL="$BASE_URL/icons/icon_small.png"
-VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0/install-vm.sh"
+
+# Get latest Version Manager version from GitHub API
+LATEST_VP_VM_TAG=$(curl -fsSL \
+  "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
+  grep '"tag_name"' |
+  cut -d '"' -f4)
+VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {

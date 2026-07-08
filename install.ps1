@@ -206,7 +206,11 @@ Write-Colour "Shortcut created." Green
 # --- Install VP VM ---
 Write-Colour "Installing Version Manager..." Yellow
 $vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
-Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/1.2.0/install-vm.ps1" -OutFile $vmInstaller
+
+# Get latest Version Manager version from GitHub API
+$vmLatestVersion = (Invoke-RestMethod "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest").tag_name
+
+Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/${VmLatestVersion}/install-vm.ps1" -OutFile $vmInstaller
 & $vmInstaller "$INSTALL_DIR"
 
 Remove-Item $vmInstaller -Force
