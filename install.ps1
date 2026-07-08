@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0"
+$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.1"
 $INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 
@@ -25,7 +25,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Windows Installer (1.5.0)"
+    Write-Host "Windows Installer (1.5.1)"
     Write-Host ""
 }
 
@@ -220,7 +220,7 @@ Write-Colour "Version Manager installed." Green
 Write-Colour "Creating final files..." Yellow
 # --- Version file ---
 New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
-"1.5.0" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
+"1.5.1" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
 
 # --- Bin directory file ---
 Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
@@ -231,7 +231,7 @@ $DATE = (Get-Date -Format g)
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
 
-Version: 1.5.0
+Version: 1.5.1
 Installed on: $DATE
 Platform: Windows
 Developer: 46Dimensions
@@ -251,7 +251,7 @@ Write-Colour "Created final files." Green
 
 # --- Done ---
 Write-Host ""
-Write-Colour "Vocabulary Plus 1.5.0 installed successfully!" Green
+Write-Colour "Vocabulary Plus 1.5.1 installed successfully!" Green
 Write-Host ""
 Write-Host "Commands:"
 Write-Host "  vocabularyplus"

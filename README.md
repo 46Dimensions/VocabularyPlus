@@ -1,6 +1,6 @@
 # Vocabulary Plus
 
-![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.0/icons/icon_large.png)
+![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.1/icons/icon_large.png)
 
 A Python-based foreign vocabulary learning tool.  
 [View updates](UPDATES.md)
