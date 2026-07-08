@@ -12,7 +12,7 @@ assignees: 46Dimensions
 A clear and concise description of what the bug is.
 
 **To Reproduce**  
-Steps to reproduce the behavior:
+Steps to reproduce the behaviour:
 
 1. Go to '...'
 2. Click on '....'
@@ -28,13 +28,10 @@ If applicable, add screenshots to help explain your problem.
 **Additional context**  
 Add any other context about the problem here.
 
-*Please complete details below:*
-<details>
+## OS Details
 
-**Please complete the following information:**
+_Please complete the following information:_
 
 - OS: [e.g. Windows]
 - Python version: [e.g. 3.14.1]
-- Vocabulary Plus [e.g. 1.5.1]
-
-</details>
+- Vocabulary Plus version: [e.g. 1.5.1]
