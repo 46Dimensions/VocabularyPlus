@@ -24,16 +24,22 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "MacOS & Linux Installer (1.5.0)"
+echo "MacOS & Linux Installer (1.5.1)"
 
-BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main"
+BASE_URL="https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.1"
 REQ_URL="$BASE_URL/requirements.txt"
 MAIN_URL="$BASE_URL/main.py"
 CREATE_URL="$BASE_URL/create_vocab_file.py"
 MENU_URL="$BASE_URL/menu.py"
 LICENSE_URL="$BASE_URL/LICENSE"
 ICON_URL="$BASE_URL/icons/icon_small.png"
-VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/main/install-vm.sh"
+
+# Get latest Version Manager version from GitHub API
+LATEST_VP_VM_TAG=$(curl -fsSL \
+  "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
+  grep '"tag_name"' |
+  cut -d '"' -f4)
+VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
 
 check_python() {
     command -v python3 >/dev/null 2>&1 || {
@@ -68,12 +74,12 @@ mkdir -p "$INSTALL_DIR"
 cd "$INSTALL_DIR" || { echo "${red}Failed to enter VocabularyPlus directory${reset}"; exit 1; }
 
 echo "${yellow}Downloading files...${reset}"
-curl -fsSL "$REQ_URL" -o requirements.txt || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
-curl -fsSL "$MAIN_URL" -o main.py || { echo "${red}Failed to download main.py${reset}"; exit 1; }
-curl -fsSL "$CREATE_URL" -o create_vocab_file.py || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
-curl -fsSL "$MENU_URL" -o menu.py || { echo "${red}Failed to download menu.py${reset}"; exit 1; }
-curl -fsSL "$ICON_URL" -o app_icon.png || { echo "${red}Failed to download icon${reset}"; exit 1; }
-curl -fsSL "$LICENSE_URL" -o LICENSE || { echo "${red}Failed to download license${reset}"; exit 1; }
+curl -fsSL "$REQ_URL" -o "requirements.txt" || { echo "${red}Failed to download requirements.txt${reset}"; exit 1; }
+curl -fsSL "$MAIN_URL" -o "main.py" || { echo "${red}Failed to download main.py${reset}"; exit 1; }
+curl -fsSL "$CREATE_URL" -o "create_vocab_file.py" || { echo "${red}Failed to download create_vocab_file.py${reset}"; exit 1; }
+curl -fsSL "$MENU_URL" -o "menu.py" || { echo "${red}Failed to download menu.py${reset}"; exit 1; }
+curl -fsSL "$ICON_URL" -o "app_icon.png" || { echo "${red}Failed to download icon${reset}"; exit 1; }
+curl -fsSL "$LICENSE_URL" -o "LICENSE" || { echo "${red}Failed to download license${reset}"; exit 1; }
 
 echo "${yellow}Creating virtual environment...${reset}"
 python3 -m venv venv || { echo "${red}Failed to create venv${reset}"; exit 1; }
@@ -96,12 +102,14 @@ cat > "$LAUNCHER" <<EOF
 #!/usr/bin/env sh
 set -e
 
-echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
-echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
-echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
-echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
-echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
-echo "VOCABULARY PLUS"
+if [ ! "$1" = "menu" ]; then
+    echo "[38;5;99m🭖█🭀  🭋█🭡   [38;5;171m██████🭏"
+    echo "[38;5;105m🭦█🭐  🭅█🭛   [38;5;177m██   🭨█"
+    echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
+    echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
+    echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
+    echo "VOCABULARY PLUS"
+fi
 
 # Check for venv in $INSTALL_DIR
 if [ -d "$INSTALL_DIR/venv" ]; then
@@ -113,7 +121,7 @@ fi
 
 # Handle --version flag
 if [ "\$1" = "--version" ] || [ "\$1" = "-v" ]; then
-    echo 1.5.0
+    echo 1.5.1
     exit 0
 fi
 
@@ -301,7 +309,7 @@ rm install-vm.sh
 
 echo "${yellow}Setting up final configuration...${reset}"
 # Set Vocabulary Plus version file
-echo "1.5.0" > $INSTALL_DIR/vm/versions/vp/current.txt
+echo "1.5.1" > $INSTALL_DIR/vm/versions/vp/current.txt
 
 # Set bin directory file
 echo "$HOME/.local/bin" > $INSTALL_DIR/.bin_dir.txt
@@ -322,7 +330,7 @@ cat > "$INSTALL_DIR/about.txt" <<EOF
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
 
-Version: 1.5.0
+Version: 1.5.1
 Installed on: $DATE
 Platform: Windows
 Developer: 46Dimensions
@@ -341,7 +349,7 @@ EOF
 
 # Final message
 echo ""
-echo "${green}Vocabulary Plus 1.5.0 installed successfully${reset}"
+echo "${green}Vocabulary Plus 1.5.1 installed successfully${reset}"
 echo ""
 echo "You can run Vocabulary Plus with the following commands:"
 echo "  vocabularyplus           main application"
