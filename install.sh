@@ -332,11 +332,11 @@ Copyright (c) 2025 46Dimensions
 
 Version: 1.5.1
 Installed on: $DATE
-Platform: Windows
+Platform: $PLATFORM
 Developer: 46Dimensions
 
 Website: https://github.com/46Dimensions/VocabularyPlus
-License: Mit License. See $INSTALL_DIR\LICENSE for details.
+License: Mit License. See $INSTALL_DIR/LICENSE for details.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
