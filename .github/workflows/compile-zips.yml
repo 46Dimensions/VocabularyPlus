@@ -18,13 +18,16 @@ jobs:
       - name: Create ZIP
         run: |
           FILES="
-          main.py
-          create_vocab_file.py
-          menu.py
-          README.md
+          app.py
+          learn.py
+          filepicker.py
+          vocab_io.py
+          edit_vocab_file.py
+          about.py
+          icons/Linux/
+          installation/requirements.txt
           LICENSE
-          requirements.txt
-          icons/icon_small.png
+          README.md
           "
 
           zip -r "VocabularyPlus_Linux.zip" $FILES
@@ -46,13 +49,17 @@ jobs:
       - name: Create ZIP
         run: |
           FILES="
-          main.py
-          create_vocab_file.py
-          menu.py
-          README.md
+          app.py
+          learn.py
+          filepicker.py
+          vocab_io.py
+          edit_vocab_file.py
+          about.py
+          icons/
+          installation/MacOS
+          installation/requirements.txt
           LICENSE
-          requirements.txt
-          icons/icon_small.png
+          README.md
           "
 
           zip -r "VocabularyPlus_MacOS.zip" $FILES
@@ -75,15 +82,17 @@ jobs:
         shell: pwsh
         run: |
           $Files = @(
-            "README.md"
-            "LICENSE"
-            "main.py"
-            "menu.py"
-            "create_vocab_file.py"
-            "requirements.txt"
-            "icons\icon_small.ico"
-            "launcher.ps1"
-            "uninstall.ps1"
+            app.py
+            learn.py
+            filepicker.py
+            vocab_io.py
+            edit_vocab_file.py
+            about.py
+            icons/
+            installation/Windows
+            installation/requirements.txt
+            LICENSE
+            README.md
           )
 
           Compress-Archive -Path $Files -DestinationPath "VocabularyPlus_Windows.zip"
