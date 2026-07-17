@@ -7,21 +7,18 @@ on:
   pull_request:
     paths:
       - '**/*.sh'
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
-  run-install:
+  run-setup:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Move into the setup script's directory
-        run: cd installation/Linux
-
-      - name: Make script executable
-        run: chmod +x ./setup.sh
-
-      - name: Run install.sh
-        run: ./setup.sh
+      - name: Run setup script
+        run: |
+          cd installation/Linux
+          chmod +x ./setup.sh
+          ./setup.sh

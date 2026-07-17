@@ -1,24 +1,25 @@
-name: Run PowerShell Installer
+name: Run Windows setup script
 
 on:
   push:
     paths:
-      - '**/*.ps1'
+      - '**/*.sh'
   pull_request:
     paths:
-      - '**/*.ps1'
-  workflow-dispatch:
+      - '**/*.sh'
+  workflow_dispatch:
 
 jobs:
-  run-install:
+  run-setup:
     runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run install.ps1
+      - name: Run setup script
         shell: pwsh
         run: |
-          pwsh -ExecutionPolicy Bypass -File ./install.ps1
-          ./install.ps1
+          Set-Location installation/Windows
+          Unblock-File -Path .\setup.ps1
+          .\setup.ps1
