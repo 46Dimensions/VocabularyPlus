@@ -1,4 +1,4 @@
-name: Run Bash Installer
+name: Run Linux setup script
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - '**/*.sh'
+  workflow-dispatch:
 
 jobs:
   run-install:
@@ -16,8 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Move into the setup script's directory
+        run: cd installation/Linux
+
       - name: Make script executable
-        run: chmod +x install.sh
+        run: chmod +x ./setup.sh
 
       - name: Run install.sh
-        run: ./install.sh
+        run: ./setup.sh

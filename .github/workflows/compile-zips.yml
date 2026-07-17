@@ -24,82 +24,18 @@ jobs:
           vocab_io.py
           edit_vocab_file.py
           about.py
-          icons/Linux/
-          installation/requirements.txt
-          LICENSE
-          README.md
-          "
-
-          zip -r "VocabularyPlus_Linux.zip" $FILES
-
-      - name: Upload assets to existing release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: VocabularyPlus_Linux.zip
-          tag_name: ${{ github.event.release.tag_name }}
-          append_body: false
-
-  create-macos-zip:
-    runs-on: macos-latest
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Create ZIP
-        run: |
-          FILES="
-          app.py
-          learn.py
-          filepicker.py
-          vocab_io.py
-          edit_vocab_file.py
-          about.py
+          VocabularyPlus.tcss
           icons/
-          installation/MacOS
-          installation/requirements.txt
+          installation/
           LICENSE
           README.md
           "
 
-          zip -r "VocabularyPlus_MacOS.zip" $FILES
+          zip -r "VocabularyPlus.zip" $FILES
 
       - name: Upload assets to existing release
         uses: softprops/action-gh-release@v2
         with:
-          files: VocabularyPlus_MacOS.zip
-          tag_name: ${{ github.event.release.tag_name }}
-          append_body: false
-
-  create-windows-zip:
-    runs-on: windows-latest
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      
-      - name: Create ZIP
-        shell: pwsh
-        run: |
-          $Files = @(
-            app.py
-            learn.py
-            filepicker.py
-            vocab_io.py
-            edit_vocab_file.py
-            about.py
-            icons/
-            installation/Windows
-            installation/requirements.txt
-            LICENSE
-            README.md
-          )
-
-          Compress-Archive -Path $Files -DestinationPath "VocabularyPlus_Windows.zip"
-
-      - name: Upload assets to existing release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: VocabularyPlus_Windows.zip
+          files: VocabularyPlus.zip
           tag_name: ${{ github.event.release.tag_name }}
           append_body: false

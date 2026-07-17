@@ -1,20 +1,27 @@
-name: Run Bash Installer on macOS
+name: Run MacOS setup script
 
 on:
   push:
     paths:
       - '**/*.sh'
+  pull_request:
+    paths:
+      - '**/*.sh'
+  workflow-dispatch:
 
 jobs:
   run-install:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Move into the setup script's directory
+        run: cd installation/MacOS
+
       - name: Make script executable
-        run: chmod +x install.sh
+        run: chmod +x ./setup.sh
 
       - name: Run install.sh
-        run: ./install.sh
+        run: ./setup.sh
