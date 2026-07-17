@@ -1,0 +1,72 @@
+$accent: #8133EF
+#logo {
+    margin: 1 0 1 1;
+}
+
+Label {
+    margin-left: 1;
+}
+
+Static {
+    margin-left: 1;
+}
+
+OptionMenu {
+    margin: 1 1 0 0;
+}
+
+.title {
+    text-style: bold underline;
+}
+
+Button {
+    margin-left: 1
+}
+
+#navbar {
+    dock: bottom;
+    height: 3;
+}
+
+#navbar Button {
+    width: 1fr;
+    margin-left: 0;
+}
+
+.selected {
+    background: $accent;
+}
+
+#dialog {
+    background: $surface;
+}
+
+ModalScreen {
+    align: center middle;
+    background: $background 10%;
+    border: none;
+}
+
+#filepicker {
+    width: 60%;
+    height: 70%;
+    align: center middle;
+    background: $background;
+    border: round $accent;
+    padding: 1 2;
+}
+
+#filepicker-list {
+    height: auto;
+    max-height: 15;
+    padding: 1 1 1 1;
+}
+
+#save-quiz-screen {
+    width: 60%;
+    height: 70%;
+    align: center middle;
+    background: $background;
+    border: round $accent;
+    padding: 1 2;
+}
