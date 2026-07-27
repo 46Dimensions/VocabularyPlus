@@ -129,7 +129,7 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Linux Setup (2.0.0)"
+echo "Mac Setup (2.0.0)"
 
 # Get latest Version Manager version from GitHub API
 LATEST_VP_VM_TAG=$(curl -fsSL \
