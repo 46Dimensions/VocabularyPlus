@@ -107,8 +107,8 @@ function Test-Python {
 
 Write-Logo
 
-WindowsVersionCheck
-PythonCheck
+Test-Windows
+Test-Python
 
 # --- Check existing install ---
 $commandName = "vocabularyplus"
