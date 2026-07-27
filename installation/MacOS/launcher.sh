@@ -2,12 +2,13 @@
 set -e
 
 # ANSI colours
+red="\033[91m"
 yellow="\033[93m"
 reset="\033[0m"
 
 # Check for venv in $INSTALL_DIR
-if [ ! -d "$INSTALL_DIR/venv" ]; then
-    echo "ERROR: Could not find VocabularyPlus venv directory at $INSTALL_DIR/venv"
+if [ ! -d "$INSTALL_DIR/.venv" ]; then
+    echo "${red}ERROR: Could not find VocabularyPlus venv directory at $INSTALL_DIR/.venv${reset}"
     exit 1
 fi
 
