@@ -1,4 +1,5 @@
 ﻿# Requires: PowerShell 5+ (Windows 10+)
+Set-PSDebug -Trace 2
 
 $ErrorActionPreference = "Stop"
 
@@ -23,7 +24,7 @@ function Write-Logo {
     Write-Host ""
 }
 
-function WindowsVersionCheck {
+function Test-Windows {
     # --- Windows version check ---
     if ([Environment]::OSVersion.Version.Major -lt 10) {
         Write-Colour "ERROR: Windows 10 or later is required." Red
@@ -38,7 +39,7 @@ function Confirm-Install {
     return $response.Trim().ToLower() -in @('y', 'yes')
 }
 
-function PythonCheck {
+function Test-Python {
     function Install-Python {
         if (-not (Confirm-Install "Install Python 3.14 now?")) {
             Write-Colour "User declined Python installation. Exiting." Yellow
@@ -274,3 +275,5 @@ Write-Host "or use the desktop app."
 Write-Host ""
 Write-Host "If commands don't work, open a new terminal or add this to PATH:"
 Write-Host "  $BIN_DIR"
+
+Set-PSDebug -Off
