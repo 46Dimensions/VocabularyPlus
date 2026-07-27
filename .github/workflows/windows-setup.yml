@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '**/*.ps1'
+      - '**/windows-setup.yml'
   pull_request:
     paths:
       - '**/*.ps1'

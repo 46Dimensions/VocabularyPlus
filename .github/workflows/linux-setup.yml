@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '**/*.sh'
+      - '**/linux-setup.yml'
   pull_request:
     paths:
       - '**/*.sh'
