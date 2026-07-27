@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$INSTALL_DIR = '$PSScriptRoot\..\..'
+$INSTALL_DIR = Join-Path "$PSScriptRoot" ".." ".."
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 New-Item -ItemType Directory -Path "$BIN_DIR"
 
