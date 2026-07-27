@@ -51,6 +51,10 @@ write_error() {
 confirm() {
     message=$1
 
+    if [ "$CI" = "true" ]; then
+        return 0
+    fi
+
     while true; do
         printf "%s [Y/N] " "$message"
         read -r answer
