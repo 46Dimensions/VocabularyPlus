@@ -208,7 +208,7 @@ fi
 # Define directories
 # ------------------
 
-INSTALL_DIR="$(get_script_dir)/../.." # get_script_dir: VocabularyPlus/installation/Linux
+INSTALL_DIR="$(dirname "$(dirname "$(get_script_dir)")")"
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 

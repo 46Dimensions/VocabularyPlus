@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$INSTALL_DIR = Join-Path "$PSScriptRoot" ".." ".."
+$INSTALL_DIR = (Get-Item $PSScriptRoot).Parent.Parent.FullName
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
 New-Item -ItemType Directory -Path "$BIN_DIR"
 
@@ -192,7 +192,7 @@ $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary P
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`" menu"
-$shortcut.IconLocation = Join-Path "$INSTALL_DIR" "icons" "app_icon.ico"
+$shortcut.IconLocation = Join-Path "$INSTALL_DIR" "icons" "icon_small.ico"
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
