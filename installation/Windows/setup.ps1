@@ -1,5 +1,4 @@
 ﻿# Requires: PowerShell 5+ (Windows 10+)
-Set-PSDebug -Trace 2
 
 $ErrorActionPreference = "Stop"
 
@@ -285,5 +284,3 @@ Write-Host "or use the desktop app."
 Write-Host ""
 Write-Host "If commands don't work, open a new terminal or add this to PATH:"
 Write-Host "  $BIN_DIR"
-
-Set-PSDebug -Off
