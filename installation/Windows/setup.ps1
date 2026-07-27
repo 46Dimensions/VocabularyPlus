@@ -120,8 +120,6 @@ if (Get-Command $commandName -ErrorAction SilentlyContinue) {
 function Add-ToUserPath {
     param([string]$NewPath)
 
-    Write-Colour "Setting up PATH" Yellow
-
     $current = [Environment]::GetEnvironmentVariable("PATH", "User")
 
     if (-not $current) { $current = "" }
@@ -191,7 +189,7 @@ Write-Colour "Launcher set up." Green
 
 # --- Uninstaller ---
 
-Write-Colour "Setting up uninstaller..."
+Write-Colour "Setting up uninstaller..." Yellow
 $ORIGINAL_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
 $NEW_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "uninstall"
 
@@ -233,7 +231,7 @@ if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
     New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
     "1.5.1" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
 
-    Write-Colour "Version Manager installed." Greens
+    Write-Colour "Version Manager installed." Green
 }
 
 # --- About file ---
