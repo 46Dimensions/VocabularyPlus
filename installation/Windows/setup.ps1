@@ -4,6 +4,7 @@ $ErrorActionPreference = "Stop"
 
 $INSTALL_DIR = '$PSScriptRoot\..\..'
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+New-Item -ItemType Directory -Path "$BIN_DIR"
 
 # --- Colors ---
 function Write-Colour($text, $color) {

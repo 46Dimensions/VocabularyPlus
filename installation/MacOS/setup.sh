@@ -131,13 +131,6 @@ echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
 echo "Mac Setup (2.0.0)"
 
-# Get latest Version Manager version from GitHub API
-LATEST_VP_VM_TAG=$(curl -fsSL \
-  "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
-  grep '"tag_name"' |
-  cut -d '"' -f4)
-VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
-
 
 # -------------
 # System checks
@@ -217,6 +210,7 @@ fi
 
 INSTALL_DIR="$(get_script_dir)/../.." # get_script_dir: VocabularyPlus/installation/Linux
 BIN_DIR="$HOME/.local/bin"
+mkdir -p "$BIN_DIR"
 
 cd "$INSTALL_DIR"
 
@@ -336,7 +330,14 @@ write_success "macOS .app installed: $APP_DIR"
 # ----------------------------
 
 if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
-    if confirm "Install Vocabulary Plus Version Manager?"; then
+    if confirm "Install Vocabulary Plus Version Manager? This requires internet access."; then
+        # Get latest Version Manager version from GitHub API
+        LATEST_VP_VM_TAG=$(curl -fsSL \
+        "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
+        grep '"tag_name"' |
+        cut -d '"' -f4)
+        VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
+
         write_progress "Installing Vocabulary Plus Version Manager..."
         # Download file
         write_progress "- Downloading installer..."
