@@ -36,11 +36,23 @@ function Test-Windows {
     }
 }
 
+function Test-Interactive {
+    return (
+        [Environment]::UserInteractive -and
+        -not $env:CI
+    )
+}
+
 function Confirm-Install {
     param([string]$Message)
 
-    $response = Read-Host "$Message [Y/N]"
-    return $response.Trim().ToLower() -in @('y', 'yes')
+    if (Test-Interactive) {
+        $response = Read-Host "$Message [Y/N]"
+        return $response.Trim().ToLower() -in @('y', 'yes')
+        else {
+            return 0 
+        }
+    }
 }
 
 function Test-Python {
