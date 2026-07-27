@@ -89,6 +89,7 @@ function PythonCheck {
 
         $major = [int]$verParts[0]
         $minor = [int]$verParts[1]
+        Write-Debug "Found Python version $pyver"
     }
     catch {
         Write-Colour "Python not found or not working." Red

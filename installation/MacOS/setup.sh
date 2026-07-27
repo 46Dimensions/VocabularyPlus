@@ -152,6 +152,8 @@ check_python() {
     MAJOR=$(printf "%s" "$PYVER" | cut -d. -f1)
     MINOR=$(printf "%s" "$PYVER" | cut -d. -f2)
 
+    echo "Found Python version $PYVER"
+
     if [ "$MAJOR" -lt 3 ] || { [ "$MAJOR" -eq 3 ] && [ "$MINOR" -lt 10 ]; }; then
         write_error "Python must be 3.10 or later (found $PYVER)."
         exit 1
