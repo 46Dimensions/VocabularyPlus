@@ -197,7 +197,8 @@ fi
 # Define directories
 # ------------------
 
-INSTALL_DIR="$(dirname "$(dirname "$(get_script_dir)")")"
+file_dir=$(get_script_dir)
+INSTALL_DIR="$(dirname "$(dirname "$(dirname "$file_dir")")")"
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 
