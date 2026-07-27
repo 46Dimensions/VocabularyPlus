@@ -1,6 +1,6 @@
 # Vocabulary Plus
 
-![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.1/icons/icon_large.png)
+![The Vocabulary Plus logo with the words 'Vocabulary Plus' to the right of it](https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/icons/icon_large.png)
 
 A Python-based foreign vocabulary learning tool.  
 [View updates](UPDATES.md)
@@ -8,15 +8,14 @@ A Python-based foreign vocabulary learning tool.
 ## Installation
 
 Run these commands in your terminal.
-You must have Python 3.10+ installed.
 
 ### Windows
 
 _Run in **PowerShell** (part of **Windows Terminal**)_
 
 ``` powershell
-# Download the file
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1 -OutFile .\install.ps1
+# Download the ZIP file
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile .\install.ps1
 
 # Allow the script to run without affecting ExecutionPolicy
 Unblock-File -Path .\install.ps1

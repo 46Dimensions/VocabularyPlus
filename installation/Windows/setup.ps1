@@ -44,21 +44,30 @@ function PythonCheck {
             Write-Colour "User declined Python installation. Exiting." Yellow
             exit 1
         }
+
         Write-Colour "Attempting to install Python 3.14..." Yellow
         Write-Colour "- Running: winget install -e --id Python.Python.3.14 --source winget" Yellow
-        
+
         try {
             & winget install -e --id Python.Python.3.14 --source winget
 
-            Write-Colour "- Reloading PATH" Yellow
-            # Reload PATH to make newly installed Python available
-            $env:PATH = [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [Environment]::GetEnvironmentVariable("PATH", "User")
-            $python = Get-Command python -ErrorAction SilentlyContinue
-            
-            if (-not $python) {
-                Write-Colour "ERROR: Python installation failed or Python command not available after install." Red
-                exit 1
+            if ($LASTEXITCODE -ne 0) {
+                throw "winget exited with code $LASTEXITCODE"
             }
+
+            Write-Colour "- Reloading PATH" Yellow
+
+            $env:PATH = `
+                [Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + `
+                [Environment]::GetEnvironmentVariable("PATH", "User")
+
+            # Actually test that Python works
+            $pythonVersion = & python --version 2>&1
+
+            if ($LASTEXITCODE -ne 0 -or $pythonVersion -notmatch "^Python \d+\.\d+\.\d+") {
+                throw "Python command is not available after installation."
+            }
+
             Write-Colour "Python installed successfully." Green
         }
         catch {
@@ -67,25 +76,27 @@ function PythonCheck {
         }
     }
 
-    # --- Python check ---
-    $python = Get-Command python -ErrorAction SilentlyContinue
-    if (-not $python) {
-        Write-Colour "Python not found." Red
-        Install-Python
-    }
-
-    # --- Check Python version ---
+    # --- Check Python ---
     try {
-        $pyver = (& python --version) -replace "Python ", ""
+        $pyver = (& python --version 2>&1)
+
+        if ($LASTEXITCODE -ne 0 -or $pyver -notmatch "^Python \d+\.\d+\.\d+") {
+            throw "Python command is not available."
+        }
+
+        $pyver = $pyver -replace "^Python ", ""
         $verParts = $pyver.Split(".")
+
         $major = [int]$verParts[0]
         $minor = [int]$verParts[1]
     }
     catch {
-        Write-Colour "ERROR: Could not determine Python version." Red
+        Write-Colour "Python not found or not working." Red
         Install-Python
+        return
     }
 
+    # --- Check Python version ---
     if ($major -lt 3 -or ($major -eq 3 -and $minor -lt 10)) {
         Write-Colour "ERROR: Python must be >= 3.10 (found $pyver)." Red
         Install-Python
@@ -142,7 +153,7 @@ Write-Colour "Creating virtual environment..." Yellow
 $VENV_DIR = Join-Path $INSTALL_DIR ".venv"
 python -m venv $VENV_DIR
 
-$PY = Join-Path $VENV_DIR "Scripts\python.exe"
+$PY = Join-Path $VENV_DIR "Scripts" "python.exe"
 
 if (-not (Test-Path $PY)) {
     Write-Colour "Python Virtual environment was not created at: $VENV_DIR" Red
