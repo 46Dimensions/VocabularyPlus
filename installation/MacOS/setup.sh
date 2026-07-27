@@ -168,26 +168,12 @@ check_python() {
 install_python() {
     write_progress "Installing Python..."
 
-    # Check if the distro has one of the major Linux package managers
-    if command -v apt-get >/dev/null 2>&1; then
-        sudo apt-get update
-        sudo apt-get install -y python3
-
-    elif command -v dnf >/dev/null 2>&1; then
-        sudo dnf install -y python3
-
-    elif command -v pacman >/dev/null 2>&1; then
-        sudo pacman -Sy --noconfirm python
-
-    elif command -v zypper >/dev/null 2>&1; then
-        sudo zypper install -y python3
-
-    elif command -v apk >/dev/null 2>&1; then
-        sudo apk add python3
-
+    # Check if Homebrew is installed
+    if command -v brew >/dev/null 2>&1; then
+        brew install python
     else
-        # Print an error if the distro has an unsupported manager
-        write_error "Error: Unsupported package manager."
+        # Print an error if Homebrew is not found.
+        write_error "Error: Homebrew is not installed."
         exit 1
     fi
 }
@@ -215,7 +201,7 @@ if ! check_python; then
 
         # Check Python again
         if ! check_python; then
-            write_error "Python is still not compatible. Please download and install Python from https://python.org/downloads ."
+            write_error "Cannot automatically install Python. Please download and install Python from https://python.org/downloads ."
         fi
 
     else
