@@ -4,34 +4,11 @@ function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
 
-function Write-Logo {
-    $esc = [char]27
-    Write-Host "$esc[38;5;99m🭖█🭀  🭋█🭡   $esc[38;5;171m██████🭏"
-    Write-Host "$esc[38;5;105m🭦█🭐  🭅█🭛   $esc[38;5;177m██   🭨█"
-    Write-Host "$esc[38;5;141m 🭖█🭀🭋█🭡    $esc[38;5;183m██████🭠"
-    Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
-    Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
-    Write-Host "VOCABULARY PLUS"
-    Write-Host ""
-}
-
-# Display the logo unless the menu is being launched
-$ShowLogo = $true
-if ($args.Count -gt 0 -and $args[0].ToLower() -eq 'menu') {
-    $ShowLogo = $false
-}
-
-if ($ShowLogo) {
-    Write-Logo
-}
-
 function Show-Help {
     Write-Host ""
     Write-Host "Usage: vocabularyplus [command] [options]"
     Write-Host "Commands:"
-    Write-Host "  create           Create a new vocabulary file"
     Write-Host "  uninstall        Uninstall Vocabulary Plus"
-    Write-Host "  menu             Launch the Vocabulary Plus menu"
     Write-Host ""
     Write-Host "Options:"
     Write-Host "  -v, --version    Show version information"
@@ -39,8 +16,7 @@ function Show-Help {
     Write-Host "  -h, --help       Show this help message"
 }
 
-$ScriptDir = $PSScriptRoot
-$InstallDir = Get-Content -Path (Join-Path $ScriptDir "install_dir.txt")
+$InstallDir = $PSScriptRoot
 $Python = Join-Path $InstallDir "venv\Scripts\python.exe"
 $UninstallScript = Join-Path $InstallDir "uninstall.ps1"
 $RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
@@ -53,14 +29,6 @@ if ($args.Count -gt 0) {
         '-v' { Write-Host "1.5.1"; exit 0 }
         'uninstall' {
             & $UninstallScript @RemainingArgs
-            exit $LASTEXITCODE
-        }
-        'create' {
-            & $Python (Join-Path $InstallDir "create_vocab_file.py") @RemainingArgs
-            exit $LASTEXITCODE
-        }
-        'menu' {
-            & $PYTHON (Join-Path $InstallDir "menu.py") @RemainingArgs
             exit $LASTEXITCODE
         }
         '--about' {

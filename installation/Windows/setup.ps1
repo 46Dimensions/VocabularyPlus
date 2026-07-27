@@ -2,15 +2,8 @@
 
 $ErrorActionPreference = "Stop"
 
-$BASE_URL = "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/1.5.1"
-$INSTALL_DIR = Join-Path $PWD "VocabularyPlus"
+$INSTALL_DIR = '$PSScriptRoot\..\..'
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
-
-# --- Download Function ---
-function Download($url, $out) {
-    Write-Colour "- Downloading $out..." Yellow
-    Invoke-WebRequest $url -OutFile $out
-}
 
 # --- Colors ---
 function Write-Colour($text, $color) {
@@ -25,7 +18,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Windows Installer (1.5.1)"
+    Write-Host "Windows Setup (2.0.0)"
     Write-Host ""
 }
 
@@ -139,24 +132,14 @@ function Add-ToUserPath {
 # --- Paths ---
 Add-ToUserPath $BIN_DIR
 
-# --- Create install dir ---
-Write-Colour "Creating VocabularyPlus directory..." Yellow
-New-Item -ItemType Directory -Force -Path $INSTALL_DIR | Out-Null
+# --- Move into install dir ---
 Set-Location $INSTALL_DIR
-
-# --- Download files ---
-Download "$BASE_URL/requirements.txt" "requirements.txt"
-Download "$BASE_URL/main.py" "main.py"
-Download "$BASE_URL/create_vocab_file.py" "create_vocab_file.py"
-Download "$BASE_URL/menu.py" "menu.py"
-Download "$BASE_URL/icons/icon_small.ico" "app_icon.ico"
-Download "$BASE_URL/LICENSE" "LICENSE"
 
 # --- Virtual environment ---
 Write-Colour "Creating virtual environment..." Yellow
-python -m venv venv
+python -m venv .venv
 
-$PY = Join-Path $INSTALL_DIR "venv\Scripts\python.exe"
+$PY = Join-Path $INSTALL_DIR ".venv\Scripts\python.exe"
 
 Write-Colour "Upgrading pip..." Yellow
 & $PY -m pip install --upgrade pip
@@ -167,27 +150,38 @@ Write-Colour "Installing dependencies..." Yellow
 Remove-Item requirements.txt -Force
 
 # --- Launcher ---
+Write-Colour "Setting up launcher..." Yellow
+
 New-Item -ItemType Directory -Force -Path $BIN_DIR | Out-Null
-$LAUNCHER_LOCATION = Join-Path $BIN_DIR "vocabularyplus.ps1"
-$ALIAS_LOCATION = Join-Path $BIN_DIR "vp.ps1"
+$ORIGINAL_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
+$NEW_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "vocabularyplus"
+$ALIAS_LOCATION = Join-Path $INSTALL_DIR "vp"
 
-Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
+$LINK_LOCATION = Join-Path $BIN_DIR "vocabularyplus.ps1"
+$ALIAS_LINK_LOCATION = Join-Path $BIN_DIR "vp.ps1"
 
-Write-Colour "Downloading launcher..." Yellow
+# Copy from installation directory into $INSTALL_DIR
+Copy-Item $ORIGINAL_LAUNCHER_LOCATION $NEW_LAUNCHER_LOCATION
+Copy-Item $NEW_LAUNCHER_LOCATION $ALIAS_LOCATION
 
-Download $BASE_URL/launcher.ps1 $LAUNCHER_LOCATION
-Copy-Item $LAUNCHER_LOCATION $ALIAS_LOCATION
+# Create symlinks in $BIN_DIR
+New-Item -ItemType SymbolicLink -Path $LINK_LOCATION -Target $NEW_LAUNCHER_LOCATION
+New-Item -ItemType SymbolicLink -Path $ALIAS_LINK_LOCATION -Target $ALIAS_LOCATION
 
-Write-Colour "Launcher downloaded." Green
+Write-Colour "Launcher set up." Green
 
 # --- Uninstaller ---
-$UNINSTALLER_PATH = Join-Path $INSTALL_DIR "uninstall.ps1"
 
-Write-Colour "Downloading uninstaller..." Yellow
+Write-Colour "Setting up uninstaller..."
+$ORIGINAL_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
+$NEW_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "uninstall"
 
-Download $BASE_URL/uninstall.ps1 $UNINSTALLER_PATH
+Copy-Item $ORIGINAL_UNINSTALLER_LOCATION $NEW_UNINSTALLER_LOCATION
 
-Write-Colour "Uninstaller downloaded." Green
+Write-Colour "Uninstaller set up" Green
+
+# Set install_dir.txt file
+Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
 
 # --- Start Menu shortcut ---
 Write-Colour "Creating Start Menu shortcut..." Yellow
@@ -203,27 +197,25 @@ $shortcut.Save()
 
 Write-Colour "Shortcut created." Green
 
-# --- Install VP VM ---
-Write-Colour "Installing Version Manager..." Yellow
-$vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
+# --- Install VP VM if the user wants to ---
+if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
+    Write-Colour "Installing Version Manager..." Yellow
+    $vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
 
-# Get latest Version Manager version from GitHub API
-$vmLatestVersion = (Invoke-RestMethod "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest").tag_name
+    # Get latest Version Manager version from GitHub API
+    $vmLatestVersion = (Invoke-RestMethod "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest").tag_name
 
-Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/${VmLatestVersion}/install-vm.ps1" -OutFile $vmInstaller
-& $vmInstaller "$INSTALL_DIR"
+    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/${VmLatestVersion}/install-vm.ps1" -OutFile $vmInstaller
+    & $vmInstaller "$INSTALL_DIR"
 
-Remove-Item $vmInstaller -Force
+    Remove-Item $vmInstaller -Force
 
-Write-Colour "Version Manager installed." Green
+    # --- Version file ---
+    New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
+    "1.5.1" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
 
-Write-Colour "Creating final files..." Yellow
-# --- Version file ---
-New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
-"1.5.1" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
-
-# --- Bin directory file ---
-Set-Content -Path (Join-Path $INSTALL_DIR ".bin_dir.txt") -Value $BIN_DIR
+    Write-Colour "Version Manager installed." Greens
+}
 
 # --- About file ---
 $DATE = (Get-Date -Format g)
@@ -249,17 +241,17 @@ SOFTWARE.
 "@ | Set-Content "$INSTALL_DIR\about.txt"
 Write-Colour "Created final files." Green
 
+# Remove installation directory
+Remove-Item -Recurse -Force "$INSTALL_DIR\installation"
+
 # --- Done ---
 Write-Host ""
 Write-Colour "Vocabulary Plus 1.5.1 installed successfully!" Green
 Write-Host ""
-Write-Host "Commands:"
+Write-Host "To open Vocabulary Plus, run:"
 Write-Host "  vocabularyplus"
-Write-Host "  vocabularyplus create"
 Write-Host "  vp"
-Write-Host "  vp create"
+Write-Host "or use the desktop app."
 Write-Host ""
-Write-Host "If commands don't work, add to PATH:"
+Write-Host "If commands don't work, open a new terminal or add this to PATH:"
 Write-Host "  $BIN_DIR"
-
-Set-Location $INSTALL_DIR\..
