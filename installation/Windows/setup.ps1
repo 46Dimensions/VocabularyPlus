@@ -3,14 +3,6 @@ Set-PSDebug -Trace 2
 
 $ErrorActionPreference = "Stop"
 
-# --- Path definitions ---
-$INSTALL_DIR = (Get-Item $PSScriptRoot).Parent.Parent.FullName
-$BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
-
-New-Item -ItemType Directory -Path "$BIN_DIR"
-Add-ToUserPath $BIN_DIR
-Set-Location $INSTALL_DIR
-
 # --- Colors ---
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
@@ -158,6 +150,14 @@ function Add-ToUserPath {
 
     Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
+
+# --- Path definitions ---
+$INSTALL_DIR = (Get-Item $PSScriptRoot).Parent.Parent.FullName
+$BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+
+New-Item -ItemType Directory -Path "$BIN_DIR"
+Add-ToUserPath $BIN_DIR
+Set-Location $INSTALL_DIR
 
 # --- Virtual environment ---
 Write-Colour "Creating virtual environment..." Yellow
