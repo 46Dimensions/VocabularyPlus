@@ -21,6 +21,5 @@ jobs:
       - name: Run setup script
         run: |
           cd installation/Linux
-          sh -x setup.sh
-          echo "SETUP SCRIPT FINISHED"
+          sh setup.sh
           vocabularyplus --version
