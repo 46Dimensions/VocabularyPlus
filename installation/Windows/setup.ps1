@@ -138,17 +138,23 @@ Set-Location $INSTALL_DIR
 
 # --- Virtual environment ---
 Write-Colour "Creating virtual environment..." Yellow
-python -m venv .venv
 
-$PY = Join-Path $INSTALL_DIR ".venv\Scripts\python.exe"
+$VENV_DIR = Join-Path $INSTALL_DIR ".venv"
+python -m venv $VENV_DIR
+
+$PY = Join-Path $VENV_DIR "Scripts\python.exe"
+
+if (-not (Test-Path $PY)) {
+    Write-Colour "Python Virtual environment was not created at: $VENV_DIR" Red
+    exit 1
+}
 
 Write-Colour "Upgrading pip..." Yellow
 & $PY -m pip install --upgrade pip
 
 Write-Colour "Installing dependencies..." Yellow
-& $PY -m pip install -r "$INSTALL_DIR/installation/requirements.txt"
-
-Remove-Item requirements.txt -Force
+$REQUIREMENTS_FILE = Join-Path $INSTALL_DIR "installation\requirements.txt"
+& $PY -m pip install -r $REQUIREMENTS_FILE
 
 # --- Launcher ---
 Write-Colour "Setting up launcher..." Yellow
