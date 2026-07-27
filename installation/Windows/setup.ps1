@@ -137,8 +137,10 @@ function Add-ToUserPath {
 
     [Environment]::SetEnvironmentVariable("PATH", $newPathValue, "User")
 
-    # Also update current session immediately
-    $env:PATH = $newPathValue
+    # Update current session
+    if ($env:PATH -notlike "*$NewPath*") {
+        $env:PATH += ";$NewPath"
+    }
 
     Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
