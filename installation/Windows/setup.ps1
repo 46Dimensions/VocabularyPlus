@@ -3,9 +3,13 @@ Set-PSDebug -Trace 2
 
 $ErrorActionPreference = "Stop"
 
+# --- Path definitions ---
 $INSTALL_DIR = (Get-Item $PSScriptRoot).Parent.Parent.FullName
 $BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
+
 New-Item -ItemType Directory -Path "$BIN_DIR"
+Add-ToUserPath $BIN_DIR
+Set-Location $INSTALL_DIR
 
 # --- Colors ---
 function Write-Colour($text, $color) {
@@ -143,9 +147,6 @@ function Add-ToUserPath {
     Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
 
-# --- Move into install dir ---
-Set-Location $INSTALL_DIR
-
 # --- Virtual environment ---
 Write-Colour "Creating virtual environment..." Yellow
 
@@ -260,9 +261,6 @@ Write-Colour "Created final files." Green
 
 # Remove installation directory
 Remove-Item -Recurse -Force "$INSTALL_DIR\installation"
-
-# --- Paths ---
-Add-ToUserPath $BIN_DIR
 
 # --- Done ---
 Write-Host ""
