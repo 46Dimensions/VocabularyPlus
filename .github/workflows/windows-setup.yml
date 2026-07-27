@@ -3,10 +3,10 @@ name: Run Windows setup script
 on:
   push:
     paths:
-      - '**/*.sh'
+      - '**/*.ps1'
   pull_request:
     paths:
-      - '**/*.sh'
+      - '**/*.ps1'
   workflow_dispatch:
 
 jobs:
