@@ -351,6 +351,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 EOF
 
+# -------------------------------
+# Remove 'installation' directory
+# -------------------------------
+rm -r "$INSTALL_DIR/installation"
+
 # Final message
 echo ""
 write_success "Vocabulary Plus 1.5.1 installed successfully"
