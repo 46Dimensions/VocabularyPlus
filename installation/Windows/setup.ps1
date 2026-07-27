@@ -143,9 +143,6 @@ function Add-ToUserPath {
     Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
 }
 
-# --- Paths ---
-Add-ToUserPath $BIN_DIR
-
 # --- Move into install dir ---
 Set-Location $INSTALL_DIR
 
@@ -263,6 +260,9 @@ Write-Colour "Created final files." Green
 
 # Remove installation directory
 Remove-Item -Recurse -Force "$INSTALL_DIR\installation"
+
+# --- Paths ---
+Add-ToUserPath $BIN_DIR
 
 # --- Done ---
 Write-Host ""
