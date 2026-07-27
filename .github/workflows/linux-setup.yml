@@ -20,5 +20,7 @@ jobs:
       - name: Run setup script
         run: |
           cd installation/Linux
-          chmod +x ./setup.sh
-          ./setup.sh
+          sh setup.sh
+
+      - name: Test Vocabulary Plus
+        run: vocabularyplus --version
