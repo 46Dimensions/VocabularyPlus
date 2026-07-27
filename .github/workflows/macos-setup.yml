@@ -18,10 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run setup script
+      - name: Run setup script & test command
         run: |
           cd installation/MacOS
           sh setup.sh
-
-      - name: Test Vocabulary Plus
-        run: vocabularyplus --version
+          vocabularyplus --version

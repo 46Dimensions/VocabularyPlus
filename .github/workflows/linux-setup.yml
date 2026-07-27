@@ -22,6 +22,4 @@ jobs:
         run: |
           cd installation/Linux
           sh setup.sh
-
-      - name: Test Vocabulary Plus
-        run: vocabularyplus --version
+          vocabularyplus --version

@@ -21,9 +21,7 @@ jobs:
       - name: Run setup script
         shell: pwsh
         run: |
-          Set-Location installation/Windows
+          Set-Location installation\Windows
           Unblock-File -Path .\setup.ps1
           .\setup.ps1
-
-      - name: Test Vocabulary Plus
-        run: vocabularyplus --version
+          vocabularyplus --version
