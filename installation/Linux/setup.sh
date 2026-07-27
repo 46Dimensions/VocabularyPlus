@@ -223,8 +223,7 @@ write_progress "Upgrading pip..."
 "$PY" -m pip install --upgrade pip
 
 write_progress "Installing dependencies..."
-"$PY" -m pip install -r requirements.txt
-rm requirements.txt
+"$PY" -m pip install -r "$INSTALL_DIR/installation/requirements.txt"
 
 
 # ------------

@@ -145,7 +145,7 @@ Write-Colour "Upgrading pip..." Yellow
 & $PY -m pip install --upgrade pip
 
 Write-Colour "Installing dependencies..." Yellow
-& $PY -m pip install -r requirements.txt
+& $PY -m pip install -r "$INSTALL_DIR/installation/requirements.txt"
 
 Remove-Item requirements.txt -Force
 
