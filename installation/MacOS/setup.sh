@@ -294,7 +294,7 @@ mkdir -p "$APP_DIR/Contents/MacOS"
 mkdir -p "$APP_DIR/Contents/Resources"
 
 # Copy icon & convert to .icns if sips exists
-cp "$INSTALL_DIR/app_icon.png" "$APP_DIR/Contents/Resources/app_icon.png"
+cp "$INSTALL_DIR/icons/icon_small.png" "$APP_DIR/Contents/Resources/app_icon.png"
 if command -v sips >/dev/null 2>&1; then
     sips -s format icns "$APP_DIR/Contents/Resources/app_icon.png" --out "$APP_DIR/Contents/Resources/app_icon.icns" >/dev/null 2>&1 || true
 fi

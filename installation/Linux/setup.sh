@@ -287,7 +287,7 @@ cat > "$DESKTOP_FILE" <<EOF
 Type=Application
 Name=Vocabulary Plus
 Exec=$LAUNCHER
-Icon=$INSTALL_DIR/app_icon.png
+Icon=$INSTALL_DIR/icons/icon_small.png
 Terminal=true
 Categories=Education;
 EOF

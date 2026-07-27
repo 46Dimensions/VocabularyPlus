@@ -192,7 +192,7 @@ $shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary P
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`" menu"
-$shortcut.IconLocation = Join-Path $INSTALL_DIR 'app_icon.ico'
+$shortcut.IconLocation = Join-Path "$INSTALL_DIR" "icons" "app_icon.ico"
 $shortcut.WorkingDirectory = $INSTALL_DIR
 $shortcut.Save()
 
