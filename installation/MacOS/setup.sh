@@ -212,6 +212,9 @@ INSTALL_DIR="$(dirname "$(dirname "$(get_script_dir)")")"
 BIN_DIR="$HOME/.local/bin"
 mkdir -p "$BIN_DIR"
 
+echo "Installation directory: $INSTALL_DIR"
+echo "Bin directory: $BIN_DIR"
+
 cd "$INSTALL_DIR"
 
 
