@@ -76,7 +76,7 @@ wget -nv --show-progress -O vocabularyplus.zip "https://github.com/46Dimensions/
 unzip -o VocabularyPlus.zip -d VocabularyPlus
 
 # Move into the VocabularyPlus directory
-cd VocabularyPlus/installation/MacOS
+cd VocabularyPlus/installation/Linux
 
 sh setup.sh
 ```

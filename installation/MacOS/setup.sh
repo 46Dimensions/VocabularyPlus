@@ -192,6 +192,7 @@ check_for_vp_vm() {
     fi
 }
 
+check_system
 check_for_installation
 
 if ! check_python; then

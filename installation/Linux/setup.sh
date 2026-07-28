@@ -117,7 +117,7 @@ echo "Linux Setup (2.0.0 Beta 2)"
 
 check_system() {
     if [ "$(uname)" != "Linux" ]; then
-        write_error "Not running on Linux. Use VocabularyPlus/installation/MacOS/setup.sh instead."
+        write_error "Not running on Linux. Use VocabularyPlus/installation/Linux/setup.sh instead."
     fi
 }
 
@@ -180,6 +180,7 @@ check_for_vp_vm() {
     fi
 }
 
+check_system
 check_for_installation
 
 if ! check_python; then
