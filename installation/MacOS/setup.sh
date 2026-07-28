@@ -334,7 +334,8 @@ EOF
 
 write_success "macOS .app installed: $APP_DIR"
 
-
+# Version Manager is not available in Beta 1
+: <<'END'
 # ----------------------------
 # Version Manager Installation
 # ----------------------------
@@ -372,6 +373,7 @@ if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
         echo "1.5.1" > "$INSTALL_DIR/vm/versions/vp/current.txt"
     fi
 fi
+END
 
 # Set about file
 DATE=$(date "+%x %R")

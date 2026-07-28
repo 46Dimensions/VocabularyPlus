@@ -226,6 +226,8 @@ $shortcut.Save()
 
 Write-Colour "Shortcut created." Green
 
+# Version Manager is not available in Beta 1
+<#
 # --- Install VP VM if the user wants to ---
 if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
     Write-Colour "Installing Version Manager..." Yellow
@@ -245,6 +247,7 @@ if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
 
     Write-Colour "Version Manager installed." Green
 }
+#>
 
 # --- About file ---
 $DATE = (Get-Date -Format g)
