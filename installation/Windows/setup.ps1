@@ -1,10 +1,15 @@
 ﻿# Requires: PowerShell 5+ (Windows 10+)
+param(
+    [switch]$Silent
+)
 
 $ErrorActionPreference = "Stop"
 
-# --- Colors ---
+# --- Colours ---
 function Write-Colour($text, $color) {
-    Write-Host $text -ForegroundColor $color
+    if (-not $Silent) {
+        Write-Host $text -ForegroundColor $color
+    }
 }
 
 function Write-Logo {
@@ -112,7 +117,9 @@ function Test-Python {
     }
 }
 
-Write-Logo
+if (-not $Silent) {
+    Write-Logo
+}
 
 Test-Windows
 Test-Python
