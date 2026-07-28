@@ -274,6 +274,7 @@ SOFTWARE.
 Write-Colour "Created final files." Green
 
 # Remove installation directory
+Set-Location "$INSTALL_DIR"
 Remove-Item -Recurse -Force "$INSTALL_DIR\installation"
 
 # --- Done ---

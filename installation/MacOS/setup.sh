@@ -404,6 +404,7 @@ EOF
 # -------------------------------
 # Remove 'installation' directory
 # -------------------------------
+cd "$INSTALL_DIR"
 rm -r "$INSTALL_DIR/installation"
 
 # Final message
