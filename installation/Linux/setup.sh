@@ -306,14 +306,14 @@ chmod +x "$DESKTOP_FILE"
 update-desktop-database ~/.local/share/applications 2>/dev/null || true
 write_success "Linux desktop entry installed successfully."
 
-# Version Manager is not available in Beta 1
+# Version Manager is not available in Betas 1 to 3
 : <<'END'
 # ----------------------------
 # Version Manager Installation
 # ----------------------------
 
 if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
-    if confirm "Install Vocabulary Plus Version Manager? This requires internet access."; then
+    if confirm "Install Vocabulary Plus Version Manager?"; then
         write_progress "Installing Vocabulary Plus Version Manager..."
 
         write_progress "- Getting latest version..."

@@ -335,7 +335,7 @@ EOF
 
 write_success "macOS .app installed: $APP_DIR"
 
-# Version Manager is not available in Beta 1
+# Version Manager is not available in Betas 1 to 3
 : <<'END'
 # ----------------------------
 # Version Manager Installation

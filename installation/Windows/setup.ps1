@@ -226,7 +226,7 @@ $shortcut.Save()
 
 Write-Colour "Shortcut created." Green
 
-# Version Manager is not available in Beta 1
+# Version Manager is not available in Betas 1 to 3
 <#
 # --- Install VP VM if the user wants to ---
 if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
