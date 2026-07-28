@@ -34,4 +34,4 @@ _Please complete the following information:_
 
 - OS: [e.g. Windows]
 - Python version: [e.g. 3.14.1]
-- Vocabulary Plus version: [e.g. 1.5.1]
+- Vocabulary Plus version: [e.g. 2.0.0 Beta 2]

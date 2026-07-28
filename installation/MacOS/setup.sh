@@ -133,7 +133,7 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Mac Setup (2.0.0)"
+echo "Mac Setup (2.0.0 Beta 2)"
 
 
 # -------------
@@ -370,7 +370,7 @@ if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
 
         write_progress "Setting up final configuration..."
         # Set Vocabulary Plus version file
-        echo "1.5.1" > "$INSTALL_DIR/vm/versions/vp/current.txt"
+        echo "2.0.0 Beta 2" > "$INSTALL_DIR/vm/versions/vp/current.txt"
     fi
 fi
 END
@@ -382,7 +382,7 @@ cat > "$INSTALL_DIR/about.txt" <<EOF
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
 
-Version: 2.0.0
+Version: 2.0.0 Beta 2
 Installed on: $DATE
 Platform: MacOS
 Developer: 46Dimensions
@@ -407,7 +407,7 @@ rm -r "$INSTALL_DIR/installation"
 
 # Final message
 echo ""
-write_success "Vocabulary Plus 1.5.1 installed successfully"
+write_success "Vocabulary Plus 2.0.0 Beta 2 installed successfully"
 echo ""
 echo "You can run Vocabulary Plus with the following commands:"
 echo "  vocabularyplus"

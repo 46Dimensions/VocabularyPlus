@@ -35,7 +35,7 @@ case "$1" in
         exit 0
         ;;
     --version|-v)
-        echo "1.5.1"
+        echo "2.0.0 Beta 2"
         exit 0
         ;;
     --about|-a)
