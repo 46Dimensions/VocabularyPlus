@@ -5,49 +5,80 @@
 A Python-based foreign vocabulary learning tool.  
 [View updates](UPDATES.md)
 
+> [!WARNING]
+> **Vocabulary Plus 2.0.0 is currently in Beta.**
+>
+> This version is still under development and may contain bugs, incomplete features, or breaking changes.
+>
+> If you encounter any problems, please report them in [GitHub Issues](https://github.com/46Dimensions/VocabularyPlus/issues)
+>
+> If you need a more stable experience, consider using the latest stable release (1.5.1) instead.
+
 ## Installation
 
-Run these commands in your terminal.
+Run these commands in your terminal,
+replacing `<tag_name>` with the version of Vocabulary Plus
+that you want to install (e.g. `v2.0.0-beta1`).
 
 ### Windows
 
-_Run in **PowerShell** (part of **Windows Terminal**)_
+[![Windows setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/windows-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/windows-setup.yml)
+
+_Run in **PowerShell** (part of **Terminal**)_
 
 ``` powershell
 # Download the ZIP file
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.ps1" -OutFile .\install.ps1
+Invoke-WebRequest -Uri "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip" -OutFile .\VocabularyPlus.zip
+
+# Unpack the ZIP file
+Expand-Archive -Path ".\VocabularyPlus.zip" -DestinationPath "VocabularyPlus" -Force
+
+# Move into the VocabularyPlus directory
+Set-Location -Path "VocabularyPlus\installation\Windows"
 
 # Allow the script to run without affecting ExecutionPolicy
-Unblock-File -Path .\install.ps1
+Unblock-File -Path .\setup.ps1
 
 # Run the file
-.\install.ps1
-
-# Remove the file
-Remove-Item .\install.ps1
+& .\setup.ps1
 ```
 
-### macOS/Linux
+### MacOS
+
+[![MacOS setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/macos-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/macos-setup.yml)
+
+_Run in the **Terminal** app._
+
+``` shell
+# Download the ZIP file showing a progress bar
+wget -nv --show-progress -O vocabularyplus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
+
+# Unpack the ZIP file
+unzip -o VocabularyPlus.zip -d VocabularyPlus
+
+# Move into the VocabularyPlus directory
+cd VocabularyPlus/installation/MacOS
+
+sh setup.sh
+```
+
+### Linux
+
+[![MacOS setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/linux-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/linux-setup.yml)
 
 _Run in the **Terminal** app. The exact name can vary._
 
 ``` shell
-# Download the content and pipe it into sh to run instantly
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh | sh
-```
+# Download the ZIP file showing a progress bar
+wget -nv --show-progress -O vocabularyplus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
 
-Or if you want to view the downloaded file before running:
+# Unpack the ZIP file
+unzip -o VocabularyPlus.zip -d VocabularyPlus
 
-``` shell
-# Download the file
-curl -fsSL https://raw.githubusercontent.com/46Dimensions/VocabularyPlus/main/install.sh -o install.sh
+# Move into the VocabularyPlus directory
+cd VocabularyPlus/installation/MacOS
 
-# View the file
-nano install.sh
-
-# Run the file then delete it
-sh install.sh
-rm install.sh
+sh setup.sh
 ```
 
 ## Uninstallation
@@ -60,9 +91,7 @@ vocabularyplus uninstall
 
 ## Running the script
 
-Run `vocabularyplus` or `vp`.  
-To make a vocabulary JSON file, run `vocabularyplus create` or `vp create`.  
-To open the menu, use `vocabularyplus menu` or `vp menu`, or use the 'Vocabulary Plus' application.
+Run `vocabularyplus` or `vp`, or use the Vocabulary Plus app.
 
 ## Using Vocabulary Plus Version Manager
 
