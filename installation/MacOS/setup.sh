@@ -341,14 +341,22 @@ write_success "macOS .app installed: $APP_DIR"
 
 if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
     if confirm "Install Vocabulary Plus Version Manager? This requires internet access."; then
+        write_progress "Installing Vocabulary Plus Version Manager..."
+
+        write_progress "- Getting latest version..."
         # Get latest Version Manager version from GitHub API
         LATEST_VP_VM_TAG=$(curl -fsSL \
         "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
         grep '"tag_name"' |
         cut -d '"' -f4)
+
+        if [ "$LATEST_VP_VM_TAG" = "" ]; then
+            write_error "Unable to get latest version from GitHub API."
+            exit 1
+        fi
+
         VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
 
-        write_progress "Installing Vocabulary Plus Version Manager..."
         # Download file
         write_progress "- Downloading installer..."
         curl -fsSL "$VP_VM_INSTALLER_URL" -o install-vm.sh || { write_error "Failed to download VP VM installer"; exit 1; }
