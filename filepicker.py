@@ -48,22 +48,25 @@ class FilePicker(ModalScreen):
         self.dismiss(None)
 
     def get_files(self, directory) -> dict[str, str]:
-        def remove_extension(filename: str|Path) -> str:
-            path = Path(filename)
-            if path.suffix.lower() in {".json", ".vocab"}:
-                return path.with_suffix("").name
-            return path.name
+        if os.path.exists(directory):
+            def remove_extension(filename: str|Path) -> str:
+                path = Path(filename)
+                if path.suffix.lower() in {".json", ".vocab"}:
+                    return path.with_suffix("").name
+                return path.name
 
-        files_in_dir: list[str] = os.listdir(directory)
-        valid_files = {}
+            files_in_dir: list[str] = os.listdir(directory)
+            valid_files = {}
 
-        for file in files_in_dir:
-            file = Path(file)
-            if file.suffix.lower() in (".json", ".vocab"):
-                extensionless_file = remove_extension(file.name)
-                valid_files[extensionless_file] = os.path.join(directory, file.name)
+            for file in files_in_dir:
+                file = Path(file)
+                if file.suffix.lower() in (".json", ".vocab"):
+                    extensionless_file = remove_extension(file.name)
+                    valid_files[extensionless_file] = os.path.join(directory, file.name)
 
-        return valid_files
+            return valid_files
+        else:
+            return {}
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected) -> None:
         valid_files = self.get_files(self.vocab_dir)
@@ -82,7 +85,8 @@ class FilePicker(ModalScreen):
             if not files:
                 self.notify("No valid vocabulary files found.\nTry a different directory",
                             title="No files",
-                            severity="warning"
+                            severity="warning",
+                            timeout=2.0
                 )
 
             option_list.clear_options()
