@@ -3,7 +3,7 @@ name: Run MacOS setup script
 on:
   push:
     paths:
-      - '**/*.sh'
+      - '**/MacOS/*.sh'
       - '**/macos-setup.yml'
   pull_request:
     paths:

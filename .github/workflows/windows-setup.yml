@@ -3,7 +3,7 @@ name: Run Windows setup script
 on:
   push:
     paths:
-      - '**/*.ps1'
+      - '**/Windows/*.ps1'
       - '**/windows-setup.yml'
   pull_request:
     paths:

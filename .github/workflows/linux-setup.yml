@@ -3,7 +3,7 @@ name: Run Linux setup script
 on:
   push:
     paths:
-      - '**/*.sh'
+      - '**/Linux/*.sh'
       - '**/linux-setup.yml'
   pull_request:
     paths:
