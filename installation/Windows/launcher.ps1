@@ -17,7 +17,7 @@ function Show-Help {
 }
 
 $InstallDir = $PSScriptRoot
-$Python = Join-Path $InstallDir "venv\Scripts\python.exe"
+$Python = Join-Path $InstallDir ".venv" "Scripts" "python.exe"
 $UninstallScript = Join-Path $InstallDir "uninstall.ps1"
 $RemainingArgs = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
 

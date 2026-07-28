@@ -13,7 +13,7 @@ if [ ! -d "$INSTALL_DIR/.venv" ]; then
 fi
 
 # Handle subcommands
-PY="$INSTALL_DIR/venv/bin/python3"
+PY="$INSTALL_DIR/.venv/bin/python3"
 case "$1" in
     uninstall)
         if ! [ "$2" = "-s" ] || [ "$2" = "--silent" ]; then
