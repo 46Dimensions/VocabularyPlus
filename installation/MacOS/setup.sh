@@ -297,7 +297,7 @@ write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$UNINSTALLER_PATH"
 # ------------------
 # Create .app bundle
 # ------------------
-echo "${yellow}Creating macOS .app bundle...${reset}"
+write_progress "Creating macOS .app bundle..."
 
 APP_DIR="$HOME/Applications/Vocabulary Plus.app"
 mkdir -p "$APP_DIR/Contents/MacOS"
