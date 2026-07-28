@@ -34,7 +34,7 @@ Invoke-WebRequest -Uri "https://github.com/46Dimensions/VocabularyPlus/releases/
 Expand-Archive -Path ".\VocabularyPlus.zip" -DestinationPath "VocabularyPlus" -Force
 
 # Move into the VocabularyPlus directory
-Set-Location -Path "VocabularyPlus\installation\Windows"
+Set-Location -Path ".\VocabularyPlus\installation\Windows"
 
 # Allow the script to run without affecting ExecutionPolicy
 Unblock-File -Path .\setup.ps1
@@ -51,7 +51,7 @@ _Run in the **Terminal** app._
 
 ``` shell
 # Download the ZIP file showing a progress bar
-wget -nv --show-progress -O vocabularyplus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
+wget -nv --show-progress -O VocabularyPlus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
 
 # Unpack the ZIP file
 unzip -o VocabularyPlus.zip -d VocabularyPlus
@@ -70,7 +70,7 @@ _Run in the **Terminal** app. The exact name can vary._
 
 ``` shell
 # Download the ZIP file showing a progress bar
-wget -nv --show-progress -O vocabularyplus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
+wget -nv --show-progress -O VocabularyPlus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
 
 # Unpack the ZIP file
 unzip -o VocabularyPlus.zip -d VocabularyPlus
