@@ -240,7 +240,7 @@ class SaveQuizPage(ModalScreen):
 
     def save_quiz(self, path: Path):
         # Add version and time data
-        self.quiz_data["version"] = "2.0.0 Beta 2" # The Vocabulary Plus version that made it
+        self.quiz_data["version"] = "2.0.0 Beta 3" # The Vocabulary Plus version that made it
         self.quiz_data["time"] = self.time.strftime("%H:%M:%S %d %b %Y")
 
         write_vocab_file(path, self.quiz_data)

@@ -18,7 +18,7 @@ A Python-based foreign vocabulary learning tool.
 
 Run these commands in your terminal,
 replacing `<tag_name>` with the version of Vocabulary Plus
-that you want to install (e.g. `v2.0.0-beta1`).
+that you want to install (e.g. `v2.0.0-beta3`).
 
 ### Windows
 
