@@ -74,18 +74,43 @@ confirm() {
 }
 
 add_to_path() {
-	directory=$1
+    directory=$1
 
-	case ":$PATH:" in
-		*":$directory:"*)
-		    return 0
-		    ;;
-	esac
+    # Already in PATH.
+    case ":$PATH:" in
+        *":$directory:"*)
+            return 0
+            ;;
+    esac
 
-	printf '\n# Added by Vocabulary Plus\nexport PATH="%s:$PATH"\n' "$directory" \
-		>> "$HOME/.profile"
+    shell_name=$(basename "$SHELL")
 
-	export PATH="$directory:$PATH"
+    case "$shell_name" in
+        bash)
+            config_file="$HOME/.bashrc"
+            printf '\n# Added by Vocabulary Plus\nexport PATH="%s:$PATH"\n' "$directory" \
+                >> "$config_file"
+            ;;
+        zsh)
+            config_file="$HOME/.zshrc"
+            printf '\n# Added by Vocabulary Plus\nexport PATH="%s:$PATH"\n' "$directory" \
+                >> "$config_file"
+            ;;
+        fish)
+            config_file="$HOME/.config/fish/config.fish"
+            mkdir -p "$(dirname "$config_file")"
+            printf '\n# Added by Vocabulary Plus\nfish_add_path "%s"\n' "$directory" \
+                >> "$config_file"
+            ;;
+        *)
+            config_file="$HOME/.profile"
+            printf '\n# Added by Vocabulary Plus\nexport PATH="%s:$PATH"\n' "$directory" \
+                >> "$config_file"
+            ;;
+    esac
+
+    # Make it available to the current installer process too.
+    export PATH="$directory:$PATH"
 }
 
 # Disable stdout if $1 is -s or --silent
