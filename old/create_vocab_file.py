@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-from colorama import init, Cursor, ansi, Fore, Style
-import platform
 import json
-import time
-import sys
 import os
+import platform
+import sys
+import time
+
+from colorama import Cursor, Fore, Style, ansi, init
 
 # Get the JSON_DIR constant
 try:

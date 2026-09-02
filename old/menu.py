@@ -1,9 +1,10 @@
-from blessed import Terminal
-from pathlib import Path
-import subprocess
-import platform
-import time
 import os
+import platform
+import subprocess
+import time
+from pathlib import Path
+
+from blessed import Terminal
 
 ON_WINDOWS = platform.system().lower() == "windows"
 

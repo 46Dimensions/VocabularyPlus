@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-from colorama import init, just_fix_windows_console, Fore, Style
-from typing import Tuple, Dict, Optional
-from pathlib import Path
+import json
+import os
 import platform
 import random
-import json
-import time
 import sys
-import os
+import time
+from pathlib import Path
+from typing import Dict, Optional, Tuple
+
+from colorama import Fore, Style, init, just_fix_windows_console
 
 # Initialise colorama
 if platform.system() == "Windows":
