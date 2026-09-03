@@ -209,8 +209,8 @@ Write-Colour "Launcher set up." Green
 # --- Uninstaller ---
 
 Write-Colour "Setting up uninstaller..." Yellow
-$ORIGINAL_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
-$NEW_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "uninstall"
+$ORIGINAL_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "uninstall.ps1"
+$NEW_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "uninstall.ps1"
 
 Copy-Item $ORIGINAL_UNINSTALLER_LOCATION $NEW_UNINSTALLER_LOCATION
 
