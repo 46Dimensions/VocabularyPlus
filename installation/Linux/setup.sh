@@ -252,28 +252,6 @@ UNINSTALLER_CONTENTS=$(cat "$UNINSTALLER_PATH")
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$UNINSTALLER_PATH"
 
 
-# ---------------------
-# Create .desktop entry
-# ---------------------
-write_progress "Creating Linux desktop entry..."
-
-DESKTOP_FILE="$HOME/.local/share/applications/vocabularyplus.desktop"
-mkdir -p "$(dirname "$DESKTOP_FILE")"
-
-cat > "$DESKTOP_FILE" <<EOF
-[Desktop Entry]
-Type=Application
-Name=Vocabulary Plus
-Exec=$LAUNCHER
-Icon=$INSTALL_DIR/icons/icon_small.png
-Terminal=true
-Categories=Education;
-EOF
-
-chmod +x "$DESKTOP_FILE"
-update-desktop-database ~/.local/share/applications 2>/dev/null || true
-write_success "Linux desktop entry installed successfully."
-
 # Set about file
 DATE=$(date "+%x %R")
 

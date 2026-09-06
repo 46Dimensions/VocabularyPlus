@@ -252,46 +252,6 @@ UNINSTALLER_CONTENTS=$(cat "$UNINSTALLER_PATH")
 write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$UNINSTALLER_PATH"
 
 
-# ------------------
-# Create .app bundle
-# ------------------
-write_progress "Creating macOS .app bundle..."
-
-APP_DIR="$HOME/Applications/Vocabulary Plus.app"
-mkdir -p "$APP_DIR/Contents/MacOS"
-mkdir -p "$APP_DIR/Contents/Resources"
-
-# Copy icon & convert to .icns if sips exists
-cp "$INSTALL_DIR/icons/icon_small.png" "$APP_DIR/Contents/Resources/app_icon.png"
-if command -v sips >/dev/null 2>&1; then
-    sips -s format icns "$APP_DIR/Contents/Resources/app_icon.png" --out "$APP_DIR/Contents/Resources/app_icon.icns" >/dev/null 2>&1 || true
-fi
-
-# Launcher wrapper
-cat > "$APP_DIR/Contents/MacOS/vocabularyplus" <<EOF
-#!/usr/bin/env sh
-open -a Terminal
-osascript  -e 'tell application "Terminal" to do script "$LAUNCHER_PATH"'
-EOF
-chmod +x "$APP_DIR/Contents/MacOS/vocabularyplus"
-
-# Info.plist
-cat > "$APP_DIR/Contents/Info.plist" <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>CFBundleName</key><string>Vocabulary Plus</string>
-    <key>CFBundleExecutable</key><string>vocabularyplus</string>
-    <key>CFBundleIdentifier</key><string>com.vocabularyplus.app</string>
-    <key>CFBundleIconFile</key><string>app_icon.icns</string>
-  </dict>
-</plist>
-EOF
-
-write_success "macOS .app installed: $APP_DIR"
-
 # Set about file
 DATE=$(date "+%x %R")
 

@@ -190,20 +190,6 @@ Write-Colour "Uninstaller set up" Green
 # Set install_dir.txt file
 Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
 
-# --- Start Menu shortcut ---
-Write-Colour "Creating Start Menu shortcut..." Yellow
-
-$WshShell = New-Object -ComObject WScript.Shell
-$shortcutPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Vocabulary Plus.lnk"
-$shortcut = $WshShell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = Join-Path $env:WINDIR 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$shortcut.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$LAUNCHER_LOCATION`" menu"
-$shortcut.IconLocation = Join-Path "$INSTALL_DIR" "icons" "icon_small.ico"
-$shortcut.WorkingDirectory = $INSTALL_DIR
-$shortcut.Save()
-
-Write-Colour "Shortcut created." Green
-
 # --- About file ---
 $DATE = (Get-Date -Format g)
 @"
