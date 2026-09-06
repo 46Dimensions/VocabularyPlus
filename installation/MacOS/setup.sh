@@ -88,6 +88,7 @@ add_to_path() {
     # Already in PATH.
     case ":$PATH:" in
         *":$directory:"*)
+            write_warning "$directory already in PATH"
             return 0
             ;;
     esac
@@ -117,6 +118,8 @@ add_to_path() {
                 >> "$config_file"
             ;;
     esac
+
+    write_success "Added $directory to PATH."
 
     # Make it available to the current installer process too.
     export PATH="$directory:$PATH"
@@ -223,6 +226,7 @@ mkdir -p "$BIN_DIR"
 echo "Installation directory: $INSTALL_DIR"
 echo "Bin directory: $BIN_DIR"
 
+add_to_path "$BIN_DIR"
 cd "$INSTALL_DIR"
 
 

@@ -141,38 +141,8 @@ if (Get-Command $commandName -ErrorAction SilentlyContinue) {
     exit 1
 }
 
-function Add-ToUserPath {
-    param([string]$NewPath)
-
-    $current = [Environment]::GetEnvironmentVariable("PATH", "User")
-
-    if (-not $current) { $current = "" }
-
-    $paths = $current -split ";" | Where-Object { $_ -ne "" }
-
-    if ($paths -contains $NewPath) {
-        Write-Host "PATH already contains: $NewPath" -ForegroundColor DarkGray
-        return
-    }
-
-    $newPathValue = ($paths + $NewPath) -join ";"
-
-    [Environment]::SetEnvironmentVariable("PATH", $newPathValue, "User")
-
-    # Update current session
-    if ($env:PATH -notlike "*$NewPath*") {
-        $env:PATH += ";$NewPath"
-    }
-
-    Write-Host "Added to PATH: $NewPath" -ForegroundColor Green
-}
-
 # --- Path definitions ---
 $INSTALL_DIR = (Get-Item $PSScriptRoot).Parent.Parent.FullName
-$BIN_DIR = "$env:USERPROFILE\AppData\Local\Programs\VocabularyPlus"
-
-New-Item -ItemType Directory -Path "$BIN_DIR"
-Add-ToUserPath $BIN_DIR
 Set-Location $INSTALL_DIR
 
 # --- Virtual environment ---
@@ -197,22 +167,13 @@ $REQUIREMENTS_FILE = Join-Path $INSTALL_DIR "installation\requirements.txt"
 
 # --- Launcher ---
 Write-Colour "Setting up launcher..." Yellow
-
-New-Item -ItemType Directory -Force -Path $BIN_DIR | Out-Null
 $ORIGINAL_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
 $NEW_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "vocabularyplus"
 $ALIAS_LOCATION = Join-Path $INSTALL_DIR "vp"
 
-$LINK_LOCATION = Join-Path $BIN_DIR "vocabularyplus.ps1"
-$ALIAS_LINK_LOCATION = Join-Path $BIN_DIR "vp.ps1"
-
 # Copy from installation directory into $INSTALL_DIR
 Copy-Item $ORIGINAL_LAUNCHER_LOCATION $NEW_LAUNCHER_LOCATION
 Copy-Item $NEW_LAUNCHER_LOCATION $ALIAS_LOCATION
-
-# Create symlinks in $BIN_DIR
-New-Item -ItemType SymbolicLink -Path $LINK_LOCATION -Target $NEW_LAUNCHER_LOCATION
-New-Item -ItemType SymbolicLink -Path $ALIAS_LINK_LOCATION -Target $ALIAS_LOCATION
 
 Write-Colour "Launcher set up." Green
 
