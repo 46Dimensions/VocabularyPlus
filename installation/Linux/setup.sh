@@ -4,8 +4,8 @@ set -e
 # -------------------
 # Version information
 # -------------------
-VERSION="v2.0.0-beta1"
-VERSION_DISPLAY="2.0.0 Beta 1"
+VERSION="v2.0.0-beta3"
+VERSION_DISPLAY="2.0.0 Beta 3"
 DEVELOPMENT_BRANCH="2.0.0"
 
 # Don't do anything with version or development branch
