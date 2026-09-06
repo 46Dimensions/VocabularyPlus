@@ -5,6 +5,16 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# -------------------
+# Version information
+# -------------------
+$VERSION = "v2.0.0-beta1"
+$VERSION_DISPLAY = "2.0.0 Beta 1"
+$DEVELOPMENT_BRANCH = "2.0.0"
+
+# Don't do anything with version or development branch
+$null = @($VERSION, $DEVELOPMENT_BRANCH)
+
 # --- Colours ---
 function Write-Colour($text, $color) {
     if (-not $Silent) {
@@ -20,7 +30,7 @@ function Write-Logo {
     Write-Host "$esc[38;5;177m 🭦█🭐🭅█🭛    $esc[38;5;209m██"
     Write-Host "$esc[38;5;209m  🭖██🭡     $esc[38;5;220m██$esc[0m"
     Write-Host "VOCABULARY PLUS"
-    Write-Host "Windows Setup (2.0.0 Beta 3)"
+    Write-Host "Windows Setup ($VERSION_DISPLAY)"
     Write-Host ""
 }
 
@@ -233,36 +243,13 @@ $shortcut.Save()
 
 Write-Colour "Shortcut created." Green
 
-# Version Manager is not available in Betas 1 to 3
-<#
-# --- Install VP VM if the user wants to ---
-if (Confirm-Install "Install Vocabulary Plus Version Manager?") {
-    Write-Colour "Installing Version Manager..." Yellow
-    $vmInstaller = Join-Path $env:TEMP "install-vm.ps1"
-
-    # Get latest Version Manager version from GitHub API
-    $vmLatestVersion = (Invoke-RestMethod "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest").tag_name
-
-    Invoke-WebRequest "https://raw.githubusercontent.com/46Dimensions/vp-vm/${VmLatestVersion}/install-vm.ps1" -OutFile $vmInstaller
-    & $vmInstaller "$INSTALL_DIR"
-
-    Remove-Item $vmInstaller -Force
-
-    # --- Version file ---
-    New-Item -ItemType Directory -Force -Path "$INSTALL_DIR\vm\versions\vp" | Out-Null
-    "2.0.0 Beta 3" | Set-Content "$INSTALL_DIR\vm\versions\vp\current.txt"
-
-    Write-Colour "Version Manager installed." Green
-}
-#>
-
 # --- About file ---
 $DATE = (Get-Date -Format g)
 @"
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
 
-Version: 2.0.0 Beta 3
+Version: $VERSION_DISPLAY
 Installed on: $DATE
 Platform: Windows
 Developer: 46Dimensions
@@ -286,7 +273,7 @@ Remove-Item -Recurse -Force "$INSTALL_DIR\installation"
 
 # --- Done ---
 Write-Host ""
-Write-Colour "Vocabulary Plus 2.0.0 Beta 3 installed successfully!" Green
+Write-Colour "Vocabulary Plus $VERSION_DISPLAY installed successfully!" Green
 Write-Host ""
 Write-Host "To open Vocabulary Plus, run:"
 Write-Host "  vocabularyplus"

@@ -1,6 +1,15 @@
 #!/usr/bin/env sh
 set -e
 
+# -------------------
+# Version information
+# -------------------
+VERSION="v2.0.0-beta1"
+VERSION_DISPLAY="2.0.0 Beta 1"
+DEVELOPMENT_BRANCH="2.0.0"
+
+# Don't do anything with version or development branch
+: "$VERSION $DEVELOPMENT_BRANCH"
 
 # ------------------
 # Helper definitions
@@ -133,7 +142,7 @@ echo "[38;5;141m 🭖█🭀🭋█🭡    [38;5;183m██████🭠"
 echo "[38;5;177m 🭦█🭐🭅█🭛    [38;5;209m██"
 echo "[38;5;209m  🭖██🭡     [38;5;220m██[0m"
 echo "VOCABULARY PLUS"
-echo "Linux Setup (2.0.0 Beta 3)"
+echo "Linux Setup ($VERSION_DISPLAY)"
 
 
 # -------------
@@ -190,23 +199,7 @@ install_python() {
     fi
 }
 
-check_for_installation() {
-    if [ -f "$HOME/.local/bin/vocabularyplus" ]; then
-        write_error "ERROR: Vocabulary Plus appears to be already installed."
-        exit 1
-    fi
-}
-
-check_for_vp_vm() {
-    if [ -f "$HOME/.local/bin/vp-vm" ]; then
-        exit 0
-    else
-        exit 1
-    fi
-}
-
 check_system
-check_for_installation
 
 if ! check_python; then
     if confirm "Install Python now?"; then
@@ -289,12 +282,8 @@ cp "$CURRENT_LAUNCHER_PATH" "$NEW_LAUNCHER_PATH"
 LAUNCHER_PATH=$NEW_LAUNCHER_PATH
 LAUNCHER_CONTENTS=$(cat "$LAUNCHER_PATH")
 
-# Add install dir to launcher and create symlinks to ~/.local/bin
+# Add install dir to launcher
 write_script_with_install_dir "$LAUNCHER_CONTENTS" "$LAUNCHER_PATH"
-# Link to ~/.local/bin/vocabularyplus
-ln -sf "$LAUNCHER_PATH" "$BIN_DIR/vocabularyplus"
-# Link to ~/.local/bin/vp
-ln -sf "$LAUNCHER_PATH" "$BIN_DIR/vp"
 
 write_progress "Setting up uninstaller..."
 # Copy launcher to VocabularyPlus/uninstall
@@ -331,47 +320,6 @@ chmod +x "$DESKTOP_FILE"
 update-desktop-database ~/.local/share/applications 2>/dev/null || true
 write_success "Linux desktop entry installed successfully."
 
-# Version Manager is not available in Betas 1 to 3
-: <<'END'
-# ----------------------------
-# Version Manager Installation
-# ----------------------------
-
-if [ ! -f "$HOME/.local/bin/vp-vm" ]; then
-    if confirm "Install Vocabulary Plus Version Manager?"; then
-        write_progress "Installing Vocabulary Plus Version Manager..."
-
-        write_progress "- Getting latest version..."
-        # Get latest Version Manager version from GitHub API
-        LATEST_VP_VM_TAG=$(curl -fsSL \
-        "https://api.github.com/repos/46Dimensions/vp-vm/releases/latest" |
-        grep '"tag_name"' |
-        cut -d '"' -f4)
-
-        if [ "$LATEST_VP_VM_TAG" = "" ]; then
-            write_error "Unable to get latest version from GitHub API."
-            exit 1
-        fi
-
-        VP_VM_INSTALLER_URL="https://raw.githubusercontent.com/46Dimensions/vp-vm/${LATEST_VP_VM_TAG}/install-vm.sh"
-
-        # Download file
-        write_progress "- Downloading installer..."
-        curl -fsSL "$VP_VM_INSTALLER_URL" -o install-vm.sh || { write_error "Failed to download VP VM installer"; exit 1; }
-        write_success "Download complete."
-        # Run installer
-        write_progress "- Running VP VM installer..."
-        sh install-vm.sh "$INSTALL_DIR/vm" || { write_error "Failed to install VP VM"; exit 1; }
-        # Remove installer
-        rm install-vm.sh
-
-        write_progress "Setting up final configuration..."
-        # Set Vocabulary Plus version file
-        echo "2.0.0 Beta 3" > "$INSTALL_DIR/vm/versions/vp/current.txt"
-    fi
-fi
-END
-
 # Set about file
 DATE=$(date "+%x %R")
 
@@ -379,7 +327,7 @@ cat > "$INSTALL_DIR/about.txt" <<EOF
 Vocabulary Plus
 Copyright (c) 2025 46Dimensions
 
-Version: 2.0.0 Beta 3
+Version: $VERSION_DISPLAY
 Installed on: $DATE
 Platform: Linux
 Developer: 46Dimensions
