@@ -24,4 +24,7 @@ jobs:
           Set-Location installation\Windows
           Unblock-File -Path .\setup.ps1
           .\setup.ps1
-          vocabularyplus --version
+
+          Set-Location ..\..
+          Unblock-File -Path .\vocabularyplus.ps1
+          .\vocabularyplus --version

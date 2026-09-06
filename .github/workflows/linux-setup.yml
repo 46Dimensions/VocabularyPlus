@@ -22,4 +22,6 @@ jobs:
         run: |
           cd installation/Linux
           sh setup.sh
-          vocabularyplus --version
+
+          cd ../..
+          ./vocabularyplus --version
