@@ -187,9 +187,6 @@ Copy-Item $ORIGINAL_UNINSTALLER_LOCATION $NEW_UNINSTALLER_LOCATION
 
 Write-Colour "Uninstaller set up" Green
 
-# Set install_dir.txt file
-Set-Content -Path (Join-Path $BIN_DIR "install_dir.txt") -Value $INSTALL_DIR
-
 # --- About file ---
 $DATE = (Get-Date -Format g)
 @"
