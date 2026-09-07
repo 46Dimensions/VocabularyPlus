@@ -23,4 +23,5 @@ jobs:
           cd installation/Linux
           sh setup.sh
 
+          cd ../..
           ./vocabularyplus --version

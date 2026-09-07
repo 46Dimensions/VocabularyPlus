@@ -23,4 +23,5 @@ jobs:
           cd installation/MacOS
           sh setup.sh
 
+          cd ../..
           ./vocabularyplus --version
