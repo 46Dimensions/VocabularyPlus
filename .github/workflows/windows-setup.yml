@@ -25,7 +25,7 @@ jobs:
           Unblock-File -Path .\setup.ps1
           .\setup.ps1
 
-          Set-Location "$GITHUB_WORKSPACE"
+          Set-Location "$env:GITHUB_WORKSPACE"
           Get-ChildItem
           Unblock-File -Path (Join-Path $PWD.Path "vocabularyplus")
           & (Join-Path $PWD.Path "vocabularyplus") "--version"
