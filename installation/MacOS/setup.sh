@@ -146,13 +146,6 @@ install_python() {
     fi
 }
 
-check_for_installation() {
-    if [ -f "$HOME/.local/bin/vocabularyplus" ]; then
-        write_error "ERROR: Vocabulary Plus appears to be already installed."
-        exit 1
-    fi
-}
-
 check_system
 
 if ! check_python; then
