@@ -168,7 +168,7 @@ $REQUIREMENTS_FILE = Join-Path $INSTALL_DIR "installation\requirements.txt"
 # --- Launcher ---
 Write-Colour "Setting up launcher..." Yellow
 $ORIGINAL_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "launcher.ps1"
-$NEW_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "vocabularyplus"
+$NEW_LAUNCHER_LOCATION = Join-Path $INSTALL_DIR "vocabularyplus.ps1"
 $ALIAS_LOCATION = Join-Path $INSTALL_DIR "vp"
 
 # Copy from installation directory into $INSTALL_DIR
