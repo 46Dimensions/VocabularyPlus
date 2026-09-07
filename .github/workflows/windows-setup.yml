@@ -27,4 +27,4 @@ jobs:
 
           Set-Location ..\..
           Unblock-File -Path .\vocabularyplus
-          & (Join-Path $PWD.Path "file.ps1") "--version"
+          & (Join-Path $PWD.Path "vocabularyplus") "--version"
