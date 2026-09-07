@@ -27,5 +27,5 @@ jobs:
 
           Set-Location "$env:GITHUB_WORKSPACE"
           Get-ChildItem
-          Unblock-File -Path (Join-Path $PWD.Path "vocabularyplus")
-          & (Join-Path $PWD.Path "vocabularyplus") "--version"
+          Unblock-File -Path (Join-Path $PWD.Path "vocabularyplus.ps1")
+          & (Join-Path $PWD.Path "vocabularyplus.ps1") "--version"
