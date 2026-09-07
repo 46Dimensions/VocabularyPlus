@@ -1,5 +1,15 @@
 ﻿param()
 
+# -------------------
+# Version information
+# -------------------
+$VERSION = "v2.0.0-beta4"
+$VERSION_DISPLAY = "2.0.0 Beta 4"
+$DEVELOPMENT_BRANCH = "2.0.0"
+
+# Don't do anything with version or development branch
+$null = @($VERSION, $DEVELOPMENT_BRANCH)
+
 function Write-Colour($text, $color) {
     Write-Host $text -ForegroundColor $color
 }
@@ -25,8 +35,8 @@ if ($args.Count -gt 0) {
     switch ($args[0].ToLower()) {
         '--help' { Show-Help; exit 0 }
         '-h' { Show-Help; exit 0 }
-        '--version' { Write-Host "2.0.0 Beta 3"; exit 0 }
-        '-v' { Write-Host "2.0.0 Beta 3"; exit 0 }
+        '--version' { Write-Host "$VERSION_DISPLAY"; exit 0 }
+        '-v' { Write-Host "$VERSION_DISPLAY"; exit 0 }
         'uninstall' {
             & $UninstallScript @RemainingArgs
             exit $LASTEXITCODE

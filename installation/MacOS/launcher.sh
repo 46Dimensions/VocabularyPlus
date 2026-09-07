@@ -1,6 +1,16 @@
 #!/usr/bin/env sh
 set -e
 
+# -------------------
+# Version information
+# -------------------
+VERSION="v2.0.0-beta4"
+VERSION_DISPLAY="2.0.0 Beta 4"
+DEVELOPMENT_BRANCH="2.0.0"
+
+# Don't do anything with version or development branch
+: "$VERSION $DEVELOPMENT_BRANCH"
+
 # ANSI colours
 red="\033[91m"
 yellow="\033[93m"
@@ -35,7 +45,7 @@ case "$1" in
         exit 0
         ;;
     --version|-v)
-        echo "2.0.0 Beta 3"
+        echo "$VERSION_DISPLAY"
         exit 0
         ;;
     --about|-a)
