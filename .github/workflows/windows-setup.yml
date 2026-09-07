@@ -26,5 +26,5 @@ jobs:
           .\setup.ps1
 
           Set-Location ..\..
-          Unblock-File -Path .\vocabularyplus.ps1
+          Unblock-File -Path .\vocabularyplus
           .\vocabularyplus --version
