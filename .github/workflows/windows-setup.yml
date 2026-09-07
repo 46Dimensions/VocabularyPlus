@@ -26,5 +26,6 @@ jobs:
           .\setup.ps1
 
           Set-Location ..\..
-          Unblock-File -Path .\vocabularyplus
+          Get-ChildContent
+          Unblock-File -Path (Join-Path $PWD.Path "vocabularyplus")
           & (Join-Path $PWD.Path "vocabularyplus") "--version"
