@@ -23,5 +23,5 @@ jobs:
           cd installation/Linux
           sh setup.sh
 
-          cd ../..
+          cd "$GITHUB_WORKSPACE"
           ./vocabularyplus --version
