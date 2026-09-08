@@ -27,15 +27,6 @@ success=$green
 warning=$yellow
 error=$red
 
-# Function to get the directory of this script
-get_script_dir() {
-    script_dir=$(dirname -- "$0")
-    case $script_dir in
-        /*) printf '%s\n' "$script_dir" ;;
-        *) printf '%s\n' "$PWD/$script_dir" ;;
-    esac
-}
-
 # Coloured text helpers
 write_progress() {
     text=$1
@@ -168,8 +159,8 @@ fi
 # Define directories
 # ------------------
 
-file_dir=$(get_script_dir)
-INSTALL_DIR="$(dirname "$(dirname "$file_dir")")"
+SCRIPT_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
+INSTALL_DIR=$(dirname "$(dirname "$SCRIPT_DIR")")
 
 echo "Installation directory: $INSTALL_DIR"
 

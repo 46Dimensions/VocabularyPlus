@@ -181,8 +181,9 @@ fi
 # Define directories
 # ------------------
 
-file_dir=$(get_script_dir)
-INSTALL_DIR="$(dirname "$(dirname "$file_dir")")"
+SCRIPT_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
+INSTALL_DIR=$(dirname "$(dirname "$SCRIPT_DIR")")
+
 echo "Installation directory: $INSTALL_DIR"
 cd "$INSTALL_DIR"
 
