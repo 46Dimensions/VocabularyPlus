@@ -177,16 +177,6 @@ Copy-Item $NEW_LAUNCHER_LOCATION $ALIAS_LOCATION
 
 Write-Colour "Launcher set up." Green
 
-# --- Uninstaller ---
-
-Write-Colour "Setting up uninstaller..." Yellow
-$ORIGINAL_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "installation" "Windows" "uninstall.ps1"
-$NEW_UNINSTALLER_LOCATION = Join-Path $INSTALL_DIR "uninstall.ps1"
-
-Copy-Item $ORIGINAL_UNINSTALLER_LOCATION $NEW_UNINSTALLER_LOCATION
-
-Write-Colour "Uninstaller set up" Green
-
 # --- About file ---
 $DATE = (Get-Date -Format g)
 @"

@@ -240,17 +240,7 @@ LAUNCHER_CONTENTS=$(cat "$LAUNCHER_PATH")
 # Add install dir to launcher
 write_script_with_install_dir "$LAUNCHER_CONTENTS" "$LAUNCHER_PATH"
 
-write_progress "Setting up uninstaller..."
-# Copy launcher to VocabularyPlus/uninstall
-CURRENT_UNINSTALLER_PATH="$INSTALL_DIR/installation/Linux/uninstall.sh"
-NEW_UNINSTALLER_PATH="$INSTALL_DIR/uninstall"
-cp "$CURRENT_UNINSTALLER_PATH" "$NEW_UNINSTALLER_PATH"
-
-UNINSTALLER_PATH=$NEW_UNINSTALLER_PATH
-UNINSTALLER_CONTENTS=$(cat "$UNINSTALLER_PATH")
-
-# Add install dir to uninstaller
-write_script_with_install_dir "$UNINSTALLER_CONTENTS" "$UNINSTALLER_PATH"
+write_success "Launcher set up."
 
 # Set about file
 DATE=$(date "+%x %R")
