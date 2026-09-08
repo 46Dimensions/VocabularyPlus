@@ -169,7 +169,7 @@ fi
 # ------------------
 
 file_dir=$(get_script_dir)
-INSTALL_DIR="$(dirname "$(dirname "$(dirname "$file_dir")")")"
+INSTALL_DIR="$(dirname "$(dirname "$file_dir")")"
 
 echo "Installation directory: $INSTALL_DIR"
 
