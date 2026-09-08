@@ -16,86 +16,48 @@ A Python-based foreign vocabulary learning tool.
 
 ## Installation
 
-Run these commands in your terminal,
-replacing `<tag_name>` with the version of Vocabulary Plus
-that you want to install (e.g. `v2.0.0-beta3`).
+Vocabulary Plus should be installed with its dedicated version management tool, Vocabulary Plus Version Manager (`vp-vm`).
+
+You can get VP VM and install the latest Vocabulary Plus version with the commands below.
+
+More information about VP VM can be found on [its website](https://github.com/46Dimensions/vp-vm).
 
 ### Windows
 
-[![Windows setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/windows-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/windows-setup.yml)
-
-_Run in **PowerShell** (part of **Terminal**)_
+Run in **Windows Terminal** > **PowerShell**
 
 ``` powershell
-# Download the ZIP file
-Invoke-WebRequest -Uri "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip" -OutFile .\VocabularyPlus.zip
+# Download the installation script
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0/install.ps1" -OutFile ".\install.ps1"
 
-# Unpack the ZIP file
-Expand-Archive -Path ".\VocabularyPlus.zip" -DestinationPath "VocabularyPlus" -Force
+# Run the script then remove it
+& .\install.ps1
+Remove-Item -Force -Path .\install.ps1
 
-# Move into the VocabularyPlus directory
-Set-Location -Path ".\VocabularyPlus\installation\Windows"
+# Install the latest Vocabulary Plus version
+vp-vm install latest
 
-# Allow the script to run without affecting ExecutionPolicy
-Unblock-File -Path .\setup.ps1
-
-# Run the file
-& .\setup.ps1
+# Make the version active
+vp-vm use latest
 ```
 
-### MacOS
+### MacOS/Linux
 
-[![MacOS setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/macos-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/macos-setup.yml)
-
-_Run in the **Terminal** app._
+Run in **Terminal** (name may vary)
 
 ``` shell
-# Download the ZIP file showing a progress bar
-wget -nv --show-progress -O VocabularyPlus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
+# Download and immediately run the installation script
+curl -fsSL "https://raw.githubusercontent.com/46Dimensions/vp-vm/2.0.0/install.sh" | sh
 
-# Unpack the ZIP file
-unzip -o VocabularyPlus.zip -d VocabularyPlus
+# Install the latest Vocabulary Plus version
+vp-vm install latest
 
-# Move into the VocabularyPlus directory
-cd VocabularyPlus/installation/MacOS
-
-sh setup.sh
+# Make the version active
+vp-vm use latest
 ```
 
-### Linux
-
-[![MacOS setup script](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/linux-setup.yml/badge.svg)](https://github.com/46Dimensions/VocabularyPlus/actions/workflows/linux-setup.yml)
-
-_Run in the **Terminal** app. The exact name can vary._
-
-``` shell
-# Download the ZIP file showing a progress bar
-wget -nv --show-progress -O VocabularyPlus.zip "https://github.com/46Dimensions/VocabularyPlus/releases/download/<tag_name>/VocabularyPlus.zip"
-
-# Unpack the ZIP file
-unzip -o VocabularyPlus.zip -d VocabularyPlus
-
-# Move into the VocabularyPlus directory
-cd VocabularyPlus/installation/Linux
-
-sh setup.sh
-```
-
-## Uninstallation
-
-_Run in **PowerShell** on Windows; **Terminal** on macOS or Linux (name may vary)._
-
-``` shell
-vocabularyplus uninstall
-```
-
-## Running the script
-
+## Running Vocabulary Plus
 Run `vocabularyplus` or `vp`, or use the Vocabulary Plus app.
-
-## Using Vocabulary Plus Version Manager
-
-See [`vp-vm`'s README](https://github.com/46Dimensions/vp-vm/blob/main/README.md) for usage instructions.
 
 ## Reporting bugs
 
@@ -108,8 +70,7 @@ Licensed under the MIT License — see [LICENSE](LICENSE) for details.
 
 ## Text icon help
 
-If the text logo, shown when you run a VocabularyPlus command, is not working, your terminal or font
-does not support Unicode 13.0's [Symbols for Legacy Computing](https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing).
+If the text logo, shown when you open Vocabulary Plus, is not working, your terminal or font does not support Unicode 13.0's [Symbols for Legacy Computing](https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing).
 
 Solutions:
 
