@@ -8,8 +8,8 @@ $ErrorActionPreference = "Stop"
 # -------------------
 # Version information
 # -------------------
-$VERSION = "v2.0.0-beta5"
-$VERSION_DISPLAY = "2.0.0 Beta 5"
+$VERSION = "v2.0.0-beta6"
+$VERSION_DISPLAY = "2.0.0 Beta 6"
 $DEVELOPMENT_BRANCH = "2.0.0"
 
 # Don't do anything with version or development branch
