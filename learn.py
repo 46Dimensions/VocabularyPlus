@@ -4,13 +4,14 @@ from datetime import datetime
 from pathlib import Path
 from typing import NamedTuple, cast
 
-from filepicker import FilePicker
 from textual.app import ComposeResult
 from textual.containers import Container, Horizontal, ScrollableContainer
 from textual.reactive import reactive
 from textual.screen import ModalScreen
 from textual.widget import Widget
 from textual.widgets import Button, Input, Label
+
+from filepicker import FilePicker
 from vocab_io import read_vocab_file, write_vocab_file
 
 filedir = Path(__file__).parent

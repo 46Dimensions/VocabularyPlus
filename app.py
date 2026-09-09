@@ -1,9 +1,5 @@
 from pathlib import Path
 
-# Import pages from other files
-from about import AboutPage
-from edit_vocab_file import EditPage
-from learn import LearnPage
 from rich.text import Text
 from textual import on
 from textual.app import App, ComposeResult
@@ -11,6 +7,11 @@ from textual.containers import Container, Horizontal
 from textual.reactive import reactive
 from textual.widget import Widget
 from textual.widgets import Button, Header, Label, Static
+
+# Import pages from other files
+from about import AboutPage
+from edit_vocab_file import EditPage
+from learn import LearnPage
 
 filedir = Path(__file__).parent
 
