@@ -14,6 +14,9 @@ from edit_vocab_file import EditPage
 from learn import LearnPage
 
 filedir = Path(__file__).parent
+datadir = filedir.parent.parent / "data" # ~/.vp-vm/quizzes
+
+datadir.mkdir(parents=True, exist_ok=True)
 
 class VocabularyPlusApp(App):
     CSS_PATH = filedir / "VocabularyPlus.tcss"

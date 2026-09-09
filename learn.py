@@ -14,7 +14,8 @@ from textual.widgets import Button, Input, Label
 from filepicker import FilePicker
 from vocab_io import read_vocab_file, write_vocab_file
 
-filedir = Path(__file__).parent
+filedir = Path(__file__).parent # ~/.vp-vm/versions/<version>
+datadir = filedir.parent.parent / "data" # ~/.vp-vm/quizzes
 
 class LearnPage(ScrollableContainer):
     CSS = filedir / "VocabularyPlus.tcss"
@@ -249,7 +250,7 @@ class SaveQuizPage(ModalScreen):
         self.confirmation_label.display = True
 
     def on_input_submitted(self, event: Input.Submitted):
-        quiz_dir = filedir / "quizzes"
+        quiz_dir = datadir / "quizzes"
         quiz_dir.mkdir(parents=True, exist_ok=True)
 
         quiz_file_path = quiz_dir / f"{event.value}.quiz"
