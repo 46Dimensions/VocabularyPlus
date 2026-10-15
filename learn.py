@@ -9,18 +9,22 @@ from textual.containers import Container, Horizontal, ScrollableContainer
 from textual.reactive import reactive
 from textual.screen import ModalScreen
 from textual.widget import Widget
-from textual.widgets import Button, Input, Label
+from textual.widgets import Button, Input, Label, Static
 
 from filepicker import FilePicker
 from vocab_io import read_vocab_file, write_vocab_file
 
 filedir = Path(__file__).parent # ~/.vp-vm/versions/<version>
-datadir = filedir.parent.parent / "data" # ~/.vp-vm/quizzes
+datadir = filedir.parent.parent / "data" # ~/.vp-vm/data
 
 class LearnPage(ScrollableContainer):
     CSS = filedir / "VocabularyPlus.tcss"
     selected_vocab_file: Path = Path()
     quiz_data: dict = {}
+
+    def __init__(self):
+        super().__init__()
+        self.app.query_one("#logo", Static).display = True
 
     def compose(self) -> ComposeResult:
         yield Container(Label(""), id="content")

@@ -83,7 +83,6 @@ class VocabularyPlusApp(App):
         content.mount(page())
 
     def on_mount(self):
-        #self.show_page(self.NAV_PAGES["edit"][0])
         self.show_page(self.NAV_PAGES["learn"][0])
     
     @on(Button.Pressed)

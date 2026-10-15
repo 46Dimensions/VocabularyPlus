@@ -8,7 +8,7 @@ from textual.screen import ModalScreen
 from textual.widgets import Input, Label, OptionList
 
 filedir = Path(__file__).parent
-datadir = filedir.parent.parent / "data" # ~/.vp-vm/quizzes
+datadir = filedir.parent.parent / "data" # ~/.vp-vm/data
 
 class FilePicker(ModalScreen):
     CSS_PATH = filedir / "VocabularyPlus.tcss"

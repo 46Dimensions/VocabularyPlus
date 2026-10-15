@@ -4,3 +4,5 @@ __pycache__/
 .env
 .markdownlint.json
 .shellcheckrc
+line-count-history.csv
+count-line-history.sh
